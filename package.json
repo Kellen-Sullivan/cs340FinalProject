@@ -4,7 +4,8 @@
   "description": "Final Project for cs340",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "handlebars views/partials/headerTemplate.handlebars -f static/headerTemplate.js && handlebars views/partials/navBarTemplate.handlebars -f static/navBarTemplate.js",
+    "prestart": "npm run build" 
   },
   "repository": {
     "type": "git",
