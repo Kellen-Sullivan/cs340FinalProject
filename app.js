@@ -9,6 +9,8 @@ app.engine('handlebars', exphbs.engine({
 }));
 app.set('view engine', 'handlebars');
 
+app.use(express.static("static"))
+
 
 // Database
 var db = require('./db-connector')
@@ -17,6 +19,22 @@ var db = require('./db-connector')
 */
 app.get('/', function(req, res) {
     res.render('homePage');
+});
+
+app.get('/Clubs', function(req, res) {
+    res.render('clubs');
+});
+
+app.get('/Students', function(req, res) {
+    res.render('students');
+});
+
+app.get('/Events', function(req, res) {
+    res.render('events');
+});
+
+app.get('/Categories', function(req, res) {
+    res.render('categories');
 });
 /*
 app.get('/', function(req, res)

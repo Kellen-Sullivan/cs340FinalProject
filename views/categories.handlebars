@@ -1,0 +1,77 @@
+{{> navBarTemplate}}
+<h1>Categories</h1>
+
+<!-- Display current categories data -->
+<table border="1" cellpadding="5">
+  <tr>
+    <th>categoryId</th>
+    <th>categoryName</th>
+    <th>categorySize</th>
+    <th>categoryDescription</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Recreation</td>
+    <td>1</td>
+    <td>Categorys not related to professional majors or sports.</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Business</td>
+    <td>1</td>
+    <td>Categorys related to aspects of the business industry.</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Sports</td>
+    <td>1</td>
+    <td>Categorys that participate in sports, whether competitive or recreationally.</td>
+  </tr>
+</table>
+
+<!-- Fields to add a Category -->
+<div id="insert">
+    <form method="POST" id="addCategory">
+        <legend><strong>Add Category</strong></legend>
+          <fieldset class="fields">
+            <label> name </label> <input type="text" name="categoryName">
+            <label> size </label> <input type="text" name="categorySize">
+            <label> description </label> <input type="text" name="categoryDescription">
+      </fieldset>
+          <input class="btn" type="submit" id="addCategory" value="Add Category">
+          <input class="btn" type="button" value="cancel" onClick="addCategory()">
+	</form> 
+</div>
+
+<!-- Fields to edit a Category -->
+<div id="update">
+    <form method="POST" id="UpdateCategory">
+        <legend><strong>Update Category</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="categoryId" id="updateCategoryId" value="1">
+            <label> name </label> <input type="text" name="categoryName">
+            <label> size </label> <input type="text" name="categorySize">
+            <label> description </label> <input type="text" name="categoryDescription">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveCategory" value="Save Update Category">
+          <input class="btn" type="button" value="cancel" onClick="browseCategories()">
+	</form> 
+</div>
+
+<!-- Option to delete a Category -->
+
+<div id="delete">
+    <form method="POST" id="DeleteCategory">
+        <legend><strong>Delete Category</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="categoryId" id="updateCategoryId" value="1">
+            <label> Category name </label> <select name="Categories">
+                <option value="1">1: Recreation</option>
+                <option value="2">2: Business</option>
+                <option value="3">3: Sports</option>
+                </select>
+        </fieldset>
+          <input class="btn" type="submit" id="deleteCategory" value="Delete Category">
+          <input class="btn" type="button" value="cancel" onClick="browseCategorys()">
+	</form> 
+</div>

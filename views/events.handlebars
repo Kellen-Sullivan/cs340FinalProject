@@ -1,0 +1,83 @@
+{{> navBarTemplate}}
+<h1>Events</h1>
+
+<!-- Display current Events data -->
+<table border="1" cellpadding="5">
+  <tr>
+    <th>clubId</th>
+    <th>eventId</th>
+    <th>eventName</th>
+    <th>eventDateTime</th>
+    <th>eventDescription</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>1</td>
+    <td>Weekly Meeting</td>
+    <td>2025-02-04 18:00:00</td>
+    <td>This is the weekly meeting time for chess club. We will play games and eat pizza!</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>2</td>
+    <td>Weekend Chess Tournament</td>
+    <td>2025-02-02 10:00:00</td>
+    <td>This event is a weekend chess tournament put on with clubs from other schools.</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>3</td>
+    <td>Sunday Sale</td>
+    <td>2025-02-02 14:00:00</td>
+    <td>Bake sale to raise money for unemployed cs graduates</td>
+  </tr>
+</table>
+
+<!-- Fields to add a club -->
+<div id="insert">
+    <form method="POST" id="addEvent">
+        <legend><strong>Add Event</strong></legend>
+          <fieldset class="fields">
+            <label> club id </label> <input type="text" name="clubId">
+            <label> name </label> <input type="text" name="eventName">
+            <label> date time </label> <input type="text" name="eventDateTime">
+            <label> description </label> <input type="text" name="eventDescription">
+      </fieldset>
+          <input class="btn" type="submit" id="addEvent" value="Add Event">
+          <input class="btn" type="button" value="cancel" onClick="addEvent()">
+	</form> 
+</div>
+
+<!-- Fields to edit a club -->
+<div id="update">
+    <form method="POST" id="UpdateEvent">
+        <legend><strong>Update Event</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="eventID" id="updateEventID" value="1">
+            <label> club id </label> <input type="text" name="clubId">
+            <label> name </label> <input type="text" name="eventName">
+            <label> date time </label> <input type="text" name="eventDateTime">
+            <label> description </label> <input type="text" name="eventDescription">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveEvent" value="Save Update Event">
+          <input class="btn" type="button" value="cancel" onClick="browseEvents()">
+	</form> 
+</div>
+
+<!-- Option to delete a club -->
+
+<div id="delete">
+    <form method="POST" id="DeleteEvent">
+        <legend><strong>Delete Event</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="eventId" id="updateEventId" value="1">
+            <label> event id </label> <select name="events">
+                <option value="1">1: Weekly Meeting</option>
+                <option value="2">2: Weekend Chess Tournament</option>
+                <option value="3">3: Sunday Sale</option>
+                </select>
+        </fieldset>
+          <input class="btn" type="submit" id="deleteEvent" value="Delete Event">
+          <input class="btn" type="button" value="cancel" onClick="browseEvents()">
+	</form> 
+</div>

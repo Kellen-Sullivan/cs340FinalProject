@@ -1,6 +1,53 @@
 header {
-    background-color: #1a1a1a;
+    background-color: #000080;
+    color: white;
     display: flex;
     align-items: center;
     position: relative;
+    margin:0;
 }
+
+body {
+    margin:0;
+}
+
+/* Add a black background color to the top navigation */
+.navlist {
+    background-color: #9bddff;
+    overflow: hidden;
+    list-style: none; /* Remove the dots */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Flexbox to make it horizontal */
+  }
+  
+/* Style the links inside the navigation bar */
+.navlist a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block; /* Ensures the entire area is clickable */
+    border-right: 1px solid #ffffff; /* Add white line between items */
+  }
+  
+/* Change the color of links on hover */
+.navlist a:hover {
+    background-color: 	#D0D0D0;
+    color: white;
+  }
+
+#insert {
+  margin-top: 10px;
+}
+
+#update {
+  margin-top: 10px;
+}
+
+#delete {
+  margin-top: 10px;
+}
+
+

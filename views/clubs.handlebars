@@ -1,0 +1,89 @@
+{{> navBarTemplate}}
+<h1>Clubs</h1>
+
+<!-- Display current Clubs data -->
+<table border="1" cellpadding="5">
+  <tr>
+    <th>clubId</th>
+    <th>clubName</th>
+    <th>clubSize</th>
+    <th>clubDescription</th>
+    <th>clubBudget</th>
+    <th>clubPresident</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Chess Club</td>
+    <td>32</td>
+    <td>Open to all experience levels. Come learn, practice, and play chess with friends!</td>
+    <td>$250</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Bake Sale Club</td>
+    <td>10</td>
+    <td>Bake fresh goods and raise money for good causes!</td>
+    <td>$500</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Lacrosse Club</td>
+    <td>22</td>
+    <td>Fictus University's premier lacrosse club. We travel and compete against other schools.</td>
+    <td>$1000</td>
+    <td>3</td>
+  </tr>
+</table>
+
+<!-- Fields to add a club -->
+<div id="insert">
+    <form method="POST" id="addClub">
+        <legend><strong>Add Club</strong></legend>
+          <fieldset class="fields">
+            <label> club name </label> <input type="text" name="clubName">
+            <label> club size </label> <input type="text" name="clubSize"> 
+            <label> club description </label> <input type="text" name="description">
+            <label> budget </label> <input type="text" name="budget">
+            <label> president </label> <input type="text" name="president">
+      </fieldset>
+          <input class="btn" type="submit" id="addClub" value="Add Club">
+          <input class="btn" type="button" value="cancel" onClick="addClub()">
+	</form> 
+</div>
+
+<!-- Fields to edit a club -->
+<div id="update">
+    <form method="POST" id="UpdateClub">
+        <legend><strong>Update Club</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="personID" id="updatepersonID" value="1">
+            <label> club name </label> <input type="text" name="fname">
+            <label> club size </label> <input type="text" name="clubSize"> 
+            <label> club description </label> <input type="text" name="description">
+            <label> budget </label> <input type="text" name="budget">
+            <label> president </label> <input type="text" name="president">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveClub" value="Save Update Club">
+          <input class="btn" type="button" value="cancel" onClick="browseClubs()">
+	</form> 
+</div>
+
+<!-- Option to delete a club -->
+
+<div id="delete">
+    <form method="POST" id="DeleteClub">
+        <legend><strong>Delete Club</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="personID" id="updatepersonID" value="1">
+            <label> club name </label> <select name="clubs">
+                <option value="1">1: Chess Club</option>
+                <option value="2">2: Bake Sale Club</option>
+                <option value="3">3: Lacrosse Club</option>
+                </select>
+        </fieldset>
+          <input class="btn" type="submit" id="deleteClub" value="Delete Club">
+          <input class="btn" type="button" value="cancel" onClick="browseClubs()">
+	</form> 
+</div>
