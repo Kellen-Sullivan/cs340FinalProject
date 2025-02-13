@@ -56,14 +56,13 @@ WHERE studentId = :studentId_from_dropdown_Input;
 -- CLUBS ----------------------------------------------------------------------------
 
 -- new club
-INSERT INTO Clubs (clubName, clubSize, clubDescription, clubBudget, clubPresident, clubCategory) VALUES
-(:cNameInput, :cSizeInput, :cDescriptionInput, :cBudgetInput, :cPresidentIdInput, :cCategoryIdInput);
+INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident, clubCategory) VALUES
+(:cNameInput, :cDescriptionInput, :cBudgetInput, :cPresidentIdInput, :cCategoryIdInput);
 
 
 -- update club
 UPDATE Clubs 
-SET clubName = :cNameInput, 
-    clubSize = :cSizeInput, 
+SET clubName = :cNameInput,  
     clubDescription = :cDescriptionInput, 
     clubBudget = :cBudgetInput, 
     clubPresident = :cPresidentIdInput, 
@@ -106,14 +105,13 @@ WHERE eventId = :eventId_from_dropdown_Input;
 -- CATEGORIES ------------------------------------------------------------------------
 
 -- new category
-INSERT INTO Categories (categoryName, categorySize, categoryDescription) VALUES
-(:catNameInput, :catSizeInput, :catDescriptionInput);
+INSERT INTO Categories (categoryName, categoryDescription) VALUES
+(:catNameInput, :catDescriptionInput);
 
 
 -- update category
 UPDATE Categories 
 SET categoryName = :catNameInput, 
-    categorySize = :catSizeInput, 
     categoryDescription = :catDescriptionInput
 WHERE categoryId = :categoryId_from_update_form; 
 
