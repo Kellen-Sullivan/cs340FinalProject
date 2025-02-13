@@ -34,6 +34,26 @@ FROM Clubs c
 JOIN Categories cat ON c.clubCategory = cat.categoryId
 WHERE cat.categoryId = :categoryId_from_dropdown_Input;
 
+-- get club name based on id
+SELECT clubName 
+FROM Clubs
+WHERE clubId = :clubId_requested;
+
+-- get student name based on id
+SELECT studentName
+FROM Students
+WHERE studentId = :studentId_requested;
+
+-- get event name based on id
+SELECT eventName
+FROM Events
+WHERE eventId = :eventId_requested;
+
+-- get category name based on id
+SELECT categoryName
+FROM Categories
+WHERE categoryId = :categoryId_requested;
+
 -- STUDENTS ------------------------------------------------------------------------------
 
 -- new student
