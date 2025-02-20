@@ -48,8 +48,8 @@ CREATE TABLE Club_Participation (
     clubParticipationId int AUTO_INCREMENT UNIQUE NOT NULL,
     clubId int NOT NULL,
     studentId int NOT NULL,
-    FOREIGN KEY (clubId) REFERENCES Clubs(clubId),
-    FOREIGN KEY (studentId) REFERENCES Students(studentId),
+    FOREIGN KEY (clubId) REFERENCES Clubs(clubId) ON DELETE CASCADE,
+    FOREIGN KEY (studentId) REFERENCES Students(studentId) ON DELETE CASCADE,
 );
 
 -- Create Events Table
