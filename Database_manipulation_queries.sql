@@ -1,7 +1,7 @@
 -- SEARCH QUERIES ------------------------------------------------------------------------
 
 -- get all of the studetns in a given club
-SELECT s.studentId, s.studentName 
+SELECT s.studentId, s.studentFName, s.studentLName
 FROM Students s
 JOIN Club_Participation cp ON s.studentId = cp.studentId
 WHERE cp.clubId = :clubId_from_dropdown_Input;
@@ -17,13 +17,13 @@ FROM Clubs c
 JOIN Categories cat ON c.clubCategory = cat.categoryId;
 
 -- list all students and the clubs they are in
-SELECT s.studentId, s.studentName, c.clubId, c.clubName
+SELECT s.studentId, s.studentFName, s.studentLName, c.clubId, c.clubName
 FROM Students s
 JOIN Club_Participation cp ON s.studentId = cp.studentId
 JOIN Clubs c ON cp.clubId = c.clubId;
 
 -- list all students in a given club
-SELECT s.studentId, s.studentName, s.studentEmail, s.studentMajor, s.studentGrade
+SELECT s.studentId, s.studentFName, s.studentLName, s.studentEmail, s.studentMajor, s.studentGrade
 FROM Students s
 JOIN Club_Participation cp ON s.studentId = cp.studentId
 WHERE cp.clubId = :clubId_from_dropdown_Input;
@@ -40,7 +40,7 @@ FROM Clubs
 WHERE clubId = :clubId_requested;
 
 -- get student name based on id
-SELECT studentName
+SELECT s.studentFName, s.studentLName
 FROM Students
 WHERE studentId = :studentId_requested;
 
@@ -54,16 +54,24 @@ SELECT categoryName
 FROM Categories
 WHERE categoryId = :categoryId_requested;
 
+-- get student name and club name based on participation id
+SELECT s.studentFName, s.studentLName, c.clubName
+FROM Club_Participation cp
+JOIN Students s ON cp.studentId = s.studentId
+JOIN Clubs c ON cp.clubId = c.clubId
+WHERE cp.clubParticipationId = :clubParticipationId_from_dropdown_Input;
+
 -- STUDENTS ------------------------------------------------------------------------------
 
 -- new student
-INSERT INTO Students (studentName, studentEmail, studentMajor, studentGrade) VALUES
-(:sNameInput, :sEmailInput, :sMajorInput, sGradeInput)
+INSERT INTO Students (studentFName, studentLName, studentEmail, studentMajor, studentGrade) VALUES
+(:sFNameInput, :sLNameInput, :sEmailInput, :sMajorInput, sGradeInput)
 
 
 -- update student
 UPDATE Students 
-SET studentName = :sNameInput, 
+SET studentFName = :sFNameInput, 
+    studentLName = :sLNameInput,
     studentEmail = :sEmailInput, 
     studentMajor = :sMajorInput, 
     studentGrade = :sGradeInput
@@ -101,7 +109,7 @@ INSERT INTO Club_Participation (clubId, studentId) VALUES
 
 -- remove student-club association
 DELETE FROM Club_Participation 
-WHERE clubId = :clubId_from_dropdown_Input AND studentId = :studentId_from_dropdown_Input;
+WHERE clubParticipationId = :clubParticipationId_from_dropdown_Input;
 
 -- EVENTS -----------------------------------------------------------------------------------
 
