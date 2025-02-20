@@ -4,11 +4,11 @@
 <!-- Display current Students data -->
 <table border="1" cellpadding="5">
   <tr>
-    <th>studentId</th>
-    <th>studentName</th>
-    <th>studentEmail</th>
-    <th>studentMajor</th>
-    <th>studentGrade</th>
+    <th>Student ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Major</th>
+    <th>Grade</th>
   </tr>
   <tr>
     <td>1</td>
@@ -38,10 +38,15 @@
     <form method="POST" id="addStudent">
         <legend><strong>Add Student</strong></legend>
           <fieldset class="fields">
-            <label> name</label> <input type="text" name="studentName"> 
-            <label> email </label> <input type="text" name="studentEmail">
-            <label> major </label> <input type="text" name="studentMajor">
-            <label> grade </label> <input type="text" name="studentGrade">
+            <label> Name</label> <input type="text" name="studentName"> 
+            <label> Email </label> <input type="text" name="studentEmail">
+            <label> Major </label> <input type="text" name="studentMajor">
+            <label> Grade </label> <select name="Grades">
+                <option value="1">Freshman</option>
+                <option value="2">Sophomore</option>
+                <option value="3">Junior</option>
+                <option value="4">Senior</option>
+                </select>
       </fieldset>
           <input class="btn" type="submit" id="addClub" value="Add Student">
           <input class="btn" type="button" value="cancel" onClick="addStudent()">
@@ -54,10 +59,15 @@
         <legend><strong>Update Student</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="studentID" id="updatestudentID" value="1">
-            <label> name</label> <input type="text" name="studentName"> 
-            <label> email </label> <input type="text" name="studentEmail">
-            <label> major </label> <input type="text" name="studentMajor">
-            <label> grade </label> <input type="text" name="studentGrade">
+            <label> Name</label> <input type="text" name="studentName"> 
+            <label> Email </label> <input type="text" name="studentEmail">
+            <label> Major </label> <input type="text" name="studentMajor">
+            <label> Grade </label> <select name="Grades">
+                <option value="1">Freshman</option>
+                <option value="2">Sophomore</option>
+                <option value="3">Junior</option>
+                <option value="4">Senior</option>
+                </select>
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveStudent" value="Save Update Student">
           <input class="btn" type="button" value="cancel" onClick="browseStudents()">
@@ -71,10 +81,11 @@
         <legend><strong>Delete Student</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="studentID" id="updateStudentId" value="1">
-            <label> student id </label> <select name="students">
-                <option value="1">1: Jason Mann</option>
-                <option value="2">2: Chole Sullivan</option>
-                <option value="3">3: Kelly Allen</option>
+            <label> Student ID </label> <select name="students">
+                <option value="1">Select A Student ID</option>
+                <option value="2">1</option>
+                <option value="3">2</option>
+                <option value="4">3</option>
                 </select>
         </fieldset>
           <input class="btn" type="submit" id="deleteStudent" value="Delete Student">

@@ -4,10 +4,10 @@
 <!-- Display current categories data -->
 <table border="1" cellpadding="5">
   <tr>
-    <th>categoryId</th>
-    <th>categoryName</th>
-    <th>categorySize</th>
-    <th>categoryDescription</th>
+    <th>Category ID</th>
+    <th>Name</th>
+    <th>Size</th>
+    <th>Description</th>
   </tr>
   <tr>
     <td>1</td>
@@ -34,8 +34,8 @@
     <form method="POST" id="addCategory">
         <legend><strong>Add Category</strong></legend>
           <fieldset class="fields">
-            <label> name </label> <input type="text" name="categoryName">
-            <label> description </label> <input type="text" name="categoryDescription">
+            <label> Name </label> <input type="text" name="categoryName">
+            <label> Description </label> <input type="text" name="categoryDescription">
       </fieldset>
           <input class="btn" type="submit" id="addCategory" value="Add Category">
           <input class="btn" type="button" value="cancel" onClick="addCategory()">
@@ -48,8 +48,8 @@
         <legend><strong>Update Category</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="categoryId" id="updateCategoryId" value="1">
-            <label> name </label> <input type="text" name="categoryName">
-            <label> description </label> <input type="text" name="categoryDescription">
+            <label> Name </label> <input type="text" name="categoryName">
+            <label> Description </label> <input type="text" name="categoryDescription">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveCategory" value="Save Update Category">
           <input class="btn" type="button" value="cancel" onClick="browseCategories()">
@@ -63,10 +63,11 @@
         <legend><strong>Delete Category</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="categoryId" id="updateCategoryId" value="1">
-            <label> category id </label> <select name="Categories">
-                <option value="1">1: Recreation</option>
-                <option value="2">2: Business</option>
-                <option value="3">3: Sports</option>
+            <label> Category ID </label> <select name="Categories">
+                <option value="1">Select A Category ID</option>
+                <option value="2">1</option>
+                <option value="3">2</option>
+                <option value="4">3</option>
                 </select>
         </fieldset>
           <input class="btn" type="submit" id="deleteCategory" value="Delete Category">

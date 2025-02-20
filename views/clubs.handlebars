@@ -4,12 +4,12 @@
 <!-- Display current Clubs data -->
 <table border="1" cellpadding="5">
   <tr>
-    <th>clubId</th>
-    <th>clubName</th>
-    <th>clubSize</th>
-    <th>clubDescription</th>
-    <th>clubBudget</th>
-    <th>clubPresident</th>
+    <th>Club ID</th>
+    <th>Name</th>
+    <th>Size</th>
+    <th>Description</th>
+    <th>Budget</th>
+    <th>President</th>
   </tr>
   <tr>
     <td>1</td>
@@ -42,10 +42,10 @@
     <form method="POST" id="addClub">
         <legend><strong>Add Club</strong></legend>
           <fieldset class="fields">
-            <label> club name </label> <input type="text" name="clubName">
-            <label> club description </label> <input type="text" name="description">
-            <label> budget </label> <input type="text" name="budget">
-            <label> president </label> <input type="text" name="president">
+            <label> Name </label> <input type="text" name="clubName">
+            <label> Description </label> <input type="text" name="description">
+            <label> Budget </label> <input type="text" name="budget">
+            <label> President </label> <input type="text" name="president">
       </fieldset>
           <input class="btn" type="submit" id="addClub" value="Add Club">
           <input class="btn" type="button" value="cancel" onClick="addClub()">
@@ -58,10 +58,10 @@
         <legend><strong>Update Club</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="personID" id="updatepersonID" value="1">
-            <label> club name </label> <input type="text" name="fname">
-            <label> club description </label> <input type="text" name="description">
-            <label> budget </label> <input type="text" name="budget">
-            <label> president </label> <input type="text" name="president">
+            <label> Name </label> <input type="text" name="fname">
+            <label> Description </label> <input type="text" name="description">
+            <label> Budget </label> <input type="text" name="budget">
+            <label> President </label> <input type="text" name="president">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveClub" value="Save Update Club">
           <input class="btn" type="button" value="cancel" onClick="browseClubs()">
@@ -75,10 +75,11 @@
         <legend><strong>Delete Club</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="personID" id="updatepersonID" value="1">
-            <label> club id </label> <select name="clubs">
-                <option value="1">1: Chess Club</option>
-                <option value="2">2: Bake Sale Club</option>
-                <option value="3">3: Lacrosse Club</option>
+            <label> Club ID </label> <select name="clubs">
+                <option value="1">Select A Club ID</option>
+                <option value="2">1</option>
+                <option value="3">2</option>
+                <option value="4">3</option>
                 </select>
         </fieldset>
           <input class="btn" type="submit" id="deleteClub" value="Delete Club">

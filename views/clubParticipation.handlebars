@@ -1,0 +1,72 @@
+{{> navBarTemplate}}
+<h1>Club Participation</h1>
+
+<!-- Display current Clubs data -->
+<table border="1" cellpadding="5">
+  <tr>
+    <th>Club Participation ID</th>
+    <th>Club ID</th>
+    <th>Student ID</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>3</td>
+    <td>2</td>
+  </tr>
+</table>
+
+<!-- Fields to add a club -->
+<div id="insert">
+    <form method="POST" id="addClubParticipation">
+        <legend><strong>Add Club Participation</strong></legend>
+          <fieldset class="fields">
+            <label> Club ID </label> <input type="text" name="clubId">
+            <label> Student ID </label> <input type="text" name="studentId">
+      </fieldset>
+          <input class="btn" type="submit" id="addClub" value="Add Club">
+          <input class="btn" type="button" value="cancel" onClick="addClub()">
+	</form> 
+</div>
+
+<!-- Fields to edit a club -->
+<div id="update">
+    <form method="POST" id="UpdateClub">
+        <legend><strong>Update Club Participation</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="clubParticipation" id="clubParticipationID" value="1">
+            <label> Club ID </label> <input type="text" name="clubId">
+            <label> Student ID </label> <input type="text" name="studentId">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveClub" value="Save Update Club">
+          <input class="btn" type="button" value="cancel" onClick="browseClubParticipation()">
+	</form> 
+</div>
+
+<!-- Option to delete a club -->
+
+<div id="delete">
+    <form method="POST" id="DeleteClub">
+        <legend><strong>Delete Club Participation</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="clubParticipationID" id="deleteClubParticipationID" value="1">
+            <label> Club ID </label> <select name="clubs">
+                <option value="1">Select Club Participation</option>
+                <option value="2">1</option>
+                <option value="3">2</option>
+                <option value="4">3</option>
+                </select>
+        </fieldset>
+          <input class="btn" type="submit" id="deleteClubParticipation" value="Delete Club Participation">
+          <input class="btn" type="button" value="cancel" onClick="browseClubParticipations()">
+	</form> 
+</div>

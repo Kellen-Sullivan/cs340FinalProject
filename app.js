@@ -1,7 +1,7 @@
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 var exphbs = require('express-handlebars');
-PORT        = 7528;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 7513;                 // Set a port number at the top so it's easy to change in the future
 
 // handlebars
 app.engine('handlebars', exphbs.engine({
@@ -36,6 +36,11 @@ app.get('/Events', function(req, res) {
 app.get('/Categories', function(req, res) {
     res.render('categories');
 });
+
+app.get('/ClubParticipation', function(req, res) {
+    res.render('clubParticipation');
+});
+
 /*
 app.get('/', function(req, res)
     {
