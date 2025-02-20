@@ -12,7 +12,8 @@ DROP TABLE IF EXISTS Students, Categories, Clubs, Club_Participation, Events;
 -- Create Students table
 CREATE TABLE Students (
     studentId int AUTO_INCREMENT UNIQUE NOT NULL,
-    studentName varchar(50) NOT NULL,
+    studentFName varchar(50) NOT NULL,
+    studentLName varchar(50) NOT NULL,
     studentEmail varchar(50) NOT NULL,
     studentMajor varchar(50) NOT NULL,
     studentGrade varchar(16) NOT NULL,
@@ -32,23 +33,23 @@ CREATE TABLE Categories (
 CREATE TABLE Clubs (
     clubId int AUTO_INCREMENT UNIQUE NOT NULL,
     clubName varchar(64) NOT NULL,
-    clubSize int NOT NULL,
+    clubSize int,
     clubDescription varchar(256),
     clubBudget int NOT NULL,
     clubPresident int,
-    clubCategory int NOT NULL,
-    FOREIGN KEY (clubCategory) REFERENCES Categories(categoryId) ON DELETE CASCADE,
+    clubCategory int,
+    FOREIGN KEY (clubCategory) REFERENCES Categories(categoryId),
     FOREIGN KEY (clubPresident) REFERENCES Students(studentId),
     PRIMARY KEY (clubId)
 );
 
 -- Create Club_Participation table
 CREATE TABLE Club_Participation (
+    clubParticipationId int AUTO_INCREMENT UNIQUE NOT NULL,
     clubId int NOT NULL,
     studentId int NOT NULL,
-    FOREIGN KEY (clubId) REFERENCES Clubs(clubId) ON DELETE CASCADE,
-    FOREIGN KEY (studentId) REFERENCES Students(studentId) ON DELETE CASCADE,
-    CONSTRAINT clubParticipationId PRIMARY KEY (clubId, studentId)
+    FOREIGN KEY (clubId) REFERENCES Clubs(clubId),
+    FOREIGN KEY (studentId) REFERENCES Students(studentId),
 );
 
 -- Create Events Table
@@ -64,19 +65,19 @@ CREATE TABLE Events (
 
 
 -- Insert data into all tables
-INSERT INTO Clubs (clubId, clubName, clubSize, clubDescription, clubBudget, clubPresident)
+INSERT INTO Clubs (clubId, clubName, clubDescription, clubBudget, clubPresident)
 VALUES 
-(1, "Chess Club", 32, "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10),
-(2, "Bake Sale Club", 10, "Bake fresh goods, and raise money for good causes!", 500, 7),
-(3, "Lacrosse Club", 22, "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12),
-(4, "Math Club", 17, "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5);
+(1, "Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10),
+(2, "Bake Sale Club", "Bake fresh goods, and raise money for good causes!", 500, 7),
+(3, "Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12),
+(4, "Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5);
 
-INSERT INTO Students (studentId, studentName, studentEmail, studentMajor, studentGrade)
+INSERT INTO Students (studentId, studentFName, studentLName, studentEmail, studentMajor, studentGrade)
 VALUES 
-(10, "Jason Mann", "mannj@fu.edu", "Math", "Junior"),
-(7, "Chole Sullivan", "sullivc@fu.edu", "Finance", "Sophomore"),
-(12, "Kelly Allen", "allenk@fu.edu", "Business", "Junior"),
-(5, "Justin Scott", "scottj@fu.edu", "Math", "Senior");
+(10, "Jason", "Mann", "mannj@fu.edu", "Math", "Junior"),
+(7, "Chole", "Sullivan", "sullivc@fu.edu", "Finance", "Sophomore"),
+(12, "Kelly", "Allen", "allenk@fu.edu", "Business", "Junior"),
+(5, "Justin", "Scott", "scottj@fu.edu", "Math", "Senior");
 
 INSERT INTO Events (clubId, eventId, eventName, eventDateTime, eventDescription)
 VALUES
