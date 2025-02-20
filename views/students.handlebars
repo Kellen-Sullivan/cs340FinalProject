@@ -5,28 +5,32 @@
 <table border="1" cellpadding="5">
   <tr>
     <th>Student ID</th>
-    <th>Name</th>
+    <th>First Name</th>
+    <th>Last Name</th>
     <th>Email</th>
     <th>Major</th>
     <th>Grade</th>
   </tr>
   <tr>
     <td>1</td>
-    <td>Jason Mann</td>
+    <td>Jason</td>
+    <td>Mann</td>
     <td>mannj@fu.edu</td>
     <td>Math</td>
     <td>Junior</td>
   </tr>
   <tr>
     <td>2</td>
-    <td>Chole Sullivan</td>
+    <td>Chole</td>
+    <td>Sullivan</td>
     <td>sullivc@fu.edu</td>
     <td>Finance</td>
     <td>Sophomore</td>
   </tr>
   <tr>
     <td>3</td>
-    <td>Kelly Allen</td>
+    <td>Kelly</td>
+    <td>Allen</td>
     <td>allenk@fu.edu</td>
     <td>Business</td>
     <td>Junior</td>
@@ -38,7 +42,8 @@
     <form method="POST" id="addStudent">
         <legend><strong>Add Student</strong></legend>
           <fieldset class="fields">
-            <label> Name</label> <input type="text" name="studentName"> 
+            <label> First Name</label> <input type="text" name="studentFName"> 
+            <label> Last Name</label> <input type="text" name="studentLName"> 
             <label> Email </label> <input type="text" name="studentEmail">
             <label> Major </label> <input type="text" name="studentMajor">
             <label> Grade </label> <select name="Grades">
@@ -59,7 +64,8 @@
         <legend><strong>Update Student</strong></legend>
           <fieldset class="fields">
           <input type="hidden" name="studentID" id="updatestudentID" value="1">
-            <label> Name</label> <input type="text" name="studentName"> 
+            <label> First Name</label> <input type="text" name="studentFName">
+            <label> Last Name</label> <input type="text" name="studentLName">  
             <label> Email </label> <input type="text" name="studentEmail">
             <label> Major </label> <input type="text" name="studentMajor">
             <label> Grade </label> <select name="Grades">
