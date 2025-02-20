@@ -38,8 +38,8 @@ CREATE TABLE Clubs (
     clubBudget int NOT NULL,
     clubPresident int,
     clubCategory int,
-    FOREIGN KEY (clubCategory) REFERENCES Categories(categoryId),
-    FOREIGN KEY (clubPresident) REFERENCES Students(studentId),
+    FOREIGN KEY (clubCategory) REFERENCES Categories(categoryId) ON DELETE SET NULL,
+    FOREIGN KEY (clubPresident) REFERENCES Students(studentId) ON DELETE SET NULL,
     PRIMARY KEY (clubId)
 );
 
