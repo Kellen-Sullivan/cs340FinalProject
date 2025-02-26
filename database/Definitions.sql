@@ -49,7 +49,7 @@ CREATE TABLE Club_Participation (
     clubId int NOT NULL,
     studentId int NOT NULL,
     FOREIGN KEY (clubId) REFERENCES Clubs(clubId) ON DELETE CASCADE,
-    FOREIGN KEY (studentId) REFERENCES Students(studentId) ON DELETE CASCADE,
+    FOREIGN KEY (studentId) REFERENCES Students(studentId) ON DELETE CASCADE
 );
 
 -- Create Events Table
@@ -93,12 +93,12 @@ VALUES
 (3, "Sports", 12, "Clubs that participate in sports, whether competitively or recreationally."),
 (4, "Math", 3, "Clubs related to the field of mathematics.");
 
-INSERT INTO Club_Participation(clubId, studentId)
+INSERT INTO Club_Participation(clubParticipationId, clubId, studentId)
 VALUES
-(1,10),
-(2,7),
-(3,12),
-(4,5);
+(1,1,10),
+(2,2,7),
+(3,3,12),
+(4,4,5);
 
 
 SET FOREIGN_KEY_CHECKS=1;

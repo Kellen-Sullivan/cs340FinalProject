@@ -1,40 +1,46 @@
 {{> navBarTemplate}}
 <h1>Clubs</h1>
 
-<!-- Display current Clubs data -->
-<table border="1" cellpadding="5">
-  <tr>
-    <th>Club ID</th>
-    <th>Name</th>
-    <th>Size</th>
-    <th>Description</th>
-    <th>Budget</th>
-    <th>President</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Chess Club</td>
-    <td>32</td>
-    <td>Open to all experience levels. Come learn, practice, and play chess with friends!</td>
-    <td>$250</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Bake Sale Club</td>
-    <td>10</td>
-    <td>Bake fresh goods and raise money for good causes!</td>
-    <td>$500</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>Lacrosse Club</td>
-    <td>22</td>
-    <td>Fictus University's premier lacrosse club. We travel and compete against other schools.</td>
-    <td>$1000</td>
-    <td>3</td>
-  </tr>
+{{!-- 
+Citation for the following creating this table and populating using handlebars
+Date: 2/26/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data--}}
+
+{{!-- Display current Clubs data --}}
+{{!-- Create a table --}}
+<table border="1", cellpadding="5">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print all of the attributes in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.clubID}}</td>
+            <td>{{this.clubName}}</td>
+            <td>{{this.clubSize}}</td>
+            <td>{{this.clubDescription}}</td>
+            <td>{{this.clubBudget}}</td>
+            <td>{{this.clubPresident}}</td>
+            <td>{{this.clubCategory}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>
 
 <!-- Fields to add a club -->

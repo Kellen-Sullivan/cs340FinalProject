@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "handlebars views/partials/headerTemplate.handlebars -f static/headerTemplate.js && handlebars views/partials/navBarTemplate.handlebars -f static/navBarTemplate.js",
-    "prestart": "npm run build" 
+    "prestart": "npm run build"
   },
   "repository": {
     "type": "git",
