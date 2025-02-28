@@ -25,8 +25,6 @@ addclubParticipationForm.addEventListener("submit", function (e) {
         clubId: clubIdValue,
         studentId: studentIdValue,
     }
-    
-    // console.log(data)
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
@@ -63,6 +61,7 @@ addRowToTable = (data) => {
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
+    console.log(newRowIndex);
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
@@ -103,6 +102,6 @@ addRowToTable = (data) => {
     let selectMenu = document.getElementById("mySelect");
     let option = document.createElement("option");
     option.text = newRow.clubParticipationId;
-    option.value = newRow.id;
+    option.value = newRow.clubParticipationId; // maybe want just newRow.id
     selectMenu.add(option);
 }
