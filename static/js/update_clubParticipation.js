@@ -64,6 +64,8 @@ function updateSubmitHandler(e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             // Add the new data to the table
             updateRow(xhttp.response, clubParticipationIdValue);
+            // close the modal automatically after updating the row
+            closeModal();
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {

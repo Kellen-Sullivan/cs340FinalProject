@@ -74,6 +74,9 @@ addclubParticipationForm.addEventListener("submit", function (e) {
             // Clear the input fields for another transaction
             inputClubId.value = '';
             inputStudentId.value = '';
+
+            // Close the modal automatically after pressing submit
+            closeModal();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) { // maybe want to update to 2 (not sure what readyState does yet)
             console.log("There was an error with the input.")
@@ -131,7 +134,7 @@ addRowToTable = (data) => {
     row.appendChild(clubIdCell);
     row.appendChild(studentIdCell);
     row.appendChild(deleteCell);
-    row.appendChile(updateCell);
+    row.appendChild(updateCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.clubParticipationId);
