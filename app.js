@@ -104,7 +104,7 @@ app.post('/add-clubParticipation-ajax', function(req, res)
     // All attributes in Club_Participation are non nullable, so nothing goes here
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Club_Participation (clubId, studentId) VALUES ('${data.clubId}', ${data.studentId})`;
+    query1 = `INSERT INTO Club_Participation (clubId, studentId) VALUES (${data.clubId}, ${data.studentId})`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error

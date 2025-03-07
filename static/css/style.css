@@ -1,5 +1,5 @@
 header {
-    background-color: #000080;
+    background-color: black;
     color: white;
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@ body {
 
 /* Add a black background color to the top navigation */
 .navlist {
-    background-color: #9bddff;
+    background-color: black;
     overflow: hidden;
     list-style: none; /* Remove the dots */
     padding: 0; /* Remove default padding */
@@ -31,12 +31,12 @@ body {
     text-decoration: none;
     font-size: 17px;
     display: block; /* Ensures the entire area is clickable */
-    border-right: 1px solid #ffffff; /* Add white line between items */
+    border-right: 1px solid gray; /* Add white line between items */
   }
   
 /* Change the color of links on hover */
 .navlist a:hover {
-    background-color: 	#D0D0D0;
+    background-color: 	gray;
     color: white;
   }
 
@@ -53,9 +53,84 @@ Got from W3schools.com:
 https://www.w3schools.com/css/css_table_style.asp
 */
 th {
-  background-color: #000080;
+  background-color: black;
   color: white;
 }
 
+/*
+Adapted the modal code from my cs290 final project
+*/
+.hidden {
+  display: none;
+}
 
+.modal-dialog {
+  width: auto;
+  max-width: 600px;
+  min-width: 350px;
+  min-height: 300px;
+  margin: 40px auto;
+  background-color: #fff;
+  border-radius: 15px;
+}
 
+.modal-header {
+  position: relative;
+  padding: 10px 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 28px;
+}
+
+#add-modal-close,
+#update-modal-close {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  color: white;
+}
+
+.modal-body {
+  padding: 20px;
+  background-color:white;
+}
+
+.modal-header{
+    background-color: black;
+    color: white;
+}
+
+#modal-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+#add-clubParticipation-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+}
+
+#update-clubParticipation-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+}

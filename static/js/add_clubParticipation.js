@@ -1,4 +1,37 @@
-// Citation for the following file (all code in this file was adapted from the nodejs-starter app code)
+/*
+Following code section was adapted from my cs290 final project
+*/
+///////////////////////////////////////////////////////////////////////////
+// SHOWING AND HIDING THE ADD Club Particpation MODAL
+
+//show the add club Particpation modal when clicked
+function showModal(event) {
+    var modal = document.getElementById("add-clubParticipation-modal")
+    var backdrop = document.getElementById("modal-backdrop")
+    modal.classList.remove("hidden")
+    backdrop.classList.remove("hidden")
+}
+
+//get the button from club Particpation page
+var addClubParticipationButton = document.getElementById("add-clubParticipation-button")
+addClubParticipationButton.addEventListener("click", showModal)
+
+
+//close the add club Particpation modal when X or cancel clicked
+function closeModal(event) {
+    var modal = document.getElementById("add-clubParticipation-modal")
+    var backdrop = document.getElementById("modal-backdrop") 
+    modal.classList.add("hidden")
+    backdrop.classList.add("hidden")
+}
+
+//get the X from modal 
+var closeX = document.getElementById("add-modal-close")
+closeX.addEventListener("click", closeModal)
+//////////////////////////////////////////////////////////////////////////
+
+
+// Citation for the following code in this file
 // Date: 2/26/2025
 // Adapted from nodejs-starter app code
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
@@ -74,6 +107,7 @@ addRowToTable = (data) => {
     let studentIdCell = document.createElement("TD");
 
     let deleteCell = document.createElement("TD");
+    let updateCell = document.createElement("TD");
 
     // Fill the cells with correct data
     clubParticipationIdCell.innerText = newRow.clubParticipationId; // Should set the clubParticipationId automatically to the next val (auto-incrementing)
@@ -86,11 +120,18 @@ addRowToTable = (data) => {
         deleteClubParticipation(newRow.clubParticipationId);
     };
 
+    updateCell = document.createElement("button");
+    updateCell.innerHTML = "Update";
+    updateCell.onclick = function(){
+        updateClubParticipation(newRow.clubParticipationId);
+    };
+
     // Add the cells to the row 
     row.appendChild(clubParticipationIdCell);
     row.appendChild(clubIdCell);
     row.appendChild(studentIdCell);
     row.appendChild(deleteCell);
+    row.appendChile(updateCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.clubParticipationId);

@@ -1,40 +1,57 @@
+// declare global so that updateSubmitHandler can access this var
+let globalClubParticipationId = -1;
 
+/*
+Following code section was adapted from my cs290 final project
+*/
+///////////////////////////////////////////////////////////////////////////
+// SHOWING AND HIDING THE Update Club Particpation MODAL
 
-// Citation for the following update file
-// Date: 2/27/2025
-// Adapted from nodejs-starter app code
-// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+//show the update club Particpation modal when clicked
+function showModal(event) {
+    var modal = document.getElementById("update-clubParticipation-modal")
+    var backdrop = document.getElementById("modal-backdrop")
+    modal.classList.remove("hidden")
+    backdrop.classList.remove("hidden")
+}
 
-// Get the objects we need to modify
-let updateClubParticipationForm = document.getElementById('update-clubParticipation-form-ajax');
+//close the add club Particpation modal when X or cancel clicked
+function closeModal(event) {
+    var modal = document.getElementById("update-clubParticipation-modal")
+    var backdrop = document.getElementById("modal-backdrop") 
+    modal.classList.add("hidden")
+    backdrop.classList.add("hidden")
+}
 
-// Modify the objects we need
-updateClubParticipationForm.addEventListener("submit", function (e) {
-   
+//get the X from modal 
+var closeX = document.getElementById("update-modal-close")
+closeX.addEventListener("click", closeModal)
+//////////////////////////////////////////////////////////////////////////
+
+// function to call update row with correct values when submit is pressed
+function updateSubmitHandler(e) {
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputClubParticipationId = document.getElementById("mySelect");
     let inputClubId = document.getElementById("input-clubId-update");
+    //let inputStudentId = document.getElementById("input-studentId-update");
 
     // Get the values from the form fields
-    let clubParticipationIdValue = inputClubParticipationId.value; 
+    let clubParticipationIdValue = globalClubParticipationId;
     let clubIdValue = inputClubId.value;
+    //let studentIdValue = inputStudentId.value;
     
-    // currently the database table for bsg_people does not allow updating values to NULL
-    // so we must abort if being bassed NULL for homeworld
-
-    if (isNaN(clubIdValue)) 
+    if (isNaN(clubIdValue)) // if both entries are empty return
     {
         return;
     }
 
-
     // Put our data we want to send in a javascript object
     let data = {
         clubParticipationId: clubParticipationIdValue,
-        clubId: clubIdValue,
+        clubId: clubIdValue
+        // studentId: studentIdValue,
     }
     
     // Setup our AJAX request
@@ -45,7 +62,6 @@ updateClubParticipationForm.addEventListener("submit", function (e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
             // Add the new data to the table
             updateRow(xhttp.response, clubParticipationIdValue);
 
@@ -57,9 +73,83 @@ updateClubParticipationForm.addEventListener("submit", function (e) {
 
     // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
+}
 
-})
+// function to show the modal with the form inside and close the modal when the user clicks the x
+function updateClubParticipation(clubParticipationId) {
+    // show modal and set up closeing button
+    showModal();
+    var closeX = document.getElementById("update-modal-close")
+    closeX.addEventListener("click", closeModal)
 
+    // update global var value
+    globalClubParticipationId = clubParticipationId;
+
+    // update the selected row
+    let updateClubParticipationForm = document.getElementById('update-clubParticipation-form-ajax');
+
+    // Remove any previously attached submit event handler before adding a new one (without this, it updates all previously updated rows)
+    updateClubParticipationForm.removeEventListener("submit", updateSubmitHandler);
+    
+    // Add the submit event handler
+    updateClubParticipationForm.addEventListener("submit", updateSubmitHandler);   
+}
+
+// Citation for the following code in this file
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+
+// Get the objects we need to modify
+// let updateClubParticipationForm = document.getElementById('update-clubParticipation-form-ajax');
+
+// // Modify the objects we need
+// updateClubParticipationForm.addEventListener("submit", function (e) {
+   
+//     // Prevent the form from submitting
+//     e.preventDefault();
+
+//     // Get form fields we need to get data from
+//     let inputClubParticipationId = document.getElementById("mySelect");
+//     let inputClubId = document.getElementById("input-clubId-update");
+
+//     // Get the values from the form fields
+//     let clubParticipationIdValue = inputClubParticipationId.value; 
+//     let clubIdValue = inputClubId.value;
+    
+//     if (isNaN(clubIdValue)) 
+//     {
+//         return;
+//     }
+
+
+//     // Put our data we want to send in a javascript object
+//     let data = {
+//         clubParticipationId: clubParticipationIdValue,
+//         clubId: clubIdValue,
+//     }
+    
+//     // Setup our AJAX request
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.open("PUT", "/put-clubParticipation-ajax", true);
+//     xhttp.setRequestHeader("Content-type", "application/json");
+
+//     // Tell our AJAX request how to resolve
+//     xhttp.onreadystatechange = () => {
+//         if (xhttp.readyState == 4 && xhttp.status == 200) {
+//             // Add the new data to the table
+//             updateRow(xhttp.response, clubParticipationIdValue);
+
+//         }
+//         else if (xhttp.readyState == 4 && xhttp.status != 200) {
+//             console.log("There was an error with the input.")
+//         }
+//     }
+
+//     // Send the request and wait for the response
+//     xhttp.send(JSON.stringify(data));
+
+// })
 
 function updateRow(data, clubParticipationId){
     let parsedData = JSON.parse(data);
@@ -71,13 +161,13 @@ function updateRow(data, clubParticipationId){
        //rows would be accessed using the "row" variable assigned in the for loop
        if (table.rows[i].getAttribute("data-value") == clubParticipationId) {
 
-            // Get the location of the row where we found the matching person ID
+            // Get the location of the row where we found the matching clubParticipationId
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of homeworld value
+            // Get td of value
             let td = updateRowIndex.getElementsByTagName("td")[1]; // changed to 1 since club is the second one
 
-            // Reassign homeworld to our value we updated to
+            // Reassign to value we updated to
             td.innerHTML = parsedData[0].clubId; 
        }
     }

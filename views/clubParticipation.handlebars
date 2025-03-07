@@ -24,6 +24,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
             </th>
             {{/each}}
             <th>Delete</th>
+            <th>Update</th>
         </tr>
     </thead>
 
@@ -37,36 +38,51 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
             <td>{{this.clubId}}</td>
             <td>{{this.studentId}}</td>
             <td><button onclick="deleteClubParticipation({{this.clubParticipationId}})">Delete</button></td>
+            <td><button onclick="updateClubParticipation({{this.clubParticipationId}})">Update</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-{{!-- 
-Citation for following code that allows the user to add a new row to a table using AJAX
-Date: 2/26/2025
-Adapted from nodejs-starter app code
-Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
-{{!-- Form to add a record to the table  --}}
-<h2>Add Club Participation</h2> 
-<form id="add-clubParticipation-form-ajax">
-    <select name="input-clubId" id="input-clubId">
-      <option value="">Select a Club</option>
-        {{#each clubs}}
-        <option value="{{this.clubId}}">{{this.clubName}}</option>
-        {{/each}}
-    </select>
-    <select name="input-studentId" id="input-studentId">
-      <option value="">Select a Student</option>
-        {{#each students}}
-        <option value="{{this.studentId}}">{{this.studentFName}}</option>
-        {{/each}}
-    </select>
-    <input type="submit">
-</form>
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_clubParticipation.js"></script>
-<script src="./js/delete_clubParticipation.js"></script>
+{{!-- Button to open add Club Particpation Modal--}}
+<button id="add-clubParticipation-button">Add Club Particpation</button>
+<div id="modal-backdrop" class="hidden"></div>
+    <div id="add-clubParticipation-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Add Club Particpation</h3>
+                <button type="button" id="add-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                    <form id="add-clubParticipation-form-ajax">
+                        <select name="input-clubId" id="input-clubId">
+                        <option value="">Select a Club</option>
+                            {{#each clubs}}
+                            <option value="{{this.clubId}}">{{this.clubName}}</option>
+                            {{/each}}
+                        </select>
+                        <select name="input-studentId" id="input-studentId">
+                        <option value="">Select a Student</option>
+                            {{#each students}}
+                            <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
+                            {{/each}}
+                        </select>
+                        <input type="submit">
+                    </form>
+                    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+                    <script src="./js/add_clubParticipation.js"></script>
+                    <script src="./js/delete_clubParticipation.js"></script>
+            </div>
+    </div>
+</div>
+
+{{!-- {{> addCPTemplate}} --}}
 
 {{!-- 
 Citation for the following search feature
@@ -82,31 +98,45 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     <a href='/ClubParticipation'><button>Reset</button></a>
 </form>
 
-{{!-- 
-Citation for the following update feature
-Date: 2/27/2025
-Adapted from nodejs-starter app code
-Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data--}}
-<h2>Updating a Club Participation Entry</h2>
-<form id="update-clubParticipation-form-ajax">
 
-    <label for="input-clubParticipationId">Select Participation Entry </label>
-    <select name="input-clubParticipationId" id="mySelect">
-        <option value="test">Club Participation ID</option>
-        {{#each data}}
-        <option value="{{this.clubParticipationId}}">{{this.clubParticipationId}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-clubId">Select a new Club ID: </label>
-    <select name="input-clubId" id="input-clubId-update">
-        <option>Club ID</option>
-        {{#each clubs}}
-        <option value="{{this.clubId}}">{{this.clubId}}</option>
-        {{/each}}
-    </select>
-    <input type="submit">
-</form>
+<div id="modal-backdrop" class="hidden"></div>
+    <div id="update-clubParticipation-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Update Club Particpation</h3>
+                <button type="button" id="update-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                <form id="update-clubParticipation-form-ajax">
+                    <label for="input-clubId">Select a new Club: </label>
+                    <select name="input-clubId" id="input-clubId-update">
+                        <option>Club Name</option>
+                        {{#each clubs}}
+                        <option value="{{this.clubId}}">ID: {{this.clubId}} {{this.clubName}}</option>
+                        {{/each}}
+                    </select>
+                    {{!-- <label for="input-studentId">Or Select a new Student: </label>
+                    <select name="input-studentId" id="input-studentId">
+                        <option value="">Student Name</option>
+                            {{#each students}}
+                            <option value="{{this.studentId}}">ID: {{this.studentId}} {{this.studentFName}} {{this.studentLName}}</option>
+                            {{/each}}
+                    </select> --}}
+                    <input type="submit">
+                </form> 
+                    
+                    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+                    <script src="./js/add_clubParticipation.js"></script>
+                    <script src="./js/delete_clubParticipation.js"></script>
+            </div>
+    </div>
+</div>
 
 <script src="./js/update_clubParticipation.js"></script>
 
