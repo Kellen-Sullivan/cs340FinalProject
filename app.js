@@ -1,7 +1,7 @@
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 var exphbs = require('express-handlebars');
-PORT        = 7513;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 7514;                 // Set a port number at the top so it's easy to change in the future
 
 // handlebars
 app.engine('handlebars', exphbs.engine({
@@ -35,11 +35,156 @@ app.get('/Clubs', function(req, res) {
 
         res.render('clubs', {data:rows});                  // Render clubs.handlebars file, and also send the renderer                                             
     })                                                      // an object where 'data' is equal to the 'rows' we
-});                                                        // received back from the query
+});                                                    // received back from the query
 
+
+
+// **********************************************************Students Page ************************************************************
 app.get('/Students', function(req, res) {
-    res.render('students');
+    let query1;     
+
+    // let query2;       // maybe search by year, or name
+
+    // let query3;       // Will get students, dynamic based on search term
+
+    // // // If there is no query string, we just perform a basic SELECT
+    if (req.query.studentLName === undefined)
+    {
+        query1 = "SELECT * FROM Students"
+    }
+
+    // // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        // we joined Club_Participation.studentId with Students so that the user can search by student last name
+        query1 = `SELECT * FROM Students WHERE Students.studentLName LIKE "${req.query.studentLName}%"`;
+    } 
+
+    db.pool.query(query1, function(error, rows, fields){ // Execute query
+        // save the club_participation entries
+        let students = rows
+
+        // db.pool.query(query2, function(error, rows, fields) {
+        //     // save the student entries
+        //     let clubs = rows;
+
+        //     db.pool.query(query3, function(error, rows, fields) {
+        //         // save the student entries
+        //         let students = rows;
+
+                return res.render('students', {data:students});    // may need to fix this line
+            })
 });
+
+// Citation for the following app.post function 
+// Date: 2/26/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+app.post('/add-student-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    // All attributes in Club_Participation are non nullable, so nothing goes here
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Students (studentFName, studentLName, studentEmail, studentMajor, studentGrade) VALUES ("${data.studentFName}", "${data.studentLName}", "${data.studentEmail}", "${data.studentMajor}", "${data.studentGrade}")`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Students
+            query2 = `SELECT * FROM Students;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// Citation for the following app.delete function 
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
+app.delete('/delete-student-ajax/', function(req,res,next){
+    let data = req.body;
+    let studentId = parseInt(data.id);
+    let delete_Student = `DELETE FROM Students WHERE studentId = ?`;
+  
+        // Run the 1st query
+        db.pool.query(delete_Student, [studentId], function(error, rows, fields){
+            if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            } else {
+            res.sendStatus(204);
+            } 
+        })
+  });
+
+
+// Citation for the following app.post function 
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+app.put('/put-student-ajax', function(req,res,next){
+let data = req.body;
+
+let studentMajor = parseInt(data.studentMajor); // change to student value want to change (major probably, but ideally everything should be able to be updated except their id)
+let studentId = parseInt(data.studentId);
+
+let queryUpdateStudent = `UPDATE Students SET studentMajor = ? WHERE studentId = ?`;
+let selectStudentEntry = `SELECT * FROM Students WHERE studentId = ?`
+
+        // Run the 1st query
+        db.pool.query(queryUpdateStudent, [studentMajor, studentId], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectStudentEntry, [studentId], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+})});
+
+
+// **********************************************************Students Page ************************************************************
 
 app.get('/Events', function(req, res) {
     res.render('events');
@@ -49,6 +194,8 @@ app.get('/Categories', function(req, res) {
     res.render('categories');
 });
 
+
+// **********************************************************Club_Participation Page ************************************************************
 app.get('/ClubParticipation', function(req, res) {
     let query1;       // Will get club_participation, dynamic based on search term
 
@@ -197,6 +344,7 @@ let selectClubParticipationEntry = `SELECT * FROM Club_Participation WHERE clubP
                 })
             }
 })});
+// **********************************************************Club_Participation Page ************************************************************
 
 
 /*

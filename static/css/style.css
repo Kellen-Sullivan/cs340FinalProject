@@ -134,3 +134,21 @@ Adapted the modal code from my cs290 final project
   right: 0;
   z-index: 1010;
 }
+
+#add-student-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+}
+
+#update-student-modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+}

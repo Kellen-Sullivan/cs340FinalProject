@@ -1,100 +1,109 @@
 {{> navBarTemplate}}
 <h1>Students</h1>
 
-<!-- Display current Students data -->
-<table border="1" cellpadding="5">
-  <tr>
-    <th>Student ID</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Email</th>
-    <th>Major</th>
-    <th>Grade</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Jason</td>
-    <td>Mann</td>
-    <td>mannj@fu.edu</td>
-    <td>Math</td>
-    <td>Junior</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Chole</td>
-    <td>Sullivan</td>
-    <td>sullivc@fu.edu</td>
-    <td>Finance</td>
-    <td>Sophomore</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>Kelly</td>
-    <td>Allen</td>
-    <td>allenk@fu.edu</td>
-    <td>Business</td>
-    <td>Junior</td>
-  </tr>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->
+
+{{!-- 
+Citation for the following creating this table and populating using handlebars
+Date: 2/26/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data--}}
+{{!-- Display current Clubs data --}}
+{{!-- Create a table --}}
+<table id = "student-table", border="1", cellpadding="5">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print all of the attributes in order --}}
+        {{#each data}}
+        <tr data-value="{{this.studentId}}">
+            <td>{{this.studentId}}</td>
+            <td>{{this.studentFName}}</td>
+            <td>{{this.studentLName}}</td>
+            <td>{{this.studentEmail}}</td>
+            <td>{{this.studentMajor}}</td>
+            <td>{{this.studentGrade}}</td>
+            <td><button onclick="deleteStudent({{this.studentId}})">Delete</button></td>
+            <td><button onclick="updateStudent({{this.studentId}})">Update</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>
 
-<!-- Fields to add a club -->
-<div id="insert">
-    <form method="POST" id="addStudent">
-        <legend><strong>Add Student</strong></legend>
-          <fieldset class="fields">
-            <label> First Name</label> <input type="text" name="studentFName"> 
-            <label> Last Name</label> <input type="text" name="studentLName"> 
-            <label> Email </label> <input type="text" name="studentEmail">
-            <label> Major </label> <input type="text" name="studentMajor">
-            <label> Grade </label> <select name="Grades">
-                <option value="1">Freshman</option>
-                <option value="2">Sophomore</option>
-                <option value="3">Junior</option>
-                <option value="4">Senior</option>
-                </select>
-      </fieldset>
-          <input class="btn" type="submit" id="addClub" value="Add Student">
-          <input class="btn" type="button" value="cancel" onClick="addStudent()">
-	</form> 
+{{!-- Button to open add Club Particpation Modal--}}
+<button id="add-student-button">Add Student</button>
+
+<div id="modal-backdrop" class="hidden"></div>
+    <div id="add-student-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Add Student</h3>
+                <button type="button" id="add-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                    <form id="add-student-form-ajax">
+                        <label for="input-studentFName">First Name</label>
+                        <input type="text" id="input-studentFName">
+
+                        <label for="input-studentLName">Last Name</label>
+                        <input type="text" id="input-studentLName">
+
+                        <label for="input-studentEmail">Email</label>
+                        <input type="email" id="input-studentEmail">
+
+                        <label for="input-studentMajor">Major</label>
+                        <input type="text" id="input-studentMajor">
+
+                        <label for="input-studentGrade">Grade</label>
+                        <select name="input-studentGrade" id="input-studentGrade">
+                          <option value="Freshman">Freshman</option>
+                          <option value="Sophomore">Sophomore</option>
+                          <option value="Junior">Junior</option>
+                          <option value="Senior">Senior</option>
+                        </select>
+
+                        <input type="submit">
+                    </form>
+                    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+                    <script src="./js/add_student.js"></script>
+                    <script src="./js/delete_student.js"></script>
+            </div>
+    </div>
 </div>
 
-<!-- Fields to edit a club -->
-<div id="update">
-    <form method="POST" id="UpdateStudent">
-        <legend><strong>Update Student</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="studentID" id="updatestudentID" value="1">
-            <label> First Name</label> <input type="text" name="studentFName">
-            <label> Last Name</label> <input type="text" name="studentLName">  
-            <label> Email </label> <input type="text" name="studentEmail">
-            <label> Major </label> <input type="text" name="studentMajor">
-            <label> Grade </label> <select name="Grades">
-                <option value="1">Freshman</option>
-                <option value="2">Sophomore</option>
-                <option value="3">Junior</option>
-                <option value="4">Senior</option>
-                </select>
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveStudent" value="Save Update Student">
-          <input class="btn" type="button" value="cancel" onClick="browseStudents()">
-	</form> 
-</div>
-
-<!-- Option to delete a club -->
-
-<div id="delete">
-    <form method="POST" id="DeleteStudent">
-        <legend><strong>Delete Student</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="studentID" id="updateStudentId" value="1">
-            <label> Student ID </label> <select name="students">
-                <option value="1">Select A Student ID</option>
-                <option value="2">1</option>
-                <option value="3">2</option>
-                <option value="4">3</option>
-                </select>
-        </fieldset>
-          <input class="btn" type="submit" id="deleteStudent" value="Delete Student">
-          <input class="btn" type="button" value="cancel" onClick="browseStudents()">
-	</form> 
-</div>
+{{!-- 
+Citation for the following search feature
+Date: 2/27/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
+<h2>Search Students</h2>
+<form id="search-student-html" method='GET' action='/Students'> 
+    <label for="input-lname">Search by Last Name: </label>
+    <input type="text" name="studentLName" id="input-studentLName-html-search">
+    
+    <input type="submit">
+    <a href='/Students'><button>Reset</button></a>
+</form>
