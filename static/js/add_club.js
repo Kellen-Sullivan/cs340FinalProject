@@ -2,24 +2,24 @@
 Following code section was adapted from my cs290 final project
 */
 ///////////////////////////////////////////////////////////////////////////
-// SHOWING AND HIDING THE ADD Club Particpation MODAL
+// SHOWING AND HIDING THE ADD Club MODAL
 
-//show the add club Particpation modal when clicked
-function showModal(event) {
-    var modal = document.getElementById("add-clubParticipation-modal")
+//show the add club modal when clicked
+function showAddModal(event) {
+    var modal = document.getElementById("add-club-modal")
     var backdrop = document.getElementById("add-modal-backdrop")
     modal.classList.remove("hidden")
     backdrop.classList.remove("hidden")
 }
 
-//get the button from club Particpation page
-var addClubParticipationButton = document.getElementById("add-clubParticipation-button")
-addClubParticipationButton.addEventListener("click", showModal)
+//get the button from club page
+var addClubButton = document.getElementById("add-club-button")
+addClubButton.addEventListener("click", showAddModal)
 
 
-//close the add club Particpation modal when X or cancel clicked
-function closeModal(event) {
-    var modal = document.getElementById("add-clubParticipation-modal")
+//close the add club modal when X or cancel clicked
+function closeAddModal(event) {
+    var modal = document.getElementById("add-club-modal")
     var backdrop = document.getElementById("add-modal-backdrop") 
     modal.classList.add("hidden")
     backdrop.classList.add("hidden")
@@ -27,7 +27,7 @@ function closeModal(event) {
 
 //get the X from modal 
 var closeX = document.getElementById("add-modal-close")
-closeX.addEventListener("click", closeModal)
+closeX.addEventListener("click", closeAddModal)
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -37,31 +37,40 @@ closeX.addEventListener("click", closeModal)
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 
 // Get the objects we need to modify
-let addclubParticipationForm = document.getElementById('add-clubParticipation-form-ajax');
+let addClubForm = document.getElementById('add-club-form-ajax');
 
 // Modify the objects we need
-addclubParticipationForm.addEventListener("submit", function (e) {
+addClubForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputClubId = document.getElementById("input-clubId");
-    let inputStudentId = document.getElementById("input-studentId");
+    let inputClubName = document.getElementById("input-clubName");
+    let inputClubDescription = document.getElementById("input-clubDescription");
+    let inputClubBudget = document.getElementById("input-clubBudget");
+    let inputClubPresident = document.getElementById("input-clubPresident");
+    let inputClubCategory = document.getElementById("input-clubCategory");
 
     // Get the values from the form fields
-    let clubIdValue = inputClubId.value;
-    let studentIdValue = inputStudentId.value;
+    let clubNameValue = inputClubName.value;
+    let clubDescriptionValue = inputClubDescription.value;
+    let clubBudgetValue = inputClubBudget.value;
+    let clubPresidentValue = inputClubPresident.value;
+    let clubCategoryValue = inputClubCategory.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        clubId: clubIdValue,
-        studentId: studentIdValue,
+        clubName: clubNameValue,
+        clubDescription: clubDescriptionValue,
+        clubBudget: clubBudgetValue,
+        clubPresident: clubPresidentValue,
+        clubCategory: clubCategoryValue
     }
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-clubParticipation-ajax", true);
+    xhttp.open("POST", "/add-club-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -72,11 +81,14 @@ addclubParticipationForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputClubId.value = '';
-            inputStudentId.value = '';
+            inputClubName = ' ';
+            inputClubDescription = ' ';
+            inputClubBudget = ' ';
+            inputClubPresident = ' ';
+            inputClubCategory = ' ';
 
             // Close the modal automatically after pressing submit
-            closeModal();
+            closeAddModal();
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) { // maybe want to update to 2 (not sure what readyState does yet)
             console.log("There was an error with the input.")
@@ -93,7 +105,7 @@ addclubParticipationForm.addEventListener("submit", function (e) {
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("clubParticipation-table");
+    let currentTable = document.getElementById("club-table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
@@ -105,47 +117,58 @@ addRowToTable = (data) => {
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
-    let clubParticipationIdCell = document.createElement("TD");
     let clubIdCell = document.createElement("TD");
-    let studentIdCell = document.createElement("TD");
+    let clubNameCell = document.createElement("TD");
+    let clubDescriptionCell = document.createElement("TD");
+    let clubBudgetCell = document.createElement("TD");
+    let clubPresidentCell = document.createElement("TD");
+    let clubCategoryCell = document.createElement("TD");
 
     let deleteCell = document.createElement("TD");
     let updateCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    clubParticipationIdCell.innerText = newRow.clubParticipationId; // Should set the clubParticipationId automatically to the next val (auto-incrementing)
-    clubIdCell.innerText = newRow.clubId;
-    studentIdCell.innerText = newRow.studentId;
+    clubIdCell.innerText = newRow.clubId; // Should set the clubParticipationId automatically to the next val (auto-incrementing)
+    clubNameCell.innerText = newRow.clubName;
+    clubDescriptionCell.innerText = newRow.clubDescription;
+    clubBudgetCell.innerText = newRow.clubBudgetCell;
+    clubPresidentCell.innerText = newRow.clubPresidentCell;
+    clubCategoryCell.innerText = newRow.clubCategoryCell;
 
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteClubParticipation(newRow.clubParticipationId);
+        deleteClub(newRow.clubParticipationId);
     };
 
     updateCell = document.createElement("button");
     updateCell.innerHTML = "Update";
     updateCell.onclick = function(){
-        updateClubParticipation(newRow.clubParticipationId);
+        updateClub(newRow.clubParticipationId);
     };
 
     // Add the cells to the row 
-    row.appendChild(clubParticipationIdCell);
     row.appendChild(clubIdCell);
-    row.appendChild(studentIdCell);
+    row.appendChild(clubNameCell);
+    row.appendChild(clubDescriptionCell);
+    row.appendChild(clubBudgetCell);
+    row.appendChild(clubPresidentCell);
+    row.appendChild(clubCategoryCell);
     row.appendChild(deleteCell);
     row.appendChild(updateCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
-    row.setAttribute('data-value', newRow.clubParticipationId);
+    row.setAttribute('data-value', newRow.clubId);
     
     // Add the row to the table
     currentTable.appendChild(row);
 
+    // May want to fix this below
+
     // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.clubParticipationId;
-    option.value = newRow.clubParticipationId; // maybe want just newRow.id
-    selectMenu.add(option);
+    // let selectMenu = document.getElementById("mySelect");
+    // let option = document.createElement("option");
+    // option.text = newRow.clubId;
+    // option.value = newRow.clubId; // maybe want just newRow.id
+    // selectMenu.add(option);
 }

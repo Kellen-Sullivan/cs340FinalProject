@@ -1,43 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 header {
     background-color: black;
     color: white;
     display: flex;
+    justify-content: space-between; /* may want to switch to right or something*/
     align-items: center;
-    position: relative;
-    margin:0;
-    font-family: arial;
+    padding: 10px 5%;
+    font-family: "Montserrat", sans-serif;
 }
 
 body {
-    font-family: arial;
+    font-family: "Arial";
     margin:0;
+}
+
+h1, h2, h3 {
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Add a black background color to the top navigation */
 .navlist {
     background-color: black;
-    overflow: hidden;
     list-style: none; /* Remove the dots */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
     display: flex; /* Flexbox to make it horizontal */
   }
   
-/* Style the links inside the navigation bar */
+/* Style the links inside the navigation bar 
+Got the color for hover and the transition from this youtube tutorial: https://www.youtube.com/watch?v=PwWHL3RyQgk
+*/
 .navlist a {
-    color: #f2f2f2;
+    color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 0px 20px;
     text-decoration: none;
     font-size: 17px;
-    display: block; /* Ensures the entire area is clickable */
-    border-right: 1px solid gray; /* Add white line between items */
+    display: inline-block;
+    transition: all 0.3s ease 0s;
   }
   
 /* Change the color of links on hover */
 .navlist a:hover {
-    background-color: 	gray;
-    color: white;
+    color: 	#0088a9;
   }
 
 /*Add zebra striped patter in tables
@@ -107,7 +112,8 @@ Adapted the modal code from my cs290 final project
     color: white;
 }
 
-#modal-backdrop {
+#add-modal-backdrop,
+#update-modal-backdrop {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -117,7 +123,12 @@ Adapted the modal code from my cs290 final project
   background-color: rgba(0, 0, 0, 0.85);
 }
 
-#add-clubParticipation-modal {
+#add-clubParticipation-modal,
+#update-clubParticipation-modal,
+#add-club-modal,
+#update-club-modal,
+#add-student-modal,
+#update-student-modal{
   position: fixed;
   top: 0;
   bottom: 0;
@@ -126,29 +137,3 @@ Adapted the modal code from my cs290 final project
   z-index: 1010;
 }
 
-#update-clubParticipation-modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1010;
-}
-
-#add-student-modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1010;
-}
-
-#update-student-modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1010;
-}

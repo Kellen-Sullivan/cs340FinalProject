@@ -7,20 +7,20 @@ Following code section was adapted from my cs290 final project
 //show the add club Particpation modal when clicked
 function showModal(event) {
     var modal = document.getElementById("add-student-modal")
-    var backdrop = document.getElementById("modal-backdrop")
+    var backdrop = document.getElementById("add-modal-backdrop")
     modal.classList.remove("hidden")
     backdrop.classList.remove("hidden")
 }
 
 //get the button from club Particpation page
-var addClubParticipationButton = document.getElementById("add-student-button")
-addClubParticipationButton.addEventListener("click", showModal)
+var addStudentButton = document.getElementById("add-student-button")
+addStudentButton.addEventListener("click", showModal)
 
 
 //close the add club Particpation modal when X or cancel clicked
 function closeModal(event) {
     var modal = document.getElementById("add-student-modal")
-    var backdrop = document.getElementById("modal-backdrop") 
+    var backdrop = document.getElementById("add-modal-backdrop") 
     modal.classList.add("hidden")
     backdrop.classList.add("hidden")
 }
@@ -37,10 +37,10 @@ closeX.addEventListener("click", closeModal)
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 
 // Get the objects we need to modify
-let addclubParticipationForm = document.getElementById('add-student-form-ajax');
+let addStudentForm = document.getElementById('add-student-form-ajax');
 
 // Modify the objects we need
-addclubParticipationForm.addEventListener("submit", function (e) {
+addStudentForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
@@ -163,10 +163,10 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.studentId;
-    option.value = newRow.studentId; // maybe want to show something else
-    selectMenu.add(option);
+    // // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    // let selectMenu = document.getElementById("mySelect");
+    // let option = document.createElement("option");
+    // option.text = newRow.studentId;
+    // option.value = newRow.studentId; // maybe want to show something else
+    // selectMenu.add(option);
 }

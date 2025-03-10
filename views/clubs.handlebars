@@ -1,4 +1,3 @@
-{{> navBarTemplate}}
 <h1>Clubs</h1>
 
 {{!-- 
@@ -9,7 +8,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
 {{!-- Display current Clubs data --}}
 {{!-- Create a table --}}
-<table border="1", cellpadding="5">
+<table id="club-table"border="1", cellpadding="5">
 
     {{!-- Header section --}}
     <thead>
@@ -22,6 +21,8 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 {{@key}}
             </th>
             {{/each}}
+            <th>Delete</th>
+            <th>Update</th>
         </tr>
     </thead>
 
@@ -30,65 +31,119 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
         {{!-- For each row, print all of the attributes in order --}}
         {{#each data}}
-        <tr>
-            <td>{{this.clubID}}</td>
+        <tr data-value="{{this.clubId}}">
+            <td>{{this.clubId}}</td>
             <td>{{this.clubName}}</td>
-            <td>{{this.clubSize}}</td>
             <td>{{this.clubDescription}}</td>
             <td>{{this.clubBudget}}</td>
             <td>{{this.clubPresident}}</td>
             <td>{{this.clubCategory}}</td>
+            <td><button onclick="deleteClub({{this.clubId}})">Delete</button></td>
+            <td><button onclick="updateClub({{this.clubId}})">Update</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
-<!-- Fields to add a club -->
-<div id="insert">
-    <form method="POST" id="addClub">
-        <legend><strong>Add Club</strong></legend>
-          <fieldset class="fields">
-            <label> Name </label> <input type="text" name="clubName">
-            <label> Description </label> <input type="text" name="description">
-            <label> Budget </label> <input type="text" name="budget">
-            <label> President </label> <input type="text" name="president">
-      </fieldset>
-          <input class="btn" type="submit" id="addClub" value="Add Club">
-          <input class="btn" type="button" value="cancel" onClick="addClub()">
-	</form> 
+{{!-- Button to open add add club Modal--}}
+<button id="add-club-button">Add Club</button>
+
+<div id="add-modal-backdrop" class="hidden"></div>
+    <div id="add-club-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Add Club</h3>
+                <button type="button" id="add-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                    <form id="add-club-form-ajax">
+                        <label for="input-clubName">Name</label>
+                        <input type="text" id="input-clubName">
+
+                        <label for="input-clubDescription">Description</label>
+                        <input type="text" id="input-clubDescription">
+
+                        <label for="input-clubBudget">Budget</label>
+                        <input type="number" id="input-clubBudget">
+
+                        <select name="input-clubPresident" id="input-clubPresident">
+                        <option value="">Select a Student</option>
+                            {{#each students}}
+                            <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
+                            {{/each}}
+                        </select>
+
+                        <select name="input-clubCategory" id="input-clubCategory">
+                        <option value="">Select a Category</option>
+                            {{#each categories}}
+                            <option value="{{this.categoryId}}">{{this.categoryName}}</option>
+                            {{/each}}
+                        </select>
+                        <input type="submit">
+                    </form>
+            </div>
+    </div>
 </div>
 
-<!-- Fields to edit a club -->
-<div id="update">
-    <form method="POST" id="UpdateClub">
-        <legend><strong>Update Club</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="personID" id="updatepersonID" value="1">
-            <label> Name </label> <input type="text" name="fname">
-            <label> Description </label> <input type="text" name="description">
-            <label> Budget </label> <input type="text" name="budget">
-            <label> President </label> <input type="text" name="president">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveClub" value="Save Update Club">
-          <input class="btn" type="button" value="cancel" onClick="browseClubs()">
-	</form> 
+<div id="update-modal-backdrop" class="hidden"></div>
+    <div id="update-club-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Update Club</h3>
+                <button type="button" id="update-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                <form id="update-club-form-ajax">
+                    <label for="input-clubName">Name</label>
+                    <input type="text" id="input-clubName-update">
+
+                    <label for="input-clubDescription">Description</label>
+                    <input type="text" id="input-clubDescription-update">
+
+                    <label for="input-clubBudget">Budget</label>
+                    <input type="number" id="input-clubBudget-update">
+
+                    {{!-- <label for="input-studentId">Or Select a new Student: </label>
+                    <select name="input-studentId" id="input-studentId">
+                        <option value="">Student Name</option>
+                            {{#each students}}
+                            <option value="{{this.studentId}}">ID: {{this.studentId}} {{this.studentFName}} {{this.studentLName}}</option>
+                            {{/each}}
+                    </select> --}}
+                    <input type="submit">
+                </form> 
+            </div>
+    </div>
 </div>
 
-<!-- Option to delete a club -->
+{{!-- 
+Citation for the following search feature
+Date: 2/27/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
+<h2>Search Clubs</h2>
+<form id="search-club-by-category-html" method='GET' action='/Clubs'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
+    <label for="input-categoryName">Category Name: </label>
+    <input type="text" name="categoryName" id="input-category-html-search">
+    
+    <input type="submit">
+    <a href='/Clubs'><button>Reset</button></a>
+</form>
 
-<div id="delete">
-    <form method="POST" id="DeleteClub">
-        <legend><strong>Delete Club</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="personID" id="updatepersonID" value="1">
-            <label> Club ID </label> <select name="clubs">
-                <option value="1">Select A Club ID</option>
-                <option value="2">1</option>
-                <option value="3">2</option>
-                <option value="4">3</option>
-                </select>
-        </fieldset>
-          <input class="btn" type="submit" id="deleteClub" value="Delete Club">
-          <input class="btn" type="button" value="cancel" onClick="browseClubs()">
-	</form> 
-</div>
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/update_club.js"></script>
+<script src="./js/add_club.js"></script>
+<script src="./js/delete_club.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->

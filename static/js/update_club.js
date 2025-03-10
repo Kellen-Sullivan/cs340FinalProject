@@ -1,5 +1,5 @@
 // declare global so that updateSubmitHandler can access this var
-let globalStudentId = -1;
+let globalClubId = -1;
 
 /*
 Following code section was adapted from my cs290 final project
@@ -9,7 +9,7 @@ Following code section was adapted from my cs290 final project
 
 //show the update club Particpation modal when clicked
 function showUpdateModal(event) {
-    var modal = document.getElementById("update-student-modal")
+    var modal = document.getElementById("update-club-modal")
     var backdrop = document.getElementById("update-modal-backdrop")
     modal.classList.remove("hidden")
     backdrop.classList.remove("hidden")
@@ -17,7 +17,7 @@ function showUpdateModal(event) {
 
 //close the add club Particpation modal when X or cancel clicked
 function closeUpdateModal(event) {
-    var modal = document.getElementById("update-student-modal")
+    var modal = document.getElementById("update-club-modal")
     var backdrop = document.getElementById("update-modal-backdrop") 
     modal.classList.add("hidden")
     backdrop.classList.add("hidden")
@@ -34,48 +34,40 @@ function updateSubmitHandler(e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputStudentFName = document.getElementById("input-studentFName-update");
-    let inputStudentLName = document.getElementById("input-studentLName-update");
-    let inputStudentEmail = document.getElementById("input-studentEmail-update");
-    let inputStudentMajor = document.getElementById("input-studentMajor-update");
-    let inputStudentGrade = document.getElementById("input-studentGrade-update");
+    let inputClubName = document.getElementById("input-clubName-update");
+    let inputClubDescription = document.getElementById("input-clubDescription-update");
+    let inputClubBudget = document.getElementById("input-clubBudget-update");
     
-
-    // get global studentId value
-    let studentIdValue = globalStudentId;
 
     // Get the values from the form fields
-    let studentFNameValue = inputStudentFName.value;
-    let studentLNameValue = inputStudentLName.value;
-    let studentEmailValue = inputStudentEmail.value;
-    let studentMajorValue = inputStudentMajor.value;
-    let studentGradeValue = inputStudentGrade.value;
+    let clubIdValue = globalClubId;
+    let clubNameValue = inputClubName.value;
+    let clubDescriptionValue = inputClubDescription.value;
+    let clubBudgetValue = inputClubBudget.value;
     
-    if (isNaN(studentIdValue)) // if both entries are empty return
+    if (isNaN(clubIdValue)) // if both entries are empty return
     {
         return;
     }
 
     // Put our data we want to send in a javascript object
     let data = {
-        studentId: studentIdValue,
-        studentFName: studentFNameValue,
-        studentLName: studentLNameValue,
-        studentEmail: studentEmailValue,
-        studentMajor: studentMajorValue,
-        studentGrade: studentGradeValue
+        clubId: clubIdValue,
+        clubName: clubNameValue,
+        clubDescription: clubDescriptionValue,
+        clubBudget: clubBudgetValue
     }
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-student-ajax", true);
+    xhttp.open("PUT", "/put-club-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             // Add the new data to the table
-            updateRow(xhttp.response, studentIdValue);
+            updateRow(xhttp.response, clubIdValue);
             // close the modal automatically after updating the row
             closeUpdateModal();
 
@@ -90,23 +82,23 @@ function updateSubmitHandler(e) {
 }
 
 // function to show the modal with the form inside and close the modal when the user clicks the x
-function updateStudent(studentId) {
+function updateClub(clubId) {
     // show modal and set up closeing button
     showUpdateModal();
     var closeX = document.getElementById("update-modal-close")
     closeX.addEventListener("click", closeUpdateModal)
 
     // update global var value
-    globalStudentId = studentId;
+    globalClubId = clubId;
 
     // update the selected row
-    let updateStudentForm = document.getElementById('update-student-form-ajax');
+    let updateClubForm = document.getElementById('update-club-form-ajax');
 
     // Remove any previously attached submit event handler before adding a new one (without this, it updates all previously updated rows)
-    updateStudentForm.removeEventListener("submit", updateSubmitHandler);
+    updateClubForm.removeEventListener("submit", updateSubmitHandler);
     
     // Add the submit event handler
-    updateStudentForm.addEventListener("submit", updateSubmitHandler);   
+    updateClubForm.addEventListener("submit", updateSubmitHandler);   
 }
 
 // Citation for the following code in this file
@@ -165,30 +157,26 @@ function updateStudent(studentId) {
 
 // })
 
-function updateRow(data, studentId){
+function updateRow(data, clubParticipationId){
     let parsedData = JSON.parse(data);
     
-    let table = document.getElementById("student-table");
+    let table = document.getElementById("club-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows
        //rows would be accessed using the "row" variable assigned in the for loop
-       if (table.rows[i].getAttribute("data-value") == studentId) {
+       if (table.rows[i].getAttribute("data-value") == clubId) {
 
             // Get the location of the row where we found the matching clubId
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            let fNameCell = updateRowIndex.getElementsByTagName("td")[1];
-            let lNameCell = updateRowIndex.getElementsByTagName("td")[2];
-            let emailCell = updateRowIndex.getElementsByTagName("td")[3];
-            let majorCell = updateRowIndex.getElementsByTagName("td")[4];
-            let gradeCell = updateRowIndex.getElementsByTagName("td")[5];
+            let nameCell = updateRowIndex.getElementsByTagName("td")[1];
+            let descCell = updateRowIndex.getElementsByTagName("td")[2];
+            let budgetCell = updateRowIndex.getElementsByTagName("td")[3];
 
-            fNameCell.innerHTML = parsedData[0].studentFName;
-            lNameCell.innerHTML = parsedData[0].studentLName;
-            emailCell.innerHTML = parsedData[0].studentEmail;
-            majorCell.innerHTML = parsedData[0].studentMajor;
-            gradeCell.innerHTML = parsedData[0].studentGrade;
+            nameCell.innerHTML = parsedData[0].clubName;
+            descCell.innerHTML = parsedData[0].clubDescription;
+            budgetCell.innerHTML = parsedData[0].clubBudget;
        }
     }
 }

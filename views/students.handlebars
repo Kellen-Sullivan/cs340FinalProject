@@ -1,7 +1,4 @@
-{{> navBarTemplate}}
 <h1>Students</h1>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->
 
 {{!-- 
 Citation for the following creating this table and populating using handlebars
@@ -50,7 +47,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 {{!-- Button to open add Club Particpation Modal--}}
 <button id="add-student-button">Add Student</button>
 
-<div id="modal-backdrop" class="hidden"></div>
+<div id="add-modal-backdrop" class="hidden"></div>
     <div id="add-student-modal" class="hidden">
         <div class="modal-dialog">
             <div class="modal-header">
@@ -84,12 +81,50 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                           <option value="Junior">Junior</option>
                           <option value="Senior">Senior</option>
                         </select>
-
                         <input type="submit">
                     </form>
-                    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-                    <script src="./js/add_student.js"></script>
-                    <script src="./js/delete_student.js"></script>
+            </div>
+    </div>
+</div>
+
+{{!Modal for Updating students}}
+<div id="update-modal-backdrop" class="hidden"></div>
+    <div id="update-student-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Update Student</h3>
+                <button type="button" id="update-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                <form id="update-student-form-ajax">
+                    <label for="input-studentFName-update">First Name</label>
+                    <input type="text" id="input-studentFName-update">
+
+                    <label for="input-studentLName-update">Last Name</label>
+                    <input type="text" id="input-studentLName-update">
+
+                    <label for="input-studentEmail-update">Email</label>
+                    <input type="email" id="input-studentEmail-update">
+
+                    <label for="input-studentMajor-update">Major</label>
+                    <input type="text" id="input-studentMajor-update">
+
+                    <label for="input-studentGrade-update">Grade</label>
+                        <select name="input-studentGrade" id="input-studentGrade-update">
+                          <option value="Freshman">Freshman</option>
+                          <option value="Sophomore">Sophomore</option>
+                          <option value="Junior">Junior</option>
+                          <option value="Senior">Senior</option>
+                        </select>
+
+                    <input type="submit">
+                </form> 
             </div>
     </div>
 </div>
@@ -107,3 +142,9 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     <input type="submit">
     <a href='/Students'><button>Reset</button></a>
 </form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_student.js"></script>
+<script src="./js/delete_student.js"></script>
+<script src="./js/update_student.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->

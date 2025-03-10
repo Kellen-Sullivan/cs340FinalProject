@@ -1,7 +1,4 @@
-{{> navBarTemplate}}
 <h1>Club Participation</h1>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->
 
 {{!-- 
 Citation for the following creating this table and populating using handlebars
@@ -46,7 +43,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
 {{!-- Button to open add Club Particpation Modal--}}
 <button id="add-clubParticipation-button">Add Club Particpation</button>
-<div id="modal-backdrop" class="hidden"></div>
+<div id="add-modal-backdrop" class="hidden"></div>
     <div id="add-clubParticipation-modal" class="hidden">
         <div class="modal-dialog">
             <div class="modal-header">
@@ -75,9 +72,6 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                         </select>
                         <input type="submit">
                     </form>
-                    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-                    <script src="./js/add_clubParticipation.js"></script>
-                    <script src="./js/delete_clubParticipation.js"></script>
             </div>
     </div>
 </div>
@@ -96,18 +90,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     <a href='/ClubParticipation'><button>Reset</button></a>
 </form>
 
-
-
-
-
-
-
-
-
-
-
-
-<div id="modal-backdrop" class="hidden"></div>
+<div id="update-modal-backdrop" class="hidden"></div>
     <div id="update-clubParticipation-modal" class="hidden">
         <div class="modal-dialog">
             <div class="modal-header">
@@ -138,13 +121,13 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                     </select> --}}
                     <input type="submit">
                 </form> 
-                    
-                    {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-                    <script src="./js/add_clubParticipation.js"></script>
-                    <script src="./js/delete_clubParticipation.js"></script>
             </div>
     </div>
 </div>
 
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->
+<script src="./js/add_clubParticipation.js"></script>
+<script src="./js/delete_clubParticipation.js"></script>
 <script src="./js/update_clubParticipation.js"></script>
 
