@@ -1,89 +1,140 @@
 <h1>Events</h1>
 
-<!-- Display current Events data -->
-<table border="1" cellpadding="5">
-  <tr>
-    <th>Event ID</th>
-    <th>Club ID</th>
-    <th>Name</th>
-    <th>Date</th>
-    <th>Location</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>1</td>
-    <td>Weekly Meeting</td>
-    <td>2025-02-04 18:00:00</td>
-    <td>Weniger 123</td>
-    <td>This is the weekly meeting time for chess club. We will play games and eat pizza!</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>1</td>
-    <td>Weekend Chess Tournament</td>
-    <td>2025-02-02 10:00:00</td>
-    <td>Alumni Center Ballroom</td>
-    <td>This event is a weekend chess tournament put on with clubs from other schools.</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>2</td>
-    <td>Sunday Sale</td>
-    <td>2025-02-02 14:00:00</td>
-    <td>North Side of Reser Stadium</td>
-    <td>Bake sale to raise money for unemployed cs graduates</td>
-  </tr>
+{{!-- 
+Citation for the following creating this table and populating using handlebars
+Date: 2/26/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data--}}
+
+{{!-- Display current Events data --}}
+{{!-- Create a table --}}
+<table id="event-table"border="1", cellpadding="5">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print all of the attributes in order --}}
+        {{#each data}}
+        <tr data-value="{{this.eventId}}">
+            <td>{{this.eventId}}</td>
+            <td>{{this.eventName}}</td>
+            <td>{{this.eventDescription}}</td>
+            <td><button onclick="deleteEvent({{this.eventId}})">Delete</button></td>
+            <td><button onclick="updateEvent({{this.eventId}})">Update</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>
 
-<!-- Fields to add a club -->
-<div id="insert">
-    <form method="POST" id="addEvent">
-        <legend><strong>Add Event</strong></legend>
-          <fieldset class="fields">
-            <label> Club ID </label> <input type="text" name="clubId">
-            <label> Name </label> <input type="text" name="eventName">
-            <label> Date </label> <input type="datetime-local" name="eventDateTime">
-            <label> Location </label> <input type="text" name="eventLocation">
-            <label> Description </label> <input type="text" name="eventDescription">
-      </fieldset>
-          <input class="btn" type="submit" id="addEvent" value="Add Event">
-          <input class="btn" type="button" value="cancel" onClick="addEvent()">
-	</form> 
+{{!-- Button to open add add event Modal--}}
+<button id="add-event-button">Add Event</button>
+
+<div id="add-modal-backdrop" class="hidden"></div>
+    <div id="add-event-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Add Event</h3>
+                <button type="button" id="add-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                    <form id="add-event-form-ajax">
+                        <label for="input-eventName">Name</label>
+                        <input type="text" id="input-eventName">
+
+                        <label for="input-eventDescription">Description</label>
+                        <input type="text" id="input-eventDescription">
+
+                        <label for="input-eventDateTime">Date/Time</label>
+                        <input type="text" id="input-eventDateTime">
+
+
+                        <select name="input-eventClub" id="input-eventClub">
+                        <option value="">Select a Club</option>
+                            {{#each clubs}}
+                            <option value="{{this.clubId}}">{{this.clubName}}</option>
+                            {{/each}}
+                        </select>
+                        <input type="submit">
+                    </form>
+            </div>
+    </div>
 </div>
 
-<!-- Fields to edit a club -->
-<div id="update">
-    <form method="POST" id="UpdateEvent">
-        <legend><strong>Update Event</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="eventID" id="updateEventID" value="1">
-            <label> Club ID </label> <input type="text" name="clubId">
-            <label> Name </label> <input type="text" name="eventName">
-            <label> Date </label> <input type="datetime-local" name="eventDateTime">
-            <label> Location </label> <input type="text" name="eventLocation">
-            <label> Description </label> <input type="text" name="eventDescription">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveEvent" value="Save Update Event">
-          <input class="btn" type="button" value="cancel" onClick="browseEvents()">
-	</form> 
+<div id="update-modal-backdrop" class="hidden"></div>
+    <div id="update-event-modal" class="hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Update Event</h3>
+                <button type="button" id="update-modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                {{!-- 
+                Citation for following code that allows the user to add a new row to a table using AJAX
+                Date: 2/26/2025
+                Adapted from nodejs-starter app code
+                Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
+                {{!-- Form to add a record to the table--}} 
+                <form id="update-event-form-ajax">
+                    <label for="input-eventName">Name</label>
+                        <input type="text" id="input-eventName">
+
+                        <label for="input-eventDescription">Description</label>
+                        <input type="text" id="input-eventDescription">
+
+                        <label for="input-eventDateTime">Date/Time</label>
+                        <input type="text" id="input-eventDateTime">
+
+
+                        <select name="input-eventClub" id="input-eventClub">
+                        <option value="">Select a Club</option>
+                            {{#each clubs}}
+                            <option value="{{this.clubId}}">{{this.clubName}}</option>
+                            {{/each}}
+                        </select>
+                        <input type="submit">
+                </form> 
+            </div>
+    </div>
 </div>
 
-<!-- Option to delete a club -->
+{{!-- 
+Citation for the following search feature
+Date: 2/27/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
+<h2>Search Events by Club</h2>
+<form id="search-event-by-club-html" method='GET' action='/Events'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
+    <label for="input-eventName">Club Name: </label>
+    <input type="text" name="clubName" id="input-event-html-search">
+    
+    <input type="submit">
+    <a href='/Events'><button>Reset</button></a>
+</form>
 
-<div id="delete">
-    <form method="POST" id="DeleteEvent">
-        <legend><strong>Delete Event</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="eventId" id="updateEventId" value="1">
-            <label> Event ID </label> <select name="events">
-                <option value="1">Select An Event ID</option>
-                <option value="2">1</option>
-                <option value="3">2</option>
-                <option value="4">3</option>
-                </select>
-        </fieldset>
-          <input class="btn" type="submit" id="deleteEvent" value="Delete Event">
-          <input class="btn" type="button" value="cancel" onClick="browseEvents()">
-	</form> 
-</div>
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/update_event.js"></script>
+<script src="./js/add_event.js"></script>
+<script src="./js/delete_event.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->
