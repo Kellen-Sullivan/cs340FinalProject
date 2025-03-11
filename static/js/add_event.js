@@ -49,20 +49,20 @@ addEventForm.addEventListener("submit", function (e) {
     let inputEventName = document.getElementById("input-eventName");
     let inputEventDescription = document.getElementById("input-eventDescription");
     let inputEventDateTime = document.getElementById("input-eventDateTime");
-    let inputEventClub = document.getElementById("input-eventClub");
+    let inputClubId = document.getElementById("input-clubId");
 
     // Get the values from the form fields
     let eventNameValue = inputEventName.value;
     let eventDescriptionValue = inputEventDescription.value;
     let eventDateTimeValue = inputEventDateTime.value;
-    let eventClubValue = inputEventClub.value;
+    let clubIdValue = inputClubId.value;
 
     // Put our data we want to send in a javascript object
     let data = {
         eventName: eventNameValue,
         eventDescription: eventDescriptionValue,
         eventDateTime: eventDateTimeValue,
-        eventClub: eventClubValue,
+        clubId: clubIdValue,
     }
 
     // Setup our AJAX request
@@ -81,7 +81,7 @@ addEventForm.addEventListener("submit", function (e) {
             inputEventName.value = '';
             inputEventDescription.value = '';
             inputEventDateTime.value = '';
-            inputEventClub.value = '';
+            inputClubId.value = '';
 
             // Close the modal automatically after pressing submit
             closeAddModal();
@@ -114,10 +114,12 @@ addRowToTable = (data) => {
     // Create a row and 4 cells
     let row = document.createElement("TR");
     let eventIdCell = document.createElement("TD");
+    let clubIdCell = document.createElement("TD");
     let eventNameCell = document.createElement("TD");
-    let eventDescriptionCell = document.createElement("TD");
     let eventDateTimeCell = document.createElement("TD");
-    let eventClubCell = document.createElement("TD");
+    let eventDescriptionCell = document.createElement("TD");
+
+
 
     let deleteCell = document.createElement("TD");
     let updateCell = document.createElement("TD");
@@ -127,7 +129,7 @@ addRowToTable = (data) => {
     eventNameCell.innerText = newRow.eventName;
     eventDescriptionCell.innerText = newRow.eventDescription;
     eventDateTimeCell.innerText = newRow.eventDateTime;
-    eventClubCell.innerText = newRow.eventClub;
+    clubIdCell.innerText = newRow.clubId;
 
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
@@ -143,10 +145,12 @@ addRowToTable = (data) => {
 
     // Add the cells to the row 
     row.appendChild(eventIdCell);
+    row.appendChild(clubIdCell);
     row.appendChild(eventNameCell);
-    row.appendChild(eventDescriptionCell);
     row.appendChild(eventDateTimeCell);
-    row.appendChild(eventClubCell);
+    row.appendChild(eventDescriptionCell);
+
+
     row.appendChild(deleteCell);
     row.appendChild(updateCell);
 

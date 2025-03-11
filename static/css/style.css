@@ -128,7 +128,11 @@ Adapted the modal code from my cs290 final project
 #add-club-modal,
 #update-club-modal,
 #add-student-modal,
-#update-student-modal{
+#update-student-modal,
+#add-event-modal,
+#update-event-modal,
+#add-category-modal,
+#update-category-modal{
   position: fixed;
   top: 0;
   bottom: 0;

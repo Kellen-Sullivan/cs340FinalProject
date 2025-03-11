@@ -190,13 +190,6 @@ let selectClubEntry = `SELECT * FROM Clubs WHERE clubId = ?`
 
 // **********************************************************Clubs Page************************************************************
 
-app.get('/Events', function(req, res) {
-    res.render('events');
-});
-
-app.get('/Categories', function(req, res) {
-    res.render('categories');
-});
 
 
 // **********************************************************Club_Participation Page ************************************************************
@@ -205,6 +198,7 @@ app.get('/Categories', function(req, res) {
 
 // **********************************************************Students Page ************************************************************
 app.get('/Students', function(req, res) {
+    console.log("made it to students!");
     let query1;     
 
     // let query2;       // maybe search by year, or name
@@ -354,13 +348,307 @@ let selectStudentEntry = `SELECT * FROM Students WHERE studentId = ?`
 
 // **********************************************************Students Page ************************************************************
 
-app.get('/Events', function(req, res) {
-    res.render('events');
-});
+// **********************************************************Categories Page **********************************************************
 
 app.get('/Categories', function(req, res) {
-    res.render('categories');
+    let query1; // Query to fetch categories
+
+    // Determine the query for categories based on the presence of a search term
+    if (!req.query.categoryName) {
+        query1 = "SELECT * FROM Categories"; // Fetch all categories
+    } else {
+        // Fetch categories that match the search term
+        query1 = `SELECT * FROM Categories WHERE Categories.categoryName LIKE "${req.query.categoryName}%"`;
+    }
+
+    // Execute the first query to fetch cagetories
+    db.pool.query(query1, function(error, categoryData, fields) {
+        if (error) {
+            console.log(error);
+            return res.status(500).send("Error fetching category data");
+        }
+
+
+        // Render the Handlebars template with category data
+        res.render('categories', {
+            data: categoryData, // Pass category data
+        });
+    });
 });
+
+// Citation for the following app.post function 
+// Date: 2/26/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+app.post('/add-category-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    let query1;
+    // Capture NULL values
+    // All attributes in Club_Participation are non nullable, so nothing goes here
+
+    // Create the query and run it on the database
+    if(data.categoryDescription === '') { // allow categoryDescription to be NULL
+        query1 = `INSERT INTO Categories (categoryName, categorySize) VALUES ("${data.categoryName}", "${data.categorySize}")`;
+    }else {
+        query1 = `INSERT INTO Categories (categoryName, categorySize, categoryDescription) VALUES ("${data.categoryName}", "${data.categorySize}", "${data.categoryDescription}")`;
+    }
+    
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Cagetories
+            query2 = `SELECT * FROM Categories;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// Citation for the following app.delete function 
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
+app.delete('/delete-category-ajax/', function(req,res,next){
+    let data = req.body;
+    let categoryId = parseInt(data.id);
+    let delete_Category = `DELETE FROM Categories WHERE categoryId = ?`;
+  
+        // Run the 1st query
+        db.pool.query(delete_Category, [categoryId], function(error, rows, fields){
+            if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            } else {
+            res.sendStatus(204);
+            } 
+        })
+  });
+
+
+// Citation for the following app.post function 
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+app.put('/put-category-ajax', function(req,res,next){
+let data = req.body;
+
+let categoryName = data.categoryName; 
+let categoryDescription = data.categoryDescription; 
+let categoryId = parseInt(data.categoryId);
+
+let queryUpdateCategory = `UPDATE Categories SET categoryName = ?, categoryDescription = ? WHERE categoryId = ?`;
+let selectCategoryEntry = `SELECT * FROM Categories WHERE categoryId = ?`
+
+        // Run the 1st query
+        db.pool.query(queryUpdateCategory, [categoryName, categoryDescription, categoryId], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectCategoryEntry, [categoryId], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+})});
+
+
+// **********************************************************Categories Page **********************************************************
+
+// **********************************************************Events Page **************************************************************
+
+app.get('/Events', function(req, res) {
+    let query1; // Query to fetch events
+    let query2 = "SELECT * FROM Clubs"; // Query to fetch clubs
+
+    // Determine the query for events based on the presence of a search term
+    if (!req.query.eventName) {
+        query1 = "SELECT * FROM Events"; // Fetch all events
+    } else {
+        // Fetch events that match the search term
+        query1 = `SELECT * FROM Events WHERE Events.eventName LIKE "${req.query.eventName}%"`;
+    }
+
+    // Execute the first query to fetch events
+    db.pool.query(query1, function(error, eventsData, fields) {
+        if (error) {
+            console.log(error);
+            return res.status(500).send("Error fetching events data");
+        }
+
+        // Execute the second query to fetch clubs
+        db.pool.query(query2, function(error, clubsData, fields) {
+            if (error) {
+                console.log(error);
+                return res.status(500).send("Error fetching clubs data");
+            }
+
+
+            // Render the Handlebars template with both events and clubs data
+            res.render('events', {
+                data: eventsData, // Pass events data
+                clubs: clubsData // Pass clubs data
+            });
+        });
+    });
+});
+
+// Citation for the following app.post function 
+// Date: 2/26/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
+app.post('/add-event-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    let query1;
+    // Capture NULL values
+    // All attributes in Club_Participation are non nullable, so nothing goes here
+
+    // Create the query and run it on the database
+    if(data.eventDescription === '') { // allow eventDescription to be NULL
+        query1 = `INSERT INTO Events (eventName, eventDateTime, clubId) VALUES ("${data.eventName}", "${data.eventDateTime}", "${data.clubId}")`;
+    }else {
+        query1 = `INSERT INTO Events (eventName, eventDescription, eventDateTime, clubId) VALUES ("${data.eventName}", "${data.eventDescription}", "${data.eventDateTime}", "${data.clubId}")`;
+    }
+    
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on Events
+            query2 = `SELECT * FROM Events;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+// Citation for the following app.delete function 
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%207%20-%20Dynamically%20Deleting%20Data
+app.delete('/delete-event-ajax/', function(req,res,next){
+    let data = req.body;
+    let eventId = parseInt(data.id);
+    let delete_Event = `DELETE FROM Events WHERE eventId = ?`;
+  
+        // Run the 1st query
+        db.pool.query(delete_Event, [eventId], function(error, rows, fields){
+            if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            } else {
+            res.sendStatus(204);
+            } 
+        })
+  });
+
+
+// Citation for the following app.post function 
+// Date: 2/27/2025
+// Adapted from nodejs-starter app code
+// Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+app.put('/put-event-ajax', function(req,res,next){
+let data = req.body;
+
+let eventName = data.eventName; 
+let eventDescription = data.eventDescription; 
+let eventDateTime = data.eventDateTime; 
+let clubId = data.clubId; 
+let eventId = parseInt(data.eventId);
+
+let queryUpdateEvent = `UPDATE Events SET eventName = ?, eventDescription = ?, eventDateTime = ?, clubId = ? WHERE eventId = ?`;
+let selectEventEntry = `SELECT * FROM Events WHERE eventId = ?`
+
+        // Run the 1st query
+        db.pool.query(queryUpdateEvent, [eventName, eventDescription, eventDateTime, clubId, eventId], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectEventEntry, [eventId], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+})});
+
+
+// **********************************************************Events Page **************************************************************
 
 
 // **********************************************************Club_Participation Page ************************************************************
