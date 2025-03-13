@@ -32,8 +32,9 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
         {{#each data}}
         <tr data-value="{{this.clubParticipationId}}">
             <td>{{this.clubParticipationId}}</td>
-            <td>{{this.clubId}}</td>
-            <td>{{this.studentId}}</td>
+            <td>{{this.clubName}}</td>
+            <td>{{this.studentFName}}</td>
+            <td>{{this.studentLName}}</td>
             <td><button onclick="deleteClubParticipation({{this.clubParticipationId}})">Delete</button></td>
             <td><button onclick="updateClubParticipation({{this.clubParticipationId}})">Update</button></td>
         </tr>
@@ -58,19 +59,27 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                     <form id="add-clubParticipation-form-ajax">
-                        <select name="input-clubId" id="input-clubId">
-                        <option value="">Select a Club</option>
-                            {{#each clubs}}
-                            <option value="{{this.clubId}}">ID: {{this.clubId}} {{this.clubName}}</option>
-                            {{/each}}
-                        </select>
-                        <select name="input-studentId" id="input-studentId">
-                        <option value="">Select a Student</option>
-                            {{#each students}}
-                            <option value="{{this.studentId}}">ID: {{this.studentId}} {{this.studentFName}} {{this.studentLName}}</option>
-                            {{/each}}
-                        </select>
-                        <input type="submit">
+                        <div class="form-group">
+                            <select name="input-clubId" id="input-clubId">
+                            <option value="">Select a Club</option>
+                                {{#each clubs}}
+                                <option value="{{this.clubId}}">{{this.clubName}} (ID: {{this.clubId}})</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select name="input-studentId" id="input-studentId">
+                            <option value="">Select a Student</option>
+                                {{#each students}}
+                                <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}} (ID: {{this.studentId}})</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="submit">
+                        </div>
                     </form>
             </div>
     </div>
@@ -90,6 +99,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     <a href='/ClubParticipation'><button>Reset</button></a>
 </form>
 
+{{!- modal for updating a club participation id}}
 <div id="update-modal-backdrop" class="hidden"></div>
     <div id="update-clubParticipation-modal" class="hidden">
         <div class="modal-dialog">
@@ -105,21 +115,30 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                 <form id="update-clubParticipation-form-ajax">
-                    <label for="input-clubId">Select a new Club: </label>
-                    <select name="input-clubId" id="input-clubId-update">
-                        <option>Club Name</option>
-                        {{#each clubs}}
-                        <option value="{{this.clubId}}">ID: {{this.clubId}} {{this.clubName}}</option>
-                        {{/each}}
-                    </select>
-                    {{!-- <label for="input-studentId">Or Select a new Student: </label>
-                    <select name="input-studentId" id="input-studentId">
-                        <option value="">Student Name</option>
-                            {{#each students}}
-                            <option value="{{this.studentId}}">ID: {{this.studentId}} {{this.studentFName}} {{this.studentLName}}</option>
+
+                    <div class="form-group">
+                        <label for="input-clubId-update">Select a Club: </label>
+                        <select name="input-clubId" id="input-clubId-update">
+                            <option>Club Name</option>
+                            {{#each clubs}}
+                            <option value="{{this.clubId}}">{{this.clubName}} (ID: {{this.clubId}})</option>
                             {{/each}}
-                    </select> --}}
-                    <input type="submit">
+                        </select>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="input-studentId-update">Select a Student: </label>
+                        <select name="input-studentId" id="input-studentId-update">
+                            <option value="">Student Name</option>
+                                {{#each students}}
+                                <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}} (ID: {{this.studentId}})</option>
+                                {{/each}}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit">
+                    </div>
                 </form> 
             </div>
     </div>

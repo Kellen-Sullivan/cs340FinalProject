@@ -281,10 +281,6 @@ if (data.clubPresident === '' && data.clubCategory === '') {
 
 
 
-// **********************************************************Club_Participation Page ************************************************************
-
-
-
 // **********************************************************Students Page ************************************************************
 app.get('/Students', function(req, res) {
     console.log("made it to students!");
@@ -742,26 +738,24 @@ let selectEventEntry = `SELECT * FROM Events WHERE eventId = ?`
 
 // **********************************************************Club_Participation Page ************************************************************
 app.get('/ClubParticipation', function(req, res) {
-    let query1;       // Will get club_participation, dynamic based on search term
+    let query1 = `SELECT Club_Participation.clubParticipationId, Clubs.clubName, Students.studentFName, Students.studentLName
+        FROM Club_Participation
+        INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
+        INNER JOIN Students ON Club_Participation.studentId = Students.studentId`      // Will get club_participation, and student/club names to display in table
 
-    let query2 = "SELECT * FROM Clubs"
+    let query2 = `SELECT * FROM Clubs`
 
     let query3;       // Will get students, dynamic based on search term
 
-    // // If there is no query string, we just perform a basic SELECT
+    // If there is no query string 
     if (req.query.studentLName === undefined)
     {
-        query1 = "SELECT * FROM Club_Participation"
-        query3 = "SELECT * FROM Students"
+        query3 = `SELECT * FROM Students`
     }
 
     // If there is a query string, we assume this is a search, and return desired results
     else
     {
-        // we joined Club_Participation.studentId with Students so that the user can search by student last name
-        query1 = `SELECT Club_Participation.clubParticipationId, Club_Participation.clubId, Club_Participation.studentId FROM Club_Participation 
-                  INNER JOIN Students ON Club_Participation.studentId = Students.studentId 
-                  WHERE Students.studentLName LIKE "${req.query.studentLName}%"`
         query3 = `SELECT * FROM Students WHERE studentLName LIKE "${req.query.studentLName}%"`
     } 
 
@@ -777,7 +771,7 @@ app.get('/ClubParticipation', function(req, res) {
                 // save the student entries
                 let students = rows;
 
-                return res.render('clubParticipation', {data:club_particpations, clubs:clubs, students:students});    // want to have third argument, students:students
+                return res.render('clubParticipation', {data:club_particpations, clubs:clubs, students:students});   
             })
         })
     }) 
@@ -808,8 +802,12 @@ app.post('/add-clubParticipation-ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT * FROM Club_Participation;`;
+            // This query gets the names of the club and students based off of the ids from data
+            query2 = `SELECT Club_Participation.clubParticipationId, Clubs.clubName, Students.studentFName, Students.studentLName
+                      FROM Club_Participation
+                      INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
+                      INNER JOIN Students ON Club_Participation.studentId = Students.studentId`;
+                      
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
