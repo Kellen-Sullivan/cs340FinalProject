@@ -37,6 +37,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
             <td>{{this.eventName}}</td>
             <td>{{this.eventDateTime}}</td>
             <td>{{this.eventDescription}}</td>
+            <td>{{this.eventLocation}}</td>
             <td><button onclick="deleteEvent({{this.eventId}})">Delete</button></td>
             <td><button onclick="updateEvent({{this.eventId}})">Update</button></td>
         </tr>
@@ -70,6 +71,9 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
                         <label for="input-eventDateTime">Date/Time</label>
                         <input type="datetime-local" id="input-eventDateTime" required>
+
+                        <label for="input-eventLocation">Location</label>
+                        <input type="text" id="input-eventLocation">
 
                         <select name="input-clubId" id="input-clubId">
                         <option value="">Select a Club</option>
@@ -106,6 +110,9 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
                         <label for="update-input-eventDateTime">Date/Time</label>
                         <input type="datetime-local" id="update-input-eventDateTime">
+
+                        <label for="update-input-eventLocation">Location</label>
+                        <input type="text" id="update-input-eventLocation">
 
 
                         <select name="update-input-clubId" id="update-input-clubId">

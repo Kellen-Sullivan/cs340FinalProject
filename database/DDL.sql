@@ -8,6 +8,7 @@ SET AUTOCOMMIT = 0;
 
 -- Drop all tables if they exists
 DROP TABLE IF EXISTS Students, Categories, Clubs, Club_Participation, Events;
+DROP VIEW IF EXISTS CategoryClubSize;
 
 -- Create Students table
 CREATE TABLE Students (
@@ -64,19 +65,14 @@ CREATE TABLE Events (
     FOREIGN KEY (clubId) REFERENCES Clubs(clubId) ON DELETE CASCADE -- If a club is deleted, its events are too
 );
 
-CREATE TRIGGER update_club_count_on_insert
-AFTER INSERT ON clubs
-FOR EACH ROW
-UPDATE categories
-SET clubSize = clubSize + 1
-WHERE id = NEW.clubCategory;
-
-CREATE TRIGGER update_club_count_on_delete
-AFTER DELETE ON clubs
-FOR EACH ROW
-UPDATE categories
-SET clubSize = clubSize - 1
-WHERE id = OLD.clubCategory;
+CREATE VIEW CategoryClubSize AS
+SELECT c.categoryId, 
+       c.categoryName, 
+       COUNT(cl.clubId) AS categorySize,
+       c.categoryDescription
+FROM Categories c
+LEFT JOIN Clubs cl ON c.categoryId = cl.clubCategory
+GROUP BY c.categoryId;
 
 
 -- Insert data into all tables
@@ -90,10 +86,10 @@ VALUES
 
 INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident, clubCategory)
 VALUES 
-("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10, SELECT categoryId FROM Categories WHERE categoryName = "Recreation"),
+("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10, (SELECT categoryId FROM Categories WHERE categoryName = "Recreation")),
 ("Bake Sale Club", "Bake fresh goods, and raise money for good causes!", 500, 7, NULL),
-("Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12, SELECT categoryId FROM Categories WHERE categoryName = "Sports"),
-("Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5, SELECT categoryId FROM Categories WHERE categoryName = "Math");
+("Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12, (SELECT categoryId FROM Categories WHERE categoryName = "Sports")),
+("Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5, (SELECT categoryId FROM Categories WHERE categoryName = "Math"));
 
 INSERT INTO Students (studentFName, studentLName, studentEmail, studentMajor, studentGrade)
 VALUES 
