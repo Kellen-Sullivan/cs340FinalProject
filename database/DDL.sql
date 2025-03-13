@@ -63,6 +63,20 @@ CREATE TABLE Events (
     FOREIGN KEY (clubId) REFERENCES Clubs(clubId) ON DELETE CASCADE -- If a club is deleted, its events are too
 );
 
+CREATE TRIGGER update_club_count_on_insert
+AFTER INSERT ON clubs
+FOR EACH ROW
+UPDATE categories
+SET clubSize = clubSize + 1
+WHERE id = NEW.category_id;
+
+CREATE TRIGGER update_club_count_on_delete
+AFTER DELETE ON clubs
+FOR EACH ROW
+UPDATE categories
+SET clubSize = clubSize - 1
+WHERE id = OLD.category_id;
+
 
 -- Insert data into all tables
 INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident)
