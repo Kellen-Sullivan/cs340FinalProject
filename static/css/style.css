@@ -141,3 +141,10 @@ Adapted the modal code from my cs290 final project
   z-index: 1010;
 }
 
+/* Styling for the forms in the modals */
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}

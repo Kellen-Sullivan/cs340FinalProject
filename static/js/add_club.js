@@ -131,21 +131,23 @@ addRowToTable = (data) => {
     clubIdCell.innerText = newRow.clubId; // Should set the clubParticipationId automatically to the next val (auto-incrementing)
     clubNameCell.innerText = newRow.clubName;
     clubDescriptionCell.innerText = newRow.clubDescription;
-    clubBudgetCell.innerText = newRow.clubBudgetCell;
-    clubPresidentCell.innerText = newRow.clubPresidentCell;
-    clubCategoryCell.innerText = newRow.clubCategoryCell;
+    clubBudgetCell.innerText = newRow.clubBudget;
+    clubPresidentCell.innerText = newRow.clubPresident;
+    clubCategoryCell.innerText = newRow.clubCategory;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
         deleteClub(newRow.clubParticipationId);
     };
+    deleteCell.appendChild(deleteButton)
 
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
+    updateButton = document.createElement("button");
+    updateButton.innerHTML = "Update";
+    updateButton.onclick = function(){
         updateClub(newRow.clubParticipationId);
     };
+    updateCell.appendChild(updateButton)
 
     // Add the cells to the row 
     row.appendChild(clubIdCell);

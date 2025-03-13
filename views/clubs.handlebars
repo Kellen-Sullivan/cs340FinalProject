@@ -62,31 +62,46 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Adapted from nodejs-starter app code
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
+                <div class="form-container">
                     <form id="add-club-form-ajax">
-                        <label for="input-clubName">Name</label>
-                        <input type="text" id="input-clubName">
+                        <div class="form-group">
+                            <label for="input-clubName">Name</label>
+                            <input type="text" id="input-clubName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-clubDescription">Description</label>
+                            <input type="text" id="input-clubDescription">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-clubBudget">Budget</label>
+                            <input type="number" id="input-clubBudget">
+                        </div>
 
-                        <label for="input-clubDescription">Description</label>
-                        <input type="text" id="input-clubDescription">
+                        <div class="form-group">
+                            <select name="input-clubPresident" id="input-clubPresident">
+                            <option value="">Select a Student</option>
+                                {{#each students}}
+                                <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
 
-                        <label for="input-clubBudget">Budget</label>
-                        <input type="number" id="input-clubBudget">
-
-                        <select name="input-clubPresident" id="input-clubPresident">
-                        <option value="">Select a Student</option>
-                            {{#each students}}
-                            <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
-                            {{/each}}
-                        </select>
-
-                        <select name="input-clubCategory" id="input-clubCategory">
-                        <option value="">Select a Category</option>
-                            {{#each categories}}
-                            <option value="{{this.categoryId}}">{{this.categoryName}}</option>
-                            {{/each}}
-                        </select>
-                        <input type="submit">
+                        <div class="form-group"> 
+                            <select name="input-clubCategory" id="input-clubCategory">
+                            <option value="">Select a Category</option>
+                                {{#each categories}}
+                                <option value="{{this.categoryId}}">{{this.categoryName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="submit">
+                        </div>
                     </form>
+                </div>
             </div>
     </div>
 </div>
@@ -106,23 +121,42 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                 <form id="update-club-form-ajax">
-                    <label for="input-clubName">Name</label>
-                    <input type="text" id="input-clubName-update">
+                    <div class="form-group">
+                        <label for="input-clubName-update">Name</label>
+                        <input type="text" id="input-clubName-update">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-clubDescription-update">Description</label>
+                        <input type="text" id="input-clubDescription-update">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-clubBudget-update">Budget</label>
+                        <input type="number" id="input-clubBudget-update">
+                    </div>
 
-                    <label for="input-clubDescription">Description</label>
-                    <input type="text" id="input-clubDescription-update">
-
-                    <label for="input-clubBudget">Budget</label>
-                    <input type="number" id="input-clubBudget-update">
-
-                    {{!-- <label for="input-studentId">Or Select a new Student: </label>
-                    <select name="input-studentId" id="input-studentId">
-                        <option value="">Student Name</option>
+                    <div class="form-group">
+                        <select name="input-clubPresident-update" id="input-clubPresident-update">
+                        <option value="">Select a Student</option>
                             {{#each students}}
-                            <option value="{{this.studentId}}">ID: {{this.studentId}} {{this.studentFName}} {{this.studentLName}}</option>
+                            <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
                             {{/each}}
-                    </select> --}}
-                    <input type="submit">
+                        </select>
+                    </div>
+
+                    <div class="form-group"> 
+                        <select name="input-clubCategory-update" id="input-clubCategory-update">
+                        <option value="">Select a Category</option>
+                            {{#each categories}}
+                            <option value="{{this.categoryId}}">{{this.categoryName}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit">
+                    </div>
                 </form> 
             </div>
     </div>

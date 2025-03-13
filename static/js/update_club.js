@@ -37,6 +37,8 @@ function updateSubmitHandler(e) {
     let inputClubName = document.getElementById("input-clubName-update");
     let inputClubDescription = document.getElementById("input-clubDescription-update");
     let inputClubBudget = document.getElementById("input-clubBudget-update");
+    let inputClubPresident = document.getElementById("input-clubPresident-update");
+    let inputClubCategory = document.getElementById("input-clubCategory-update");
     
 
     // Get the values from the form fields
@@ -44,6 +46,8 @@ function updateSubmitHandler(e) {
     let clubNameValue = inputClubName.value;
     let clubDescriptionValue = inputClubDescription.value;
     let clubBudgetValue = inputClubBudget.value;
+    let clubPresidentValue = inputClubPresident.value;
+    let clubCategoryValue = inputClubCategory.value;
     
     if (isNaN(clubIdValue)) // if both entries are empty return
     {
@@ -55,7 +59,9 @@ function updateSubmitHandler(e) {
         clubId: clubIdValue,
         clubName: clubNameValue,
         clubDescription: clubDescriptionValue,
-        clubBudget: clubBudgetValue
+        clubBudget: clubBudgetValue,
+        clubPresident: clubPresidentValue,
+        clubCategory: clubCategoryValue
     }
     
     // Setup our AJAX request
@@ -90,6 +96,24 @@ function updateClub(clubId) {
 
     // update global var value
     globalClubId = clubId;
+
+    /*----------------------code for prepopulating all fields with current values----------------*/
+    // Get the row for this clubId
+    let row = document.querySelector(`tr[data-value="${clubId}"]`);
+    let cells = row.getElementsByTagName('td');
+
+    // Populate form fields with current values
+    document.getElementById('input-clubName-update').value = cells[1].textContent; // clubName
+    document.getElementById('input-clubDescription-update').value = cells[2].textContent; // clubDescription
+    document.getElementById('input-clubBudget-update').value = cells[3].textContent; // clubBudget
+    
+    // For dropdowns (president and category), set the selected option
+    let presidentId = cells[4].textContent; 
+    let categoryId = cells[5].textContent;
+    
+    document.getElementById('input-clubPresident-update').value = presidentId;
+    document.getElementById('input-clubCategory-update').value = categoryId;
+    /*----------------------code for prepopulating all fields with current values-----------------*/
 
     // update the selected row
     let updateClubForm = document.getElementById('update-club-form-ajax');
@@ -157,7 +181,7 @@ function updateClub(clubId) {
 
 // })
 
-function updateRow(data, clubParticipationId){
+function updateRow(data, clubId){
     let parsedData = JSON.parse(data);
     
     let table = document.getElementById("club-table");
@@ -173,10 +197,14 @@ function updateRow(data, clubParticipationId){
             let nameCell = updateRowIndex.getElementsByTagName("td")[1];
             let descCell = updateRowIndex.getElementsByTagName("td")[2];
             let budgetCell = updateRowIndex.getElementsByTagName("td")[3];
+            let presidentCell = updateRowIndex.getElementsByTagName("td")[4];
+            let categoryCell = updateRowIndex.getElementsByTagName("td")[5];
 
             nameCell.innerHTML = parsedData[0].clubName;
             descCell.innerHTML = parsedData[0].clubDescription;
             budgetCell.innerHTML = parsedData[0].clubBudget;
+            presidentCell.innerHTML = parsedData[0].clubPresident;
+            categoryCell.innerHTML = parsedData[0].clubCategory;
        }
     }
 }

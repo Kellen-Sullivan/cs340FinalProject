@@ -10,7 +10,7 @@ Following code section was adapted from my cs290 final project
 //show the update club Particpation modal when clicked
 function showModal(event) {
     var modal = document.getElementById("update-clubParticipation-modal")
-    var backdrop = document.getElementById("modal-backdrop")
+    var backdrop = document.getElementById("update-modal-backdrop")
     modal.classList.remove("hidden")
     backdrop.classList.remove("hidden")
 }
@@ -18,7 +18,7 @@ function showModal(event) {
 //close the add club Particpation modal when X or cancel clicked
 function closeModal(event) {
     var modal = document.getElementById("update-clubParticipation-modal")
-    var backdrop = document.getElementById("modal-backdrop") 
+    var backdrop = document.getElementById("update-modal-backdrop") 
     modal.classList.add("hidden")
     backdrop.classList.add("hidden")
 }

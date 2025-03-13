@@ -61,13 +61,13 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                         <select name="input-clubId" id="input-clubId">
                         <option value="">Select a Club</option>
                             {{#each clubs}}
-                            <option value="{{this.clubId}}">{{this.clubName}}</option>
+                            <option value="{{this.clubId}}">ID: {{this.clubId}} {{this.clubName}}</option>
                             {{/each}}
                         </select>
                         <select name="input-studentId" id="input-studentId">
                         <option value="">Select a Student</option>
                             {{#each students}}
-                            <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
+                            <option value="{{this.studentId}}">ID: {{this.studentId}} {{this.studentFName}} {{this.studentLName}}</option>
                             {{/each}}
                         </select>
                         <input type="submit">

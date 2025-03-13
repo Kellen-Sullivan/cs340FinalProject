@@ -1,7 +1,7 @@
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 var exphbs = require('express-handlebars');
-PORT        = 7514;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 7513;                 // Set a port number at the top so it's easy to change in the future
 
 // handlebars
 app.engine('handlebars', exphbs.engine({
@@ -80,6 +80,8 @@ app.post('/add-club-ajax', function(req, res)
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
+    console.log(data)
+
     let query1;
     
     // Capture NULL values and create the query
@@ -103,8 +105,8 @@ app.post('/add-club-ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on Students
-            query2 = `SELECT * FROM Clubs;`;
+            // If there was no error, perform a SELECT * on Clubs
+            query2 = `SELECT * FROM Clubs`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
@@ -157,35 +159,122 @@ let clubId = data.clubId;
 let clubName = data.clubName; // change to clubCategory (Probably want to add ability to update other fields)
 let clubDescription = data.clubDescription;
 let clubBudget = parseInt(data.clubBudget);
+let clubPresident = parseInt(data.clubPresident);
+let clubCategory = parseInt(data.clubCategory);
 
-let queryUpdateClub = `UPDATE Clubs SET clubName = ?, clubDescription = ?, clubBudget = ? WHERE clubId = ?`;
+let queryUpdateClub;
 let selectClubEntry = `SELECT * FROM Clubs WHERE clubId = ?`
 
-        // Run the 1st query
-        db.pool.query(queryUpdateClub, [clubName, clubDescription, clubBudget, clubId], function(error, rows, fields){
-            if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-            res.sendStatus(400);
-            }
+// Capture NULL values and create the query
+if (data.clubPresident === '' && data.clubCategory === '') {
+    queryUpdateClub = `UPDATE Clubs SET clubName = ?, clubDescription = ?, clubBudget = ? WHERE clubId = ?`;
+    // Run the 1st query
+    db.pool.query(queryUpdateClub, [clubName, clubDescription, clubBudget, clubId], function(error, rows, fields){
+        if (error) {
 
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
-            else
-            {
-                // Run the second query
-                db.pool.query(selectClubEntry, [clubId], function(error, rows, fields) {
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(selectClubEntry, [clubId], function(error, rows, fields) {
 
-                    if (error) {
-                        console.log(error);
-                        res.sendStatus(400);
-                    } else {
-                        res.send(rows);
-                    }
-                })
-            }
-})});
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+} else if (data.clubPresident === '') {
+    queryUpdateClub = `UPDATE Clubs SET clubName = ?, clubDescription = ?, clubBudget = ? , clubCategory = ? WHERE clubId = ?`;
+    // Run the 1st query
+    db.pool.query(queryUpdateClub, [clubName, clubDescription, clubBudget, clubCategory, clubId], function(error, rows, fields){
+        if (error) {
+
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(selectClubEntry, [clubId], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+
+} else if (data.clubCategory === '') {
+    queryUpdateClub = `UPDATE Clubs SET clubName = ?, clubDescription = ?, clubBudget = ? , clubPresident = ? WHERE clubId = ?`;
+    // Run the 1st query
+    db.pool.query(queryUpdateClub, [clubName, clubDescription, clubBudget, clubPresident, clubId], function(error, rows, fields){
+        if (error) {
+
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(selectClubEntry, [clubId], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+
+} else {
+    queryUpdateClub = `UPDATE Clubs SET clubName = ?, clubDescription = ?, clubBudget = ? , clubPresident = ?, clubCategory = ? WHERE clubId = ?`;
+    // Run the 1st query
+    db.pool.query(queryUpdateClub, [clubName, clubDescription, clubBudget, clubPresident, clubCategory, clubId], function(error, rows, fields){
+        if (error) {
+
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(selectClubEntry, [clubId], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+    }
+});
 
 
 // **********************************************************Clubs Page************************************************************
@@ -768,6 +857,7 @@ app.delete('/delete-clubParticipation-ajax/', function(req,res,next){
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
 app.put('/put-clubParticipation-ajax', function(req,res,next){
 let data = req.body;
+console.log(data)
 
 let clubId = parseInt(data.clubId);
 let clubParticipationId = parseInt(data.clubParticipationId);
