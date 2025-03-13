@@ -68,14 +68,14 @@ AFTER INSERT ON clubs
 FOR EACH ROW
 UPDATE categories
 SET clubSize = clubSize + 1
-WHERE id = NEW.categoryId;
+WHERE id = NEW.clubCategory;
 
 CREATE TRIGGER update_club_count_on_delete
 AFTER DELETE ON clubs
 FOR EACH ROW
 UPDATE categories
 SET clubSize = clubSize - 1
-WHERE id = OLD.categoryId;
+WHERE id = OLD.clubCategory;
 
 
 -- Insert data into all tables
@@ -87,12 +87,12 @@ VALUES
 ("Sports", 0, "Clubs that participate in sports, whether competitively or recreationally."),
 ("Math", 0,"Clubs related to the field of mathematics.");
 
-INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident)
+INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident, clubCategory)
 VALUES 
-("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10),
-("Bake Sale Club", "Bake fresh goods, and raise money for good causes!", 500, 7),
-("Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12),
-("Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5);
+("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10, SELECT categoryId FROM Categories WHERE categoryName = "Recreation"),
+("Bake Sale Club", "Bake fresh goods, and raise money for good causes!", 500, 7, NULL),
+("Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12, SELECT categoryId FROM Categories WHERE categoryName = "Sports"),
+("Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5, SELECT categoryId FROM Categories WHERE categoryName = "Math");
 
 INSERT INTO Students (studentFName, studentLName, studentEmail, studentMajor, studentGrade)
 VALUES 
