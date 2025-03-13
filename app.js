@@ -743,21 +743,19 @@ app.get('/ClubParticipation', function(req, res) {
         INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
         INNER JOIN Students ON Club_Participation.studentId = Students.studentId`      // Will get club_participation, and student/club names to display in table
 
-    let query2 = `SELECT * FROM Clubs`
+   let query2 = `SELECT * FROM Clubs`
+   let query3 = `SELECT * FROM Students`
 
-    let query3;       // Will get students, dynamic based on search term
-
-    // If there is no query string 
-    if (req.query.studentLName === undefined)
-    {
-        query3 = `SELECT * FROM Students`
-    }
-
-    // If there is a query string, we assume this is a search, and return desired results
-    else
-    {
-        query3 = `SELECT * FROM Students WHERE studentLName LIKE "${req.query.studentLName}%"`
+   // if a search is present, add a where clause to query 1 so that the serach will be limited
+   if (req.query.studentLName) {
+    query1 += ` WHERE Students.studentLName LIKE "${req.query.studentLName}%"`
     } 
+    else if (req.query.studentFName) {
+        query1 += ` WHERE Students.studentFName LIKE "${req.query.studentFName}%"`
+    } 
+    else if (req.query.clubName) {
+        query1 += ` WHERE Clubs.clubName LIKE "${req.query.clubName}%"`
+    }
 
     db.pool.query(query1, function(error, rows, fields){ // Execute query
         // save the club_participation entries
@@ -807,7 +805,7 @@ app.post('/add-clubParticipation-ajax', function(req, res)
                       FROM Club_Participation
                       INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
                       INNER JOIN Students ON Club_Participation.studentId = Students.studentId`;
-                      
+
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400

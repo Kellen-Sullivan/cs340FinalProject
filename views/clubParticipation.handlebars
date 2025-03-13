@@ -85,20 +85,6 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     </div>
 </div>
 
-{{!-- 
-Citation for the following search feature
-Date: 2/27/2025
-Adapted from nodejs-starter app code
-Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
-<h2>Search Club Participation</h2>
-<form id="search-student-html" method='GET' action='/ClubParticipation'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
-    <label for="input-lname">Search by Last Name: </label>
-    <input type="text" name="studentLName" id="input-studentLName-html-search">
-    
-    <input type="submit">
-    <a href='/ClubParticipation'><button>Reset</button></a>
-</form>
-
 {{!- modal for updating a club participation id}}
 <div id="update-modal-backdrop" class="hidden"></div>
     <div id="update-clubParticipation-modal" class="hidden">
@@ -143,6 +129,47 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
             </div>
     </div>
 </div>
+
+{{!-- 
+Citation for the following search feature
+Date: 2/27/2025
+Adapted from nodejs-starter app code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
+<div class="Search Forms">
+    <h2>Search Club Participation</h2>
+    <div class="form-group">
+        <form id="search-studentFName-html" method='GET' action='/ClubParticipation'> 
+            <label for="input-fname">Search by First Name: </label>
+            <input type="text" name="studentFName" id="input-studentFName-html-search">
+            
+            <input type="submit">
+            <a href='/ClubParticipation'><button>Reset</button></a>
+        </form>
+    </div>
+    
+    <div class="form-group">
+        <form id="search-studentLName-html" method='GET' action='/ClubParticipation'> 
+            <label for="input-lname">Search by Last Name: </label>
+            <input type="text" name="studentLName" id="input-studentLName-html-search">
+            
+            <input type="submit">
+            <a href='/ClubParticipation'><button>Reset</button></a>
+        </form>
+    </div>
+   
+    <div class="form-group">
+        <form id="search-clubName-html" method='GET' action='/ClubParticipation'> 
+            <label for="input-clubName">Search by Club Name: </label>
+            <input type="text" name="clubName" id="input-clubName-html-search">
+            
+            <input type="submit">
+            <a href='/ClubParticipation'><button>Reset</button></a>
+        </form>
+    </div>
+</div>
+
+
+
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> <!-- Allow use of jQuery-->
