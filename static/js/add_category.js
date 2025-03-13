@@ -6,7 +6,6 @@ Following code section was adapted from my cs290 final project
 
 //show the add category modal when clicked
 function showAddModal(event) {
-    console.log("category button clicked!");
     var modal = document.getElementById("add-category-modal")
     var backdrop = document.getElementById("add-modal-backdrop")
     modal.classList.remove("hidden")

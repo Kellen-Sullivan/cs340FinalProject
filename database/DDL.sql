@@ -79,6 +79,14 @@ WHERE id = OLD.categoryId;
 
 
 -- Insert data into all tables
+
+INSERT INTO Categories (categoryName, categorySize, categoryDescription) 
+VALUES
+("Recreation", 0, "Clubs not related to professional majors"),
+("Business", 0, "Clubs related to aspects of the business industry. They may teach business related topics, or be overseen by a business professor."),
+("Sports", 0, "Clubs that participate in sports, whether competitively or recreationally."),
+("Math", 0,"Clubs related to the field of mathematics.");
+
 INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident)
 VALUES 
 ("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10),
@@ -100,12 +108,7 @@ VALUES
 ((SELECT clubId FROM Clubs WHERE clubName = "Bake Sale Club"), "Sunday Sale", "2025-02-02 14:00:00", "Bake sale to raise money for unemployed cs graduates."),
 ((SELECT clubId FROM Clubs WHERE clubName = "Lacrosse Club"), "Monday Practice", "2025-02-03 18:00:00", "Monday Lacrosse Practice for the varsity team.");
 
-INSERT INTO Categories (categoryName, categoryDescription) 
-VALUES
-("Recreation", "Clubs not related to professional majors"),
-("Business","Clubs related to aspects of the business industry. They may teach business related topics, or be overseen by a business professor."),
-("Sports","Clubs that participate in sports, whether competitively or recreationally."),
-("Math","Clubs related to the field of mathematics.");
+
 
 INSERT INTO Club_Participation (clubId, studentId)
 VALUES

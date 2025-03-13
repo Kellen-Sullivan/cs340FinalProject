@@ -96,6 +96,27 @@ function updateEvent(eventId) {
     // update global var value
     globalEventId = eventId;
 
+/*----------------------code for prepopulating all fields with current values----------------*/
+    // Get the row for this clubId
+    let row = document.querySelector(`tr[data-value="${eventId}"]`);
+    let cells = row.getElementsByTagName('td');
+
+    // Populate form fields with current values
+    document.getElementById('update-input-eventName').value = cells[2].textContent; // eventName
+    document.getElementById('update-input-eventDescription').value = cells[4].textContent; // eventDescription
+
+    // Handle eventDateTime - Format it to 'YYYY-MM-DDTHH:MM'
+    let eventDateTime = cells[3].textContent; // assuming this is in a non-standard format
+    let formattedDateTime = formatDateTime(eventDateTime); // Convert to 'YYYY-MM-DDTHH:MM'
+
+    document.getElementById('update-input-eventDateTime').value = formattedDateTime; // Set to datetime-local input field
+    
+    // For dropdown (clubId), set the selected option
+    let clubId = cells[1].textContent; 
+    
+    document.getElementById('update-input-clubId').value = clubId;  
+
+
     // update the selected row
     let updateEventForm = document.getElementById('update-event-form-ajax');
 
@@ -104,6 +125,25 @@ function updateEvent(eventId) {
     
     // Add the submit event handler
     updateEventForm.addEventListener("submit", updateSubmitHandler);   
+}
+
+// Function to format datetime to 'YYYY-MM-DDTHH:MM' format
+function formatDateTime(dateTime) {
+    // Assuming dateTime is in the format 'MM/DD/YYYY HH:MM AM/PM' or 'YYYY-MM-DD HH:MM AM/PM'
+    let dateObj = new Date(dateTime); // Convert to Date object
+    if (isNaN(dateObj)) {
+        console.error("Invalid date format:", dateTime);
+        return "";
+    }
+
+    // Extract the date and time in the required format
+    let year = dateObj.getFullYear();
+    let month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Get month (0-based, so add 1)
+    let day = String(dateObj.getDate()).padStart(2, '0'); // Get day
+    let hours = String(dateObj.getHours()).padStart(2, '0'); // Get hours
+    let minutes = String(dateObj.getMinutes()).padStart(2, '0'); // Get minutes
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`; // Format as 'YYYY-MM-DDTHH:MM'
 }
 
 
@@ -120,13 +160,15 @@ function updateRow(data, eventId){
             // Get the location of the row where we found the matching eventId
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            let nameCell = updateRowIndex.getElementsByTagName("td")[1];
-            let descCell = updateRowIndex.getElementsByTagName("td")[2];
-            let budgetCell = updateRowIndex.getElementsByTagName("td")[3];
+            let clubIdCell = updateRowIndex.getElementsByTagName("td")[1];
+            let nameCell = updateRowIndex.getElementsByTagName("td")[2];
+            let descCell = updateRowIndex.getElementsByTagName("td")[4];
+            let datetimeCell = updateRowIndex.getElementsByTagName("td")[3];
 
+            clubIdCell.innerHTML = parsedData[0].clubId;
             nameCell.innerHTML = parsedData[0].eventName;
             descCell.innerHTML = parsedData[0].eventDescription;
-            budgetCell.innerHTML = parsedData[0].eventBudget;
+            datetimeCell.innerHTML = parsedData[0].eventDateTime;
        }
     }
 }
