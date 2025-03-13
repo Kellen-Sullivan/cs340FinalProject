@@ -59,6 +59,7 @@ CREATE TABLE Events (
     eventName varchar(50) NOT NULL,
     eventDateTime datetime NOT NULL,
     eventDescription varchar(256),
+    eventLocation varchar(256),
     PRIMARY KEY (eventId),
     FOREIGN KEY (clubId) REFERENCES Clubs(clubId) ON DELETE CASCADE -- If a club is deleted, its events are too
 );
@@ -101,12 +102,12 @@ VALUES
 ("Kelly", "Allen", "allenk@fu.edu", "Business", "Junior"),
 ("Justin", "Scott", "scottj@fu.edu", "Math", "Senior");
 
-INSERT INTO Events (clubId, eventName, eventDateTime, eventDescription)
+INSERT INTO Events (clubId, eventName, eventDateTime, eventDescription, eventLocation)
 VALUES
-((SELECT clubId FROM Clubs WHERE clubName = "Chess Club"), "Weekly Meeting", "2025-02-04 18:00:00", "This is the weekly meeting time for chess club. We will play games and eat pizza!"),
-((SELECT clubId FROM Clubs WHERE clubName = "Chess Club"), "Weekend Chess Tournament", "2025-02-02 10:00:00", "This event is a weekend chess tournament put on with clubs from other schools."),
-((SELECT clubId FROM Clubs WHERE clubName = "Bake Sale Club"), "Sunday Sale", "2025-02-02 14:00:00", "Bake sale to raise money for unemployed cs graduates."),
-((SELECT clubId FROM Clubs WHERE clubName = "Lacrosse Club"), "Monday Practice", "2025-02-03 18:00:00", "Monday Lacrosse Practice for the varsity team.");
+((SELECT clubId FROM Clubs WHERE clubName = "Chess Club"), "Weekly Meeting", "2025-02-04 18:00:00", "This is the weekly meeting time for chess club. We will play games and eat pizza!", "Room 304"),
+((SELECT clubId FROM Clubs WHERE clubName = "Chess Club"), "Weekend Chess Tournament", "2025-02-02 10:00:00", "This event is a weekend chess tournament put on with clubs from other schools.", "Event Hall"),
+((SELECT clubId FROM Clubs WHERE clubName = "Bake Sale Club"), "Sunday Sale", "2025-02-02 14:00:00", "Bake sale to raise money for unemployed cs graduates.", "MU"),
+((SELECT clubId FROM Clubs WHERE clubName = "Lacrosse Club"), "Monday Practice", "2025-02-03 18:00:00", "Monday Lacrosse Practice for the varsity team.", "IM Field");
 
 
 
