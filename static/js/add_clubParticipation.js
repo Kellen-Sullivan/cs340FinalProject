@@ -106,33 +106,38 @@ addRowToTable = (data) => {
     // Create a row and 4 cells
     let row = document.createElement("TR");
     let clubParticipationIdCell = document.createElement("TD");
-    let clubIdCell = document.createElement("TD");
-    let studentIdCell = document.createElement("TD");
+    let clubNameCell = document.createElement("TD");
+    let studentFNameCell = document.createElement("TD");
+    let studentLNameCell = document.createElement("TD");
 
     let deleteCell = document.createElement("TD");
     let updateCell = document.createElement("TD");
 
     // Fill the cells with correct data
     clubParticipationIdCell.innerText = newRow.clubParticipationId; // Should set the clubParticipationId automatically to the next val (auto-incrementing)
-    clubIdCell.innerText = newRow.clubId;
-    studentIdCell.innerText = newRow.studentId;
+    clubNameCell.innerText = newRow.clubName;
+    studentFNameCell.innerText = newRow.studentFName;
+    studentLNameCell.innerText = newRow.studentLName;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
-        deleteClubParticipation(newRow.clubParticipationId);
+    deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
+        deleteClub(newRow.clubParticipationId);
     };
+    deleteCell.appendChild(deleteButton)
 
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
-        updateClubParticipation(newRow.clubParticipationId);
+    updateButton = document.createElement("button");
+    updateButton.innerHTML = "Update";
+    updateButton.onclick = function(){
+        updateClub(newRow.clubParticipationId);
     };
+    updateCell.appendChild(updateButton)
 
     // Add the cells to the row 
     row.appendChild(clubParticipationIdCell);
-    row.appendChild(clubIdCell);
-    row.appendChild(studentIdCell);
+    row.appendChild(clubNameCell);
+    row.appendChild(studentFNameCell);
+    row.appendChild(studentLNameCell);
     row.appendChild(deleteCell);
     row.appendChild(updateCell);
 
