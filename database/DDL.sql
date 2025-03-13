@@ -68,14 +68,14 @@ AFTER INSERT ON clubs
 FOR EACH ROW
 UPDATE categories
 SET clubSize = clubSize + 1
-WHERE id = NEW.category_id;
+WHERE id = NEW.categoryId;
 
 CREATE TRIGGER update_club_count_on_delete
 AFTER DELETE ON clubs
 FOR EACH ROW
 UPDATE categories
 SET clubSize = clubSize - 1
-WHERE id = OLD.category_id;
+WHERE id = OLD.categoryId;
 
 
 -- Insert data into all tables
