@@ -73,7 +73,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                         <input type="datetime-local" id="input-eventDateTime" required>
 
                         <label for="input-eventLocation">Location</label>
-                        <input type="text" id="input-eventLocation">
+                        <input type="text" id="input-eventLocation" required>
 
                         <select name="input-clubId" id="input-clubId">
                         <option value="">Select a Club</option>
@@ -103,16 +103,16 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 {{!-- Form to add a record to the table--}} 
                 <form id="update-event-form-ajax">
                     <label for="update-input-eventName">Name</label>
-                        <input type="text" id="update-input-eventName">
+                        <input type="text" id="update-input-eventName" required>
 
                         <label for="update-input-eventDescription">Description</label>
                         <input type="text" id="update-input-eventDescription">
 
                         <label for="update-input-eventDateTime">Date/Time</label>
-                        <input type="datetime-local" id="update-input-eventDateTime">
+                        <input type="datetime-local" id="update-input-eventDateTime" required>
 
                         <label for="update-input-eventLocation">Location</label>
-                        <input type="text" id="update-input-eventLocation">
+                        <input type="text" id="update-input-eventLocation" required>
 
 
                         <select name="update-input-clubId" id="update-input-clubId">
@@ -132,13 +132,18 @@ Citation for the following search feature
 Date: 2/27/2025
 Adapted from nodejs-starter app code
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
-<h2>Search Events by Name</h2>
+<h2>Search Events</h2>
 <form id="search-event-by-name-html" method='GET' action='/Events'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
-    <label for="input-eventName">Event Name: </label>
-    <input type="text" name="eventName" id="input-event-html-search">
+    <select name="eventSearchChoice" id="eventSearchChoice">
+        <option value="none">Select</option>
+        <option value="eventName">Event Name</option>
+        <option value="eventLocation">Event Location</option>
+    </select>
+    
+    <input type="text" name="searchTerm" id="input-event-html-search">
     
     <input type="submit">
-    <a href='/Events'><button>Reset</button></a>
+    <a href='/Events'><button type="button">Reset</button></a>
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

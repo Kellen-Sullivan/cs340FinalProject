@@ -439,11 +439,15 @@ app.get('/Categories', function(req, res) {
     let query1; // Query to fetch categories
 
     // Determine the query for categories based on the presence of a search term
-    if (!req.query.categoryName) {
-        query1 = "SELECT * FROM Categories"; // Fetch all categories
+    let searchColumn = req.query.categorySearchChoice; // Get dropdown value
+    let searchTerm = req.query.searchTerm; // Get search term
+
+    if (!searchTerm || searchColumn === "none") {
+        query1 = "SELECT * FROM CategoryClubSize"; // Fetch all categories
+    } else if (searchColumn === "categoryName" || searchColumn === "categorySize") {
+        query1 = `SELECT * FROM CategoryClubSize WHERE ${searchColumn} LIKE '%${searchTerm}%'`;
     } else {
-        // Fetch categories that match the search term
-        query1 = `SELECT * FROM Categories WHERE Categories.categoryName LIKE "${req.query.categoryName}%"`;
+        query1 = "SELECT * FROM CategoryClubSize"; // Fallback if an invalid column is selected
     }
 
     // Execute the first query to fetch cagetories
@@ -476,9 +480,9 @@ app.post('/add-category-ajax', function(req, res)
 
     // Create the query and run it on the database
     if(data.categoryDescription === '') { // allow categoryDescription to be NULL
-        query1 = `INSERT INTO Categories (categoryName, categorySize) VALUES ("${data.categoryName}", "${data.categorySize}")`;
+        query1 = `INSERT INTO Categories (categoryName, categorySize) VALUES ("${data.categoryName}", 0)`;
     }else {
-        query1 = `INSERT INTO Categories (categoryName, categorySize, categoryDescription) VALUES ("${data.categoryName}", "${data.categorySize}", "${data.categoryDescription}")`;
+        query1 = `INSERT INTO Categories (categoryName, categorySize, categoryDescription) VALUES ("${data.categoryName}", 0, "${data.categoryDescription}")`;
     }
     
     db.pool.query(query1, function(error, rows, fields){
@@ -585,11 +589,15 @@ app.get('/Events', function(req, res) {
     let query2 = "SELECT * FROM Clubs"; // Query to fetch clubs
 
     // Determine the query for events based on the presence of a search term
-    if (!req.query.eventName) {
+    let searchColumn = req.query.eventSearchChoice; // Get dropdown value
+    let searchTerm = req.query.searchTerm; // Get search term
+
+    if (!searchTerm || searchColumn === "none") {
         query1 = "SELECT * FROM Events"; // Fetch all events
+    } else if (searchColumn === "eventName" || searchColumn === "eventLocation") {
+        query1 = `SELECT * FROM Events WHERE ${searchColumn} LIKE '%${searchTerm}%'`;
     } else {
-        // Fetch events that match the search term
-        query1 = `SELECT * FROM Events WHERE Events.eventName LIKE "${req.query.eventName}%"`;
+        query1 = "SELECT * FROM Events"; // Fallback if an invalid column is selected
     }
 
     // Execute the first query to fetch events
@@ -631,9 +639,9 @@ app.post('/add-event-ajax', function(req, res)
 
     // Create the query and run it on the database
     if(data.eventDescription === '') { // allow eventDescription to be NULL
-        query1 = `INSERT INTO Events (eventName, eventDateTime, clubId) VALUES ("${data.eventName}", "${data.eventDateTime}", "${data.clubId}")`;
+        query1 = `INSERT INTO Events (eventName, eventDateTime, eventLocation, clubId) VALUES ("${data.eventName}", "${data.eventDateTime}", "${data.eventLocation}", "${data.clubId}")`;
     }else {
-        query1 = `INSERT INTO Events (eventName, eventDescription, eventDateTime, clubId) VALUES ("${data.eventName}", "${data.eventDescription}", "${data.eventDateTime}", "${data.clubId}")`;
+        query1 = `INSERT INTO Events (eventName, eventDescription, eventDateTime, eventLocation, clubId) VALUES ("${data.eventName}", "${data.eventDescription}", "${data.eventDateTime}", "${data.eventLocation}", "${data.clubId}")`;
     }
     
     db.pool.query(query1, function(error, rows, fields){

@@ -104,6 +104,7 @@ function updateEvent(eventId) {
     // Populate form fields with current values
     document.getElementById('update-input-eventName').value = cells[2].textContent; // eventName
     document.getElementById('update-input-eventDescription').value = cells[4].textContent; // eventDescription
+    document.getElementById('update-input-eventLocation').value = cells[5].textContent; // eventLocation
 
     // Handle eventDateTime - Format it to 'YYYY-MM-DDTHH:MM'
     let eventDateTime = cells[3].textContent; // assuming this is in a non-standard format
