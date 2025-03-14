@@ -107,6 +107,12 @@ WHERE clubId = :clubId_from_dropdown_Input;
 INSERT INTO Club_Participation (clubId, studentId) VALUES
 (:clubId_from_dropdown_Input, :studentId_from_dropdown_Input)
 
+-- update student-club association
+UPDATE Club_Participation
+SET clubId = :clubId_from_dropdown_Input, 
+    studentId = :studentId_from_dropdown_Input
+WHERE clubParticipationId = :clubParticipationId_from_update_form;
+
 -- remove student-club association
 DELETE FROM Club_Participation 
 WHERE clubParticipationId = :clubParticipationId_from_dropdown_Input;
