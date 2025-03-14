@@ -110,8 +110,10 @@ VALUES
 INSERT INTO Club_Participation (clubId, studentId)
 VALUES
 ((SELECT clubId FROM Clubs WHERE clubName = "Chess Club"), (SELECT studentId FROM Students WHERE studentFName = "Jason" AND studentLName = "Mann")),
+((SELECT clubId FROM Clubs WHERE clubName = "Chess Club"), (SELECT studentId FROM Students WHERE studentFName = "Chole" AND studentLName = "Sullivan")),
 ((SELECT clubId FROM Clubs WHERE clubName = "Bake Sale Club"), (SELECT studentId FROM Students WHERE studentFName = "Chole" AND studentLName = "Sullivan")),
-((SELECT clubId FROM Clubs WHERE clubName = "Lacrosse Club"), (SELECT studentId FROM Students WHERE studentFName = "Kelly" AND studentLName = "Allen")),
+((SELECT clubId FROM Clubs WHERE clubName = "Bake Sale Club"), (SELECT studentId FROM Students WHERE studentFName = "Kelly" AND studentLName = "Allen")),
+((SELECT clubId FROM Clubs WHERE clubName = "Lacrosse Club"), (SELECT studentId FROM Students WHERE studentFName = "Jason" AND studentLName = "Mann")),
 ((SELECT clubId FROM Clubs WHERE clubName = "Math Club"), (SELECT studentId FROM Students WHERE studentFName = "Justin" AND studentLName = "Scott"));
 
 

@@ -9,23 +9,23 @@ Following code section was adapted from my cs290 final project
 
 //show the update category modal when clicked
 function showUpdateModal(event) {
-    var modal = document.getElementById("update-category-modal")
-    var backdrop = document.getElementById("update-modal-backdrop")
-    modal.classList.remove("hidden")
-    backdrop.classList.remove("hidden")
+    var modal = document.getElementById("update-category-modal");
+    var backdrop = document.getElementById("update-modal-backdrop");
+    modal.classList.remove("hidden");
+    backdrop.classList.remove("hidden");
 }
 
 //close the add category Particpation modal when X or cancel clicked
 function closeUpdateModal(event) {
-    var modal = document.getElementById("update-category-modal")
-    var backdrop = document.getElementById("update-modal-backdrop") 
-    modal.classList.add("hidden")
-    backdrop.classList.add("hidden")
+    var modal = document.getElementById("update-category-modal");
+    var backdrop = document.getElementById("update-modal-backdrop");
+    modal.classList.add("hidden");
+    backdrop.classList.add("hidden");
 }
 
 //get the X from modal 
-var closeX = document.getElementById("update-modal-close")
-closeX.addEventListener("click", closeUpdateModal)
+var closeX = document.getElementById("update-modal-close");
+closeX.addEventListener("click", closeUpdateModal);
 //////////////////////////////////////////////////////////////////////////
 
 // function to call update row with correct values when submit is pressed
@@ -83,8 +83,8 @@ function updateSubmitHandler(e) {
 function updateCategory(categoryId) {
     // show modal and set up closeing button
     showUpdateModal();
-    var closeX = document.getElementById("update-modal-close")
-    closeX.addEventListener("click", closeUpdateModal)
+    var closeX = document.getElementById("update-modal-close");
+    closeX.addEventListener("click", closeUpdateModal);
 
     // update global var value
     globalCategoryId = categoryId;

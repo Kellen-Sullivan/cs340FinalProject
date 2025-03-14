@@ -79,7 +79,6 @@ function updateSubmitHandler(e) {
             console.log("There was an error with the input.");
         }
     }
-    console.log("sending!");
 
     // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
@@ -90,8 +89,8 @@ function updateSubmitHandler(e) {
 function updateEvent(eventId) {
     // show modal and set up closeing button
     showUpdateModal();
-    var closeX = document.getElementById("update-modal-close")
-    closeX.addEventListener("click", closeUpdateModal)
+    var closeX = document.getElementById("update-modal-close");
+    closeX.addEventListener("click", closeUpdateModal);
 
     // update global var value
     globalEventId = eventId;
@@ -139,7 +138,7 @@ function formatDateTime(dateTime) {
 
     // Extract the date and time in the required format
     let year = dateObj.getFullYear();
-    let month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Get month (0-based, so add 1)
+    let month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Get month
     let day = String(dateObj.getDate()).padStart(2, '0'); // Get day
     let hours = String(dateObj.getHours()).padStart(2, '0'); // Get hours
     let minutes = String(dateObj.getMinutes()).padStart(2, '0'); // Get minutes

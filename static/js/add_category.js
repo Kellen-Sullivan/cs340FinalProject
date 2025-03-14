@@ -6,27 +6,27 @@ Following code section was adapted from my cs290 final project
 
 //show the add category modal when clicked
 function showAddModal(event) {
-    var modal = document.getElementById("add-category-modal")
-    var backdrop = document.getElementById("add-modal-backdrop")
-    modal.classList.remove("hidden")
-    backdrop.classList.remove("hidden")
+    var modal = document.getElementById("add-category-modal");
+    var backdrop = document.getElementById("add-modal-backdrop");
+    modal.classList.remove("hidden");
+    backdrop.classList.remove("hidden");
 }
 
 //get the button from category page
-var addClubButton = document.getElementById("add-category-button")
-addClubButton.addEventListener("click", showAddModal)
+var addClubButton = document.getElementById("add-category-button");
+addClubButton.addEventListener("click", showAddModal);
 
 //close the add category modal when X or cancel clicked
 function closeAddModal(event) {
-    var modal = document.getElementById("add-category-modal")
-    var backdrop = document.getElementById("add-modal-backdrop") 
-    modal.classList.add("hidden")
-    backdrop.classList.add("hidden")
+    var modal = document.getElementById("add-category-modal");
+    var backdrop = document.getElementById("add-modal-backdrop");
+    modal.classList.add("hidden");
+    backdrop.classList.add("hidden");
 }
 
 //get the X from modal 
-var closeX = document.getElementById("add-modal-close")
-closeX.addEventListener("click", closeAddModal)
+var closeX = document.getElementById("add-modal-close");
+closeX.addEventListener("click", closeAddModal);
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -52,10 +52,6 @@ addCategoryForm.addEventListener("submit", function (e) {
     let categoryNameValue = inputCategoryName.value;
     let categoryDescriptionValue = inputCategoryDescription.value;
 
-    console.log("Category Name:", inputCategoryName.value);
-    console.log("Category Description:", inputCategoryDescription.value);
-
-
     // Put our data we want to send in a javascript object
     let data = {
         categoryName: categoryNameValue,
@@ -69,7 +65,7 @@ addCategoryForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) { // maybe want to update to 2 (not sure what readyState does yet)
+        if (xhttp.readyState == 4 && xhttp.status == 200) { 
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
@@ -81,7 +77,7 @@ addCategoryForm.addEventListener("submit", function (e) {
             // Close the modal automatically after pressing submit
             closeAddModal();
         }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) { // maybe want to update to 2 (not sure what readyState does yet)
+        else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
@@ -104,7 +100,7 @@ addRowToTable = (data) => {
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
+    let newRow = parsedData[parsedData.length - 1];
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
@@ -118,21 +114,35 @@ addRowToTable = (data) => {
     let updateCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    categoryIdCell.innerText = newRow.categoryId; // Should set the eventId automatically to the next val (auto-incrementing)
+    categoryIdCell.innerText = newRow.categoryId; // Should set the categoryId automatically to the next val (auto-incrementing)
     categoryNameCell.innerText = newRow.categoryName;
     categorySizeCell.innerText = newRow.categorySize;
     categoryDescriptionCell.innerText = newRow.categoryDescription;
 
+<<<<<<< HEAD
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
+=======
+    // make the delete cell a button that calls the delete function
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+>>>>>>> d021d0cef726f7c92bfb55fc839693bc202feb1d
         deleteCategory(newRow.categoryId);
     };
     deleteCell.appendChild(deleteButton);
 
+<<<<<<< HEAD
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){
+=======
+    // make the update cell a button that calls the update function
+    updateCell = document.createElement("button");
+    updateCell.innerHTML = "Update";
+    updateCell.onclick = function(){
+>>>>>>> d021d0cef726f7c92bfb55fc839693bc202feb1d
         updateCategory(newRow.categoryId);
     };
     updateCell.appendChild(updateButton);
@@ -152,13 +162,4 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
-
-    // May want to fix this below
-
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    // let selectMenu = document.getElementById("mySelect");
-    // let option = document.createElement("option");
-    // option.text = newRow.clubId;
-    // option.value = newRow.clubId; // maybe want just newRow.id
-    // selectMenu.add(option);
 }
