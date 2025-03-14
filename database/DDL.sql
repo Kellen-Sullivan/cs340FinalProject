@@ -25,7 +25,7 @@ CREATE TABLE Students (
 CREATE TABLE Categories (
     categoryId int AUTO_INCREMENT UNIQUE NOT NULL,
     categoryName varchar(32) UNIQUE NOT NULL,
-    categorySize int NOT NULL,
+    categorySize int NOT NULL,   -- Category size is determined using the CategoryClubSize view and will default to 0 when viewing the Categories table.
     categoryDescription varchar(256),
     PRIMARY KEY (categoryId)
 );

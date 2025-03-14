@@ -5,22 +5,22 @@ let globalEventId = -1;
 Following code section was adapted from my cs290 final project
 */
 ///////////////////////////////////////////////////////////////////////////
-// SHOWING AND HIDING THE Update Event Particpation MODAL
+// SHOWING AND HIDING THE Update Event MODAL
 
-//show the update event Particpation modal when clicked
+//show the update event modal when clicked
 function showUpdateModal(event) {
-    var modal = document.getElementById("update-event-modal")
-    var backdrop = document.getElementById("update-modal-backdrop")
-    modal.classList.remove("hidden")
-    backdrop.classList.remove("hidden")
+    var modal = document.getElementById("update-event-modal");
+    var backdrop = document.getElementById("update-modal-backdrop");
+    modal.classList.remove("hidden");
+    backdrop.classList.remove("hidden");
 }
 
-//close the add event Particpation modal when X or cancel clicked
+//close the add event modal when X or cancel clicked
 function closeUpdateModal(event) {
-    var modal = document.getElementById("update-event-modal")
-    var backdrop = document.getElementById("update-modal-backdrop") 
-    modal.classList.add("hidden")
-    backdrop.classList.add("hidden")
+    var modal = document.getElementById("update-event-modal");
+    var backdrop = document.getElementById("update-modal-backdrop");
+    modal.classList.add("hidden");
+    backdrop.classList.add("hidden");
 }
 
 //get the X from modal 
@@ -76,7 +76,7 @@ function updateSubmitHandler(e) {
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
-            console.log("There was an error with the input.")
+            console.log("There was an error with the input.");
         }
     }
     console.log("sending!");
