@@ -632,14 +632,15 @@ app.put('/put-event-ajax', function(req,res,next){
     let eventName = data.eventName; 
     let eventDescription = data.eventDescription; 
     let eventDateTime = data.eventDateTime; 
+    let eventLocation = data.eventLocation;
     let clubId = data.clubId; 
     let eventId = parseInt(data.eventId);
 
-    let queryUpdateEvent = `UPDATE Events SET eventName = ?, eventDescription = ?, eventDateTime = ?, clubId = ? WHERE eventId = ?`;
+    let queryUpdateEvent = `UPDATE Events SET eventName = ?, eventDescription = ?, eventDateTime = ?, eventLocation = ?, clubId = ? WHERE eventId = ?`;
     let selectEventEntry = `SELECT * FROM Events WHERE eventId = ?`
 
         // Run the 1st query
-        db.pool.query(queryUpdateEvent, [eventName, eventDescription, eventDateTime, clubId, eventId], function(error, rows, fields){
+        db.pool.query(queryUpdateEvent, [eventName, eventDescription, eventDateTime, eventLocation, clubId, eventId], function(error, rows, fields){
             if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

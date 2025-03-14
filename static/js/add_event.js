@@ -138,7 +138,10 @@ addRowToTable = (data) => {
     eventLocationCell.innerText = newRow.eventLocation;
     clubIdCell.innerText = newRow.clubId;
 
+<<<<<<< HEAD
     // make the delete cell a button that calls the delete function
+=======
+>>>>>>> 839b24fdc32a322be1c03fc358cba89f3a0a0874
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
@@ -146,7 +149,10 @@ addRowToTable = (data) => {
     };
     deleteCell.appendChild(deleteButton);
 
+<<<<<<< HEAD
     // make the update cell a button that calls the update function
+=======
+>>>>>>> 839b24fdc32a322be1c03fc358cba89f3a0a0874
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){
