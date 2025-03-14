@@ -31,7 +31,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
         {{!-- For each row, print all of the attributes in order --}}
         {{#each data}}
-        <tr data-value="{{this.clubId}}">
+        <tr data-value="{{this.clubId}}"> {{! Note: store the presidentId and clubCategoryId in this row so that I can accurately auto populate the form fields in the update modal}}
             <td>{{this.clubId}}</td>
             <td>{{this.clubName}}</td>
             <td>{{this.clubDescription}}</td>
@@ -66,22 +66,22 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                     <form id="add-club-form-ajax">
                         <div class="form-group">
                             <label for="input-clubName">Name</label>
-                            <input type="text" id="input-clubName">
+                            <input type="text" id="input-clubName-add">
                         </div>
                         
                         <div class="form-group">
                             <label for="input-clubDescription">Description</label>
-                            <input type="text" id="input-clubDescription">
+                            <input type="text" id="input-clubDescription-add">
                         </div>
                         
                         <div class="form-group">
                             <label for="input-clubBudget">Budget</label>
-                            <input type="number" id="input-clubBudget">
+                            <input type="number" id="input-clubBudget-add">
                         </div>
 
                         <div class="form-group">
-                            <select name="input-clubPresident" id="input-clubPresident">
-                            <option value="">Select a Student</option>
+                            <select name="input-clubPresident" id="input-clubPresident-add">
+                            <option value=''>Select a Student</option>
                                 {{#each students}}
                                 <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
                                 {{/each}}
@@ -89,8 +89,8 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                         </div>
 
                         <div class="form-group"> 
-                            <select name="input-clubCategory" id="input-clubCategory">
-                            <option value="">Select a Category</option>
+                            <select name="input-clubCategory" id="input-clubCategory-add">
+                            <option value=''>Select a Category</option>
                                 {{#each categories}}
                                 <option value="{{this.categoryId}}">{{this.categoryName}}</option>
                                 {{/each}}
@@ -138,7 +138,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
                     <div class="form-group">
                         <select name="input-clubPresident-update" id="input-clubPresident-update">
-                        <option value="">Select a Student</option>
+                        <option value=''>Select a Student</option>
                             {{#each students}}
                             <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
                             {{/each}}
@@ -147,7 +147,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
                     <div class="form-group"> 
                         <select name="input-clubCategory-update" id="input-clubCategory-update">
-                        <option value="">Select a Category</option>
+                        <option value=''>Select a Category</option>
                             {{#each categories}}
                             <option value="{{this.categoryId}}">{{this.categoryName}}</option>
                             {{/each}}
@@ -167,14 +167,42 @@ Citation for the following search feature
 Date: 2/27/2025
 Adapted from nodejs-starter app code
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
-<h2>Search Clubs</h2>
-<form id="search-club-by-category-html" method='GET' action='/Clubs'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
-    <label for="input-categoryName">Category Name: </label>
-    <input type="text" name="categoryName" id="input-category-html-search">
+<div class="Search Forms">
+    <h2>Search Clubs</h2>
+    <div class="form-group">
+        <form id="search-clubName-html" method='GET' action='/Clubs'> 
+            <label for="input-clubName">Search by Club Name: </label>
+            <input type="text" name="clubName" id="input-clubName-html-search">
+            
+            <input type="submit">
+            <a href='/Clubs'><button>Reset</button></a>
+        </form>
+    </div>
     
-    <input type="submit">
-    <a href='/Clubs'><button>Reset</button></a>
-</form>
+    <div class="form-group">
+        <form id="search-clubBudget-html" method='GET' action='/Clubs'> 
+            <label for="input-lname">Search by Budget: </label>
+            <input type="number" name="clubBudget" id="input-clubBudget-html-search">
+            
+            <input type="submit">
+            <a href='/Clubs'><button>Reset</button></a>
+        </form>
+    </div>
+   
+    <div class="form-group">
+        <form id="search-clubCategory-html" method='GET' action='/Clubs'> 
+            <label for="input-clubCategory">Search by Category: </label>
+            <select name="clubCategory" id="input-clubCategory-html-search">
+                <option value=''>Select a Category</option>
+                {{#each categories}}
+                <option value="{{this.categoryId}}">{{this.categoryName}}</option>
+                {{/each}}
+            </select>
+            <input type="submit">
+            <a href='/Clubs'><button>Reset</button></a>
+        </form>
+    </div>
+</div>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/update_club.js"></script>

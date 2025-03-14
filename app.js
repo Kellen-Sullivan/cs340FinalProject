@@ -30,28 +30,27 @@ app.get('/', function(req, res) {
 // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%204%20-%20Dynamically%20Displaying%20Data
 // **********************************************************Clubs Page ************************************************************
 app.get('/Clubs', function(req, res) {
-    let query1;       // Will get clubs, dynamic based on search term
+    let query1 = `SELECT Clubs.clubId, Clubs.clubName, Clubs.clubDescription, Clubs.clubBudget, 
+                  CONCAT(Students.studentFName, ' ', Students.studentLName) AS clubPresident, Categories.categoryName AS clubCategory
+                  FROM Clubs 
+                  LEFT JOIN Students on Clubs.clubPresident = Students.studentId
+                  LEFT JOIN Categories on Clubs.clubCategory = Categories.categoryId`
 
-    let query2;
+    let query2 = `SELECT * FROM Categories`
 
     let query3 = "SELECT * FROM Students"
 
-    // // If there is no query string, we just perform a basic SELECT
-    if (!req.query.categoryName)
-    {
-        query1 = "SELECT * FROM Clubs"
-        query2 = "SELECT * FROM Categories"
+    // if a search is present, add a where clause to query 1 so that the serach will be limited
+    if (req.query.clubName) {
+    query1 += ` WHERE Clubs.clubName LIKE "${req.query.clubName}%"`
+    } 
+    else if (req.query.clubBudget) {
+        query1 += ` WHERE Clubs.clubBudget LIKE "${req.query.clubBudget}%"`
+    } 
+    else if (req.query.clubCategory) {
+        query1 += ` WHERE Clubs.clubCategory LIKE "${req.query.clubCategory}%"`
     }
 
-    // If there is a query string, we assume this is a search, and return desired results
-    else
-    {
-        // we joined Club_Participation.studentId with Students so that the user can search by student last name
-        query1 = `SELECT Clubs.clubId, Clubs.clubName, Clubs.clubDescription, Clubs.clubBudget, Clubs.clubPresident, Clubs.clubCategory FROM Clubs 
-                  INNER JOIN Categories ON Clubs.clubCategory = Categories.categoryName 
-                  WHERE Categories.categoryName LIKE "${req.query.categoryName}%"`
-        query2 = `SELECT * FROM Clubs WHERE categoryName LIKE "${req.query.categoryName}%"`
-    } 
 
     db.pool.query(query1, function(error, rows, fields){ // Execute query
         // save the club_participation entries
@@ -80,8 +79,6 @@ app.post('/add-club-ajax', function(req, res)
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    console.log(data)
-
     let query1;
     
     // Capture NULL values and create the query
@@ -105,8 +102,12 @@ app.post('/add-club-ajax', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on Clubs
-            query2 = `SELECT * FROM Clubs`;
+            // If there was no error, perform a SELECT * on Clubs (But join with names so that the club president's name is shown instead of the id and same with category)
+            query2 = `SELECT Clubs.clubId, Clubs.clubName, Clubs.clubDescription, Clubs.clubBudget, 
+                  CONCAT(Students.studentFName, ' ', Students.studentLName) AS clubPresident, Categories.categoryName AS clubCategory
+                  FROM Clubs 
+                  LEFT JOIN Students on Clubs.clubPresident = Students.studentId
+                  LEFT JOIN Categories on Clubs.clubCategory = Categories.categoryId`
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
@@ -156,14 +157,19 @@ app.put('/put-club-ajax', function(req,res,next){
 let data = req.body;
 
 let clubId = data.clubId;
-let clubName = data.clubName; // change to clubCategory (Probably want to add ability to update other fields)
+let clubName = data.clubName; 
 let clubDescription = data.clubDescription;
 let clubBudget = parseInt(data.clubBudget);
-let clubPresident = parseInt(data.clubPresident);
-let clubCategory = parseInt(data.clubCategory);
+let clubPresident = data.clubPresident; // may want to not parseInt
+let clubCategory = data.clubCategory; // may want to not parseInt
 
 let queryUpdateClub;
-let selectClubEntry = `SELECT * FROM Clubs WHERE clubId = ?`
+let selectClubEntry = `SELECT Clubs.clubId, Clubs.clubName, Clubs.clubDescription, Clubs.clubBudget, 
+                       CONCAT(Students.studentFName, ' ', Students.studentLName) AS clubPresident, Categories.categoryName AS clubCategory 
+                       FROM Clubs 
+                       LEFT JOIN Students ON Clubs.clubPresident = Students.studentId 
+                       LEFT JOIN Categories ON Clubs.clubCategory = Categories.categoryId 
+                       WHERE Clubs.clubId = ?`
 
 
 // Capture NULL values and create the query
@@ -283,40 +289,30 @@ if (data.clubPresident === '' && data.clubCategory === '') {
 
 // **********************************************************Students Page ************************************************************
 app.get('/Students', function(req, res) {
-    console.log("made it to students!");
-    let query1;     
+    let query1 = `SELECT Students.studentId, Students.studentFName, Students.studentLName, Students.studentEmail, Students.studentMajor,
+                  Students.studentGrade
+                  FROM Students`
 
-    // let query2;       // maybe search by year, or name
-
-    // let query3;       // Will get students, dynamic based on search term
-
-    // // // If there is no query string, we just perform a basic SELECT
-    if (req.query.studentLName === undefined)
-    {
-        query1 = "SELECT * FROM Students"
-    }
-
-    // // If there is a query string, we assume this is a search, and return desired results
-    else
-    {
-        // we joined Club_Participation.studentId with Students so that the user can search by student last name
-        query1 = `SELECT * FROM Students WHERE Students.studentLName LIKE "${req.query.studentLName}%"`;
+    // if a search is present, add a where clause to query 1 so that the serach will be limited
+    if (req.query.studentFName) {
+    query1 += ` WHERE Students.studentFName LIKE "${req.query.studentFName}%"`
+    } 
+    else if (req.query.studentLName) {
+        query1 += ` WHERE Students.studentLName LIKE "${req.query.studentLName}%"`
+    } 
+    else if (req.query.studentMajor) {
+        query1 += ` WHERE Students.studentMajor LIKE "${req.query.studentMajor}%"`
+    } 
+    else if (req.query.studentGrade) {
+        query1 += ` WHERE Students.studentGrade LIKE "${req.query.studentGrade}%"`
     } 
 
+
     db.pool.query(query1, function(error, rows, fields){ // Execute query
-        // save the club_participation entries
+        // get all students
         let students = rows
-
-        // db.pool.query(query2, function(error, rows, fields) {
-        //     // save the student entries
-        //     let clubs = rows;
-
-        //     db.pool.query(query3, function(error, rows, fields) {
-        //         // save the student entries
-        //         let students = rows;
-
-                return res.render('students', {data:students});    // may need to fix this line
-            })
+        return res.render('students', {data:students});    // may need to fix this line
+    })
 });
 
 // Citation for the following app.post function 
@@ -783,9 +779,6 @@ app.post('/add-clubParticipation-ajax', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
-    // Capture NULL values
-    // All attributes in Club_Participation are non nullable, so nothing goes here
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Club_Participation (clubId, studentId) VALUES (${data.clubId}, ${data.studentId})`;

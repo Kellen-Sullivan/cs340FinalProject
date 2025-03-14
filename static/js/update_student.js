@@ -99,6 +99,19 @@ function updateStudent(studentId) {
     // update global var value
     globalStudentId = studentId;
 
+    /*----------------------code for prepopulating all fields with current values----------------*/
+    // Get the row for this studentId
+    let row = document.querySelector(`tr[data-value="${studentId}"]`);
+    let cells = row.getElementsByTagName('td');
+
+    // Populate form fields with current values
+    document.getElementById('input-studentFName-update').value = cells[1].textContent; 
+    document.getElementById('input-studentLName-update').value = cells[2].textContent; 
+    document.getElementById('input-studentEmail-update').value = cells[3].textContent;
+    document.getElementById('input-studentMajor-update').value = cells[4].textContent; 
+    document.getElementById('input-studentGrade-update').value = cells[5].textContent; 
+    /*----------------------code for prepopulating all fields with current values-----------------*/
+
     // update the selected row
     let updateStudentForm = document.getElementById('update-student-form-ajax');
 

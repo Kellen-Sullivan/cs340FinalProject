@@ -107,12 +107,8 @@ function updateClub(clubId) {
     document.getElementById('input-clubDescription-update').value = cells[2].textContent; // clubDescription
     document.getElementById('input-clubBudget-update').value = cells[3].textContent; // clubBudget
     
-    // For dropdowns (president and category), set the selected option
-    let presidentId = cells[4].textContent; 
-    let categoryId = cells[5].textContent;
-    
-    document.getElementById('input-clubPresident-update').value = presidentId;
-    document.getElementById('input-clubCategory-update').value = categoryId;
+    document.getElementById('input-clubPresident-update').value = '';
+    document.getElementById('input-clubCategory-update').value = '';
     /*----------------------code for prepopulating all fields with current values-----------------*/
 
     // update the selected row

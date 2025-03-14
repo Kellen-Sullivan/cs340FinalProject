@@ -134,17 +134,20 @@ addRowToTable = (data) => {
     studentMajorCell.innerText = newRow.studentMajor;
     studentGradeCell.innerText = newRow.studentGrade;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    deleteCellButton = document.createElement("button");
+    deleteCellButton.innerHTML = "Delete";
+    deleteCellButton.onclick = function(){
         deleteStudent(newRow.studentId);
     };
+    deleteCell.appendChild(deleteCellButton);
 
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
+    updateCellButton = document.createElement("button");
+    updateCellButton.innerHTML = "Update";
+    updateCellButton.onclick = function(){
         updateStudent(newRow.studentId);
     };
+    updateCell.appendChild(updateCellButton);
+
 
     // Add the cells to the row 
     row.appendChild(studentIdCell);

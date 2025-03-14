@@ -62,26 +62,39 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                     <form id="add-student-form-ajax">
-                        <label for="input-studentFName">First Name</label>
-                        <input type="text" id="input-studentFName">
-
-                        <label for="input-studentLName">Last Name</label>
-                        <input type="text" id="input-studentLName">
-
-                        <label for="input-studentEmail">Email</label>
-                        <input type="email" id="input-studentEmail">
-
-                        <label for="input-studentMajor">Major</label>
-                        <input type="text" id="input-studentMajor">
-
-                        <label for="input-studentGrade">Grade</label>
-                        <select name="input-studentGrade" id="input-studentGrade">
-                          <option value="Freshman">Freshman</option>
-                          <option value="Sophomore">Sophomore</option>
-                          <option value="Junior">Junior</option>
-                          <option value="Senior">Senior</option>
-                        </select>
-                        <input type="submit">
+                        <div class="form-group">
+                            <label for="input-studentFName">First Name</label>
+                            <input type="text" id="input-studentFName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-studentLName">Last Name</label>
+                            <input type="text" id="input-studentLName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-studentEmail">Email</label>
+                            <input type="email" id="input-studentEmail">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-studentMajor">Major</label>
+                            <input type="text" id="input-studentMajor">
+                        </div>
+                        
+                        <div class="form-group"> 
+                            <label for="input-studentGrade">Grade</label>
+                            <select name="input-studentGrade" id="input-studentGrade">
+                            <option value="Freshman">Freshman</option>
+                            <option value="Sophomore">Sophomore</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Senior">Senior</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="submit">
+                        </div>
                     </form>
             </div>
     </div>
@@ -103,27 +116,39 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                 <form id="update-student-form-ajax">
-                    <label for="input-studentFName-update">First Name</label>
-                    <input type="text" id="input-studentFName-update">
-
-                    <label for="input-studentLName-update">Last Name</label>
-                    <input type="text" id="input-studentLName-update">
-
-                    <label for="input-studentEmail-update">Email</label>
-                    <input type="email" id="input-studentEmail-update">
-
-                    <label for="input-studentMajor-update">Major</label>
-                    <input type="text" id="input-studentMajor-update">
-
-                    <label for="input-studentGrade-update">Grade</label>
+                    <div class="form-group">
+                        <label for="input-studentFName-update">First Name</label>
+                        <input type="text" id="input-studentFName-update">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-studentLName-update">Last Name</label>
+                        <input type="text" id="input-studentLName-update">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-studentEmail-update">Email</label>
+                        <input type="email" id="input-studentEmail-update">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-studentMajor-update">Major</label>
+                        <input type="text" id="input-studentMajor-update">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-studentGrade-update">Grade</label>
                         <select name="input-studentGrade" id="input-studentGrade-update">
                           <option value="Freshman">Freshman</option>
                           <option value="Sophomore">Sophomore</option>
                           <option value="Junior">Junior</option>
                           <option value="Senior">Senior</option>
                         </select>
-
-                    <input type="submit">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit">
+                    </div>
                 </form> 
             </div>
     </div>
@@ -134,14 +159,54 @@ Citation for the following search feature
 Date: 2/27/2025
 Adapted from nodejs-starter app code
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
-<h2>Search Students</h2>
-<form id="search-student-html" method='GET' action='/Students'> 
-    <label for="input-lname">Search by Last Name: </label>
-    <input type="text" name="studentLName" id="input-studentLName-html-search">
+<div class="Search Forms">
+    <h2>Search Students</h2>
+    <div class="form-group">
+        <form id="search-studentFName-html" method='GET' action='/Students'> 
+            <label for="input-studentFName">Search by First Name: </label>
+            <input type="text" name="studentFName" id="input-studentFName-html-search">
+            
+            <input type="submit">
+            <a href='/Students'><button>Reset</button></a>
+        </form>
+    </div>
     
-    <input type="submit">
-    <a href='/Students'><button>Reset</button></a>
-</form>
+    <div class="form-group">
+        <form id="search-studentLName-html" method='GET' action='/Students'> 
+            <label for="input-studentLName">Search by Last Name: </label>
+            <input type="text" name="studentLName" id="input-studentLName-html-search">
+            
+            <input type="submit">
+            <a href='/Students'><button>Reset</button></a>
+        </form>
+    </div>
+   
+    <div class="form-group">
+        <form id="search-studentMajor-html" method='GET' action='/Students'> 
+            <label for="input-studentMajor">Search by Major: </label>
+            <input type="text" name="studentMajor" id="input-studentMajor-html-search">
+            
+            <input type="submit">
+            <a href='/Students'><button>Reset</button></a>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <form id="search-studentGrade-html" method='GET' action='/Students'> 
+            <label for="input-studentGrade">Search by Grade: </label>
+            <select name="studentGrade" id="input-studentGrade-html-search">
+                <option value="">Select Grade</option>
+                <option value="Freshman">Freshman</option>
+                <option value="Sophomore">Sophomore</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
+            </select>
+            
+            <input type="submit">
+            <a href='/Students'><button>Reset</button></a>
+        </form>
+    </div>
+</div>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_student.js"></script>

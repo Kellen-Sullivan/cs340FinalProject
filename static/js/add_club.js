@@ -46,11 +46,11 @@ addClubForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputClubName = document.getElementById("input-clubName");
-    let inputClubDescription = document.getElementById("input-clubDescription");
-    let inputClubBudget = document.getElementById("input-clubBudget");
-    let inputClubPresident = document.getElementById("input-clubPresident");
-    let inputClubCategory = document.getElementById("input-clubCategory");
+    let inputClubName = document.getElementById("input-clubName-add");
+    let inputClubDescription = document.getElementById("input-clubDescription-add");
+    let inputClubBudget = document.getElementById("input-clubBudget-add");
+    let inputClubPresident = document.getElementById("input-clubPresident-add");
+    let inputClubCategory = document.getElementById("input-clubCategory-add");
 
     // Get the values from the form fields
     let clubNameValue = inputClubName.value;
@@ -81,11 +81,11 @@ addClubForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputClubName = ' ';
-            inputClubDescription = ' ';
-            inputClubBudget = ' ';
-            inputClubPresident = ' ';
-            inputClubCategory = ' ';
+            inputClubName.value = ' ';
+            inputClubDescription.value = ' ';
+            inputClubBudget.value = ' ';
+            inputClubPresident.value = '';
+            inputClubCategory.value = '';
 
             // Close the modal automatically after pressing submit
             closeAddModal();
@@ -138,14 +138,14 @@ addRowToTable = (data) => {
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
-        deleteClub(newRow.clubParticipationId);
+        deleteClub(newRow.clubId);
     };
     deleteCell.appendChild(deleteButton)
 
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){
-        updateClub(newRow.clubParticipationId);
+        updateClub(newRow.clubId);
     };
     updateCell.appendChild(updateButton)
 
