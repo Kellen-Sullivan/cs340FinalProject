@@ -41,7 +41,7 @@ WHERE clubId = :clubId_requested;
 
 -- get student name based on id
 SELECT s.studentFName, s.studentLName
-FROM Students
+FROM Students s
 WHERE studentId = :studentId_requested;
 
 -- get event name based on id
@@ -60,6 +60,38 @@ FROM Club_Participation cp
 JOIN Students s ON cp.studentId = s.studentId
 JOIN Clubs c ON cp.clubId = c.clubId
 WHERE cp.clubParticipationId = :clubParticipationId_from_dropdown_Input;
+
+-- get all clubs with storing clubPresidentId and clubCategoryId so that they can be used in dropdowns on the page
+SELECT c.clubId, c.clubName, c.clubDescription, c.clubBudget, 
+c.clubPresident AS clubPresidentId, 
+c.clubCategory AS clubCategoryId,
+CONCAT(Students.studentFName, ' ', Students.studentLName) AS clubPresident, 
+Categories.categoryName AS clubCategory 
+FROM Clubs c
+LEFT JOIN Students ON c.clubPresident = Students.studentId 
+LEFT JOIN Categories ON c.clubCategory = Categories.categoryId;
+
+-- select a club based on clubId with storing clubPresidentId and clubCategoryId so that they can be used in dropdowns on the page
+SELECT c.clubId, c.clubName, c.clubDescription, c.clubBudget, 
+c.clubPresident AS clubPresidentId, 
+c.clubCategory AS clubCategoryId,
+CONCAT(Students.studentFName, ' ', Students.studentLName) AS clubPresident, 
+Categories.categoryName AS clubCategory 
+FROM Clubs c
+LEFT JOIN Students ON c.clubPresident = Students.studentId 
+LEFT JOIN Categories ON c.clubCategory = Categories.categoryId 
+WHERE c.clubId = clubId_from_update_form;
+
+-- get all students
+SELECT Students.studentId, Students.studentFName, Students.studentLName, Students.studentEmail, Students.studentMajor,
+Students.studentGrade
+FROM Students;
+
+-- get all club participations
+SELECT Club_Participation.clubParticipationId, Clubs.clubName, Students.studentFName, Students.studentLName
+FROM Club_Participation
+INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
+INNER JOIN Students ON Club_Participation.studentId = Students.studentId;
 
 -- STUDENTS ------------------------------------------------------------------------------
 

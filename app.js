@@ -40,7 +40,7 @@ app.get('/Clubs', function(req, res) {
 
     let query3 = "SELECT * FROM Students"
 
-    // if a search is present, add a where clause to query 1 so that the serach will be limited
+    // if a search is present, add a where clause to query 1 so that the search will be limited
     if (req.query.clubName) {
     query1 += ` WHERE Clubs.clubName LIKE "${req.query.clubName}%"`
     } 
