@@ -412,7 +412,7 @@ app.post('/add-category-ajax', function(req, res)
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
+            console.log(error);
             res.sendStatus(400);
         }
         else
@@ -523,7 +523,7 @@ app.get('/Events', function(req, res) {
     } else {
         query1 = "SELECT * FROM Events"; // Fallback query
     }
-    
+
     // Execute the first query to fetch events
     db.pool.query(query1, function(error, eventsData, fields) {
         if (error) {

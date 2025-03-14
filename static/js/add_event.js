@@ -75,7 +75,7 @@ addEventForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) { // maybe want to update to 2 (not sure what readyState does yet)
+        if (xhttp.readyState == 4 && xhttp.status == 200) { 
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
@@ -90,8 +90,8 @@ addEventForm.addEventListener("submit", function (e) {
             // Close the modal automatically after pressing submit
             closeAddModal();
         }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) { // maybe want to update to 2 (not sure what readyState does yet)
-            console.log("There was an error with the input.")
+        else if (xhttp.readyState == 4 && xhttp.status != 200) { 
+            console.log("There was an error with the input.");
         }
     }
 
@@ -113,9 +113,9 @@ addRowToTable = (data) => {
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
-    let newRow = parsedData[parsedData.length - 1]
+    let newRow = parsedData[parsedData.length - 1];
 
-    // Create a row and 4 cells
+    // Create a row and 6 cells
     let row = document.createElement("TR");
     let eventIdCell = document.createElement("TD");
     let clubIdCell = document.createElement("TD");
@@ -124,8 +124,7 @@ addRowToTable = (data) => {
     let eventLocationCell = document.createElement("TD");
     let eventDescriptionCell = document.createElement("TD");
 
-
-
+    // create the delete and update cells
     let deleteCell = document.createElement("TD");
     let updateCell = document.createElement("TD");
 
@@ -137,12 +136,14 @@ addRowToTable = (data) => {
     eventLocationCell.innerText = newRow.eventLocation;
     clubIdCell.innerText = newRow.clubId;
 
+    // make the delete cell a button that calls the delete function
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
         deleteEvent(newRow.eventId);
     };
 
+    // make the update cell a button that calls the update function
     updateCell = document.createElement("button");
     updateCell.innerHTML = "Update";
     updateCell.onclick = function(){
@@ -166,13 +167,4 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
-
-    // May want to fix this below
-
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    // let selectMenu = document.getElementById("mySelect");
-    // let option = document.createElement("option");
-    // option.text = newRow.clubId;
-    // option.value = newRow.clubId; // maybe want just newRow.id
-    // selectMenu.add(option);
 }
