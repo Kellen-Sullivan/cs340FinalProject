@@ -28,7 +28,11 @@ h1, h2, h3 {
   }
   
 /* Style the links inside the navigation bar 
-Got the color for hover and the transition from this youtube tutorial: https://www.youtube.com/watch?v=PwWHL3RyQgk
+Citation for the following color, hover, and the transition: 
+Date: 2/27/2025
+Adapted from the following youtube tutorial
+Source URL: https://www.youtube.com/watch?v=PwWHL3RyQgk
+
 */
 .navlist a {
     color: white;
@@ -45,18 +49,12 @@ Got the color for hover and the transition from this youtube tutorial: https://w
     color: 	#0088a9;
   }
 
-/*Add zebra striped patter in tables
-Got from W3schools.com: 
-https://www.w3schools.com/css/css_table_style.asp
-*/
+/*Add zebra striped patter in tables */
 tr:nth-child(even) {
   background-color: #f2f2f2;
 } 
 
-/*Change table head color in tables
-Got from W3schools.com: 
-https://www.w3schools.com/css/css_table_style.asp
-*/
+/*Change table head color in tables */
 th {
   background-color: black;
   color: white;

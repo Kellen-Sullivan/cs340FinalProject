@@ -107,8 +107,23 @@ function updateClub(clubId) {
     document.getElementById('input-clubDescription-update').value = cells[2].textContent; // clubDescription
     document.getElementById('input-clubBudget-update').value = cells[3].textContent; // clubBudget
     
-    document.getElementById('input-clubPresident-update').value = '';
-    document.getElementById('input-clubCategory-update').value = '';
+    presidentId = row.getAttribute('data-clubPresidentId');
+    presidentSelect = document.getElementById('input-clubPresident-update');
+    if (presidentSelect.value === "NULL") {
+        presidentSelect.value = "None";
+    }
+    else {
+        presidentSelect.value = presidentId;
+    }
+
+    categoryId = row.getAttribute('data-clubCategoryId');
+    categorySelect = document.getElementById('input-clubCategory-update');
+    if (categorySelect.value === "NULL") {
+        categorySelect.value = "None";
+    } 
+    else {
+        categorySelect.value = categoryId;
+    }
     /*----------------------code for prepopulating all fields with current values-----------------*/
 
     // update the selected row

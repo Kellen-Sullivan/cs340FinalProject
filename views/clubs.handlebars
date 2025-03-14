@@ -13,14 +13,14 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     {{!-- Header section --}}
     <thead>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
+        {{!-- I hardcoded the header names because I don't want to display in the table clubPresidentId and clubCategoryId --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>clubId</th>
+            <th>clubName</th>
+            <th>clubDescription</th>
+            <th>clubBudget</th>
+            <th>clubPresident</th>
+            <th>clubCategory</th>
             <th>Delete</th>
             <th>Update</th>
         </tr>
@@ -31,7 +31,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
 
         {{!-- For each row, print all of the attributes in order --}}
         {{#each data}}
-        <tr data-value="{{this.clubId}}"> {{! Note: store the presidentId and clubCategoryId in this row so that I can accurately auto populate the form fields in the update modal}}
+        <tr data-value="{{this.clubId}}" data-clubPresidentId="{{this.clubPresidentId}}" data-clubCategoryId="{{this.clubCategoryId}}"> {{! Note: store the presidentId and clubCategory in this row so that I can accurately auto populate the form fields in the update modal}}
             <td>{{this.clubId}}</td>
             <td>{{this.clubName}}</td>
             <td>{{this.clubDescription}}</td>
@@ -85,6 +85,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                                 {{#each students}}
                                 <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
                                 {{/each}}
+                            <option value="None">None</option>
                             </select>
                         </div>
 
@@ -94,6 +95,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                                 {{#each categories}}
                                 <option value="{{this.categoryId}}">{{this.categoryName}}</option>
                                 {{/each}}
+                            <option value="None">None</option>
                             </select>
                         </div>
                         
@@ -142,6 +144,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                             {{#each students}}
                             <option value="{{this.studentId}}">{{this.studentFName}} {{this.studentLName}}</option>
                             {{/each}}
+                        <option value="None">None</option>
                         </select>
                     </div>
 
@@ -151,6 +154,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                             {{#each categories}}
                             <option value="{{this.categoryId}}">{{this.categoryName}}</option>
                             {{/each}}
+                        <option value="None">None</option>
                         </select>
                     </div>
                     
