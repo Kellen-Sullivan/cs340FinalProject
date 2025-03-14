@@ -1,7 +1,9 @@
 /*
-Following code section was adapted from my cs290 final project
+Modal Code was apated from a similar modal code in our CS 290 final project 
+Date: 3/13/2025 
+Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
+Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-///////////////////////////////////////////////////////////////////////////
 // SHOWING AND HIDING THE ADD Club MODAL
 
 //show the add club modal when clicked

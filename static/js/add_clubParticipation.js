@@ -1,7 +1,9 @@
 /*
-Following code section was adapted from my cs290 final project
+Modal Code was apated from a similar modal code in our CS 290 final project 
+Date: 3/13/2025 
+Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
+Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-///////////////////////////////////////////////////////////////////////////
 // SHOWING AND HIDING THE ADD Club Particpation MODAL
 
 //show the add club Particpation modal when clicked
@@ -97,7 +99,6 @@ addRowToTable = (data) => {
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
-    console.log(newRowIndex);
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
@@ -122,14 +123,14 @@ addRowToTable = (data) => {
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
-        deleteClub(newRow.clubParticipationId);
+        deleteClubParticipation(newRow.clubParticipationId);
     };
     deleteCell.appendChild(deleteButton)
 
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){
-        updateClub(newRow.clubParticipationId);
+        updateClubParticipation(newRow.clubParticipationId);
     };
     updateCell.appendChild(updateButton)
 

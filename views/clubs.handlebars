@@ -45,6 +45,14 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
     </tbody>
 </table>
 
+{{!--
+Modal Code in this file was adapted from a similar modal code in our CS 290 final project 
+Date: 3/13/2025 
+Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
+Source URL: https://github.com/osu-cs290-f24/handlebars-templating
+--}}
+
+
 {{!-- Button to open add add club Modal--}}
 <button id="add-club-button">Add Club</button>
 
@@ -76,7 +84,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                         
                         <div class="form-group">
                             <label for="input-clubBudget">Budget</label>
-                            <input type="number" id="input-clubBudget-add">
+                            <input type="number" min="0" id="input-clubBudget-add">
                         </div>
 
                         <div class="form-group">
@@ -135,7 +143,7 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                     
                     <div class="form-group">
                         <label for="input-clubBudget-update">Budget</label>
-                        <input type="number" id="input-clubBudget-update">
+                        <input type="number" min="0" id="input-clubBudget-update">
                     </div>
 
                     <div class="form-group">

@@ -1,7 +1,9 @@
 /*
-Following code section was adapted from my cs290 final project
+Modal Code was apated from a similar modal code in our CS 290 final project 
+Date: 3/13/2025 
+Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
+Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-///////////////////////////////////////////////////////////////////////////
 // SHOWING AND HIDING THE ADD Event MODAL
 
 //show the add event modal when clicked
@@ -136,30 +138,18 @@ addRowToTable = (data) => {
     eventLocationCell.innerText = newRow.eventLocation;
     clubIdCell.innerText = newRow.clubId;
 
-<<<<<<< HEAD
+    // make the delete cell a button that calls the delete function
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
-=======
-    // make the delete cell a button that calls the delete function
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
->>>>>>> d021d0cef726f7c92bfb55fc839693bc202feb1d
         deleteEvent(newRow.eventId);
     };
     deleteCell.appendChild(deleteButton);
 
-<<<<<<< HEAD
+    // make the update cell a button that calls the update function
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){
-=======
-    // make the update cell a button that calls the update function
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
->>>>>>> d021d0cef726f7c92bfb55fc839693bc202feb1d
         updateEvent(newRow.eventId);
     };
     updateCell.appendChild(updateButton);
