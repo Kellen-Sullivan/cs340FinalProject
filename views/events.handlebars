@@ -63,25 +63,38 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                     <form id="add-event-form-ajax">
-                        <label for="input-eventName">Name</label>
-                        <input type="text" id="input-eventName" required>
-
-                        <label for="input-eventDescription">Description</label>
-                        <input type="text" id="input-eventDescription">
-
-                        <label for="input-eventDateTime">Date/Time</label>
-                        <input type="datetime-local" id="input-eventDateTime" required>
-
-                        <label for="input-eventLocation">Location</label>
-                        <input type="text" id="input-eventLocation" required>
-
-                        <select name="input-clubId" id="input-clubId">
-                        <option value="">Select a Club</option>
-                            {{#each clubs}}
-                            <option value="{{this.clubId}}">{{this.clubName}}</option>
-                            {{/each}}
-                        </select>
-                        <input type="submit">
+                        <div class="form-group">
+                            <label for="input-eventName">Name</label>
+                            <input type="text" id="input-eventName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-eventDescription">Description</label>
+                            <input type="text" id="input-eventDescription">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-eventDateTime">Date/Time</label>
+                            <input type="datetime-local" id="input-eventDateTime" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input-eventLocation">Location</label>
+                            <input type="text" id="input-eventLocation" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <select name="input-clubId" id="input-clubId">
+                            <option value="">Select a Club</option>
+                                {{#each clubs}}
+                                <option value="{{this.clubId}}">{{this.clubName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="submit">
+                        </div>
                     </form>
             </div>
     </div>
@@ -102,26 +115,38 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                 <form id="update-event-form-ajax">
-                    <label for="update-input-eventName">Name</label>
+                    <div class="form-group">
+                        <label for="update-input-eventName">Name</label>
                         <input type="text" id="update-input-eventName" required>
-
+                    </div>
+                        
+                    <div class="form-group">
                         <label for="update-input-eventDescription">Description</label>
                         <input type="text" id="update-input-eventDescription">
-
+                    </div>
+                        
+                    <div class="form-group">
                         <label for="update-input-eventDateTime">Date/Time</label>
                         <input type="datetime-local" id="update-input-eventDateTime" required>
-
+                    </div>
+                        
+                    <div class="form-group">
                         <label for="update-input-eventLocation">Location</label>
                         <input type="text" id="update-input-eventLocation" required>
-
-
+                    </div>
+                        
+                    <div class="form-group">
                         <select name="update-input-clubId" id="update-input-clubId">
                         <option value="">Select a Club</option>
                             {{#each clubs}}
                             <option value="{{this.clubId}}">{{this.clubName}}</option>
                             {{/each}}
                         </select>
+                    </div>
+                        
+                    <div class="form-group">
                         <input type="submit">
+                    </div> 
                 </form> 
             </div>
     </div>

@@ -137,17 +137,19 @@ addRowToTable = (data) => {
     eventLocationCell.innerText = newRow.eventLocation;
     clubIdCell.innerText = newRow.clubId;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
         deleteEvent(newRow.eventId);
     };
+    deleteCell.appendChild(deleteButton);
 
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
+    updateButton = document.createElement("button");
+    updateButton.innerHTML = "Update";
+    updateButton.onclick = function(){
         updateEvent(newRow.eventId);
     };
+    updateCell.appendChild(updateButton);
 
     // Add the cells to the row 
     row.appendChild(eventIdCell);

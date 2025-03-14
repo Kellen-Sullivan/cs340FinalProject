@@ -123,17 +123,19 @@ addRowToTable = (data) => {
     categorySizeCell.innerText = newRow.categorySize;
     categoryDescriptionCell.innerText = newRow.categoryDescription;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function(){
         deleteCategory(newRow.categoryId);
     };
+    deleteCell.appendChild(deleteButton);
 
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
+    updateButton = document.createElement("button");
+    updateButton.innerHTML = "Update";
+    updateButton.onclick = function(){
         updateCategory(newRow.categoryId);
     };
+    updateCell.appendChild(updateButton);
 
     // Add the cells to the row 
     row.appendChild(categoryIdCell);
