@@ -133,18 +133,45 @@ Date: 2/27/2025
 Adapted from nodejs-starter app code
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
 <h2>Search Events</h2>
-<form id="search-event-by-name-html" method='GET' action='/Events'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
+<form id="search-event-by-name-html" method='GET' action='/Events' style="display: flex; align-items: center; gap: 10px;"> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
     <select name="eventSearchChoice" id="eventSearchChoice">
         <option value="none">Select</option>
         <option value="eventName">Event Name</option>
         <option value="eventLocation">Event Location</option>
+        <option value="eventDate">Event Date</option>
     </select>
     
-    <input type="text" name="searchTerm" id="input-event-html-search">
+    <input type="text" name="searchTerm" id="searchText">
+
+    <input type="date" name="searchDate" id="searchDate" style="display: none;">
     
     <input type="submit">
     <a href='/Events'><button type="button">Reset</button></a>
 </form>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() { 
+    function toggleSearchFields() {
+        let searchChoice = document.getElementById("eventSearchChoice").value;
+        let textInput = document.getElementById("searchText");
+        let dateInput = document.getElementById("searchDate");
+
+        if (searchChoice === "eventDate") {
+            textInput.style.display = "none";  // Hide text input
+            dateInput.style.display = "block"; // Show date input
+        } else if (searchChoice === "eventName" || searchChoice === "eventLocation") {
+            textInput.style.display = "block"; // Show text input
+            dateInput.style.display = "none";  // Hide date input
+        } else {
+            textInput.style.display = "none";  // Hide both if "Select" is chosen
+            dateInput.style.display = "none";
+        }
+    }
+
+    // Ensure the function runs after the DOM is fully loaded
+    document.getElementById("eventSearchChoice").addEventListener("change", toggleSearchFields);
+});
+</script>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/update_event.js"></script>

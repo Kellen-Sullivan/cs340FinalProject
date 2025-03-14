@@ -587,15 +587,18 @@ app.get('/Events', function(req, res) {
     // Determine the query for events based on the presence of a search term
     let searchColumn = req.query.eventSearchChoice; // Get dropdown value
     let searchTerm = req.query.searchTerm; // Get search term
+    let searchDate = req.query.searchDate; // Get date input
 
-    if (!searchTerm || searchColumn === "none") {
+    if ((!searchTerm && !searchDate) || searchColumn === "none") {
         query1 = "SELECT * FROM Events"; // Fetch all events
     } else if (searchColumn === "eventName" || searchColumn === "eventLocation") {
         query1 = `SELECT * FROM Events WHERE ${searchColumn} LIKE '%${searchTerm}%'`;
+    } else if (searchColumn === "eventDate" && searchDate) {
+        query1 = `SELECT * FROM Events WHERE DATE(eventDateTime) = '${searchDate}'`; // Extract date from DATETIME
     } else {
-        query1 = "SELECT * FROM Events"; // Fallback if an invalid column is selected
+        query1 = "SELECT * FROM Events"; // Fallback query
     }
-
+    
     // Execute the first query to fetch events
     db.pool.query(query1, function(error, eventsData, fields) {
         if (error) {
