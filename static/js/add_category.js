@@ -4,7 +4,6 @@ Date: 3/13/2025
 Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
 Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-// SHOWING AND HIDING THE ADD Category MODAL
 
 //show the add category modal when clicked
 function showAddModal(event) {
@@ -29,8 +28,6 @@ function closeAddModal(event) {
 //get the X from modal 
 var closeX = document.getElementById("add-modal-close");
 closeX.addEventListener("click", closeAddModal);
-//////////////////////////////////////////////////////////////////////////
-
 
 // Citation for the following code in this file
 // Date: 2/26/2025

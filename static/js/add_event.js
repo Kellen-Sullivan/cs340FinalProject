@@ -4,7 +4,6 @@ Date: 3/13/2025
 Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
 Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-// SHOWING AND HIDING THE ADD Event MODAL
 
 //show the add event modal when clicked
 function showAddModal(event) {
@@ -30,8 +29,6 @@ function closeAddModal(event) {
 //get the X from modal 
 var closeX = document.getElementById("add-modal-close")
 closeX.addEventListener("click", closeAddModal)
-//////////////////////////////////////////////////////////////////////////
-
 
 // Citation for the following code in this file
 // Date: 2/26/2025
@@ -138,10 +135,7 @@ addRowToTable = (data) => {
     eventLocationCell.innerText = newRow.eventLocation;
     clubIdCell.innerText = newRow.clubId;
 
-<<<<<<< HEAD
     // make the delete cell a button that calls the delete function
-=======
->>>>>>> 839b24fdc32a322be1c03fc358cba89f3a0a0874
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
@@ -149,10 +143,7 @@ addRowToTable = (data) => {
     };
     deleteCell.appendChild(deleteButton);
 
-<<<<<<< HEAD
     // make the update cell a button that calls the update function
-=======
->>>>>>> 839b24fdc32a322be1c03fc358cba89f3a0a0874
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){

@@ -4,33 +4,31 @@ Date: 3/13/2025
 Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
 Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-// SHOWING AND HIDING THE ADD Club MODAL
 
 //show the add club modal when clicked
 function showAddModal(event) {
-    var modal = document.getElementById("add-club-modal")
-    var backdrop = document.getElementById("add-modal-backdrop")
-    modal.classList.remove("hidden")
-    backdrop.classList.remove("hidden")
+    var modal = document.getElementById("add-club-modal");
+    var backdrop = document.getElementById("add-modal-backdrop");
+    modal.classList.remove("hidden");
+    backdrop.classList.remove("hidden");
 }
 
 //get the button from club page
-var addClubButton = document.getElementById("add-club-button")
-addClubButton.addEventListener("click", showAddModal)
+var addClubButton = document.getElementById("add-club-button");
+addClubButton.addEventListener("click", showAddModal);
 
 
 //close the add club modal when X or cancel clicked
 function closeAddModal(event) {
-    var modal = document.getElementById("add-club-modal")
-    var backdrop = document.getElementById("add-modal-backdrop") 
-    modal.classList.add("hidden")
-    backdrop.classList.add("hidden")
+    var modal = document.getElementById("add-club-modal");
+    var backdrop = document.getElementById("add-modal-backdrop");
+    modal.classList.add("hidden");
+    backdrop.classList.add("hidden");
 }
 
 //get the X from modal 
-var closeX = document.getElementById("add-modal-close")
-closeX.addEventListener("click", closeAddModal)
-//////////////////////////////////////////////////////////////////////////
+var closeX = document.getElementById("add-modal-close");
+closeX.addEventListener("click", closeAddModal);
 
 
 // Citation for the following code in this file
@@ -77,7 +75,7 @@ addClubForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) { // maybe want to update to 2 (not sure what readyState does yet)
+        if (xhttp.readyState == 4 && xhttp.status == 200) { 
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
@@ -92,8 +90,8 @@ addClubForm.addEventListener("submit", function (e) {
             // Close the modal automatically after pressing submit
             closeAddModal();
         }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) { // maybe want to update to 2 (not sure what readyState does yet)
-            console.log("There was an error with the input.")
+        else if (xhttp.readyState == 4 && xhttp.status != 200) { 
+            console.log("There was an error with the input.");
         }
     }
 
@@ -166,13 +164,4 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
-
-    // May want to fix this below
-
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    // let selectMenu = document.getElementById("mySelect");
-    // let option = document.createElement("option");
-    // option.text = newRow.clubId;
-    // option.value = newRow.clubId; // maybe want just newRow.id
-    // selectMenu.add(option);
 }

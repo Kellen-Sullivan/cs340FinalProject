@@ -7,7 +7,6 @@ Date: 3/13/2025
 Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
 Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-// SHOWING AND HIDING THE Update Category Particpation MODAL
 
 //show the update category modal when clicked
 function showUpdateModal(event) {
@@ -28,7 +27,6 @@ function closeUpdateModal(event) {
 //get the X from modal 
 var closeX = document.getElementById("update-modal-close");
 closeX.addEventListener("click", closeUpdateModal);
-//////////////////////////////////////////////////////////////////////////
 
 // function to call update row with correct values when submit is pressed
 function updateSubmitHandler(e) {
@@ -52,7 +50,7 @@ function updateSubmitHandler(e) {
         categoryDescription: categoryDescriptionValue,
     }
 
-    if (isNaN(categoryIdValue)) // if both entries are empty return
+    if (isNaN(categoryIdValue)) // if categoryId is empty, return and don't try to update the category
     {
         return;
     }
@@ -69,16 +67,13 @@ function updateSubmitHandler(e) {
             updateRow(xhttp.response, categoryIdValue);
             // close the modal automatically after updating the row
             closeUpdateModal();
-
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
-
     // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
-
 }
 
 // function to show the modal with the form inside and close the modal when the user clicks the x
@@ -91,7 +86,6 @@ function updateCategory(categoryId) {
     // update global var value
     globalCategoryId = categoryId;
 
-/*----------------------code for prepopulating all fields with current values----------------*/
     // Get the row for this clubId
     let row = document.querySelector(`tr[data-value="${categoryId}"]`);
     let cells = row.getElementsByTagName('td');
@@ -99,7 +93,6 @@ function updateCategory(categoryId) {
     // Populate form fields with current values
     document.getElementById('update-input-categoryName').value = cells[1].textContent; // categoryName
     document.getElementById('update-input-categoryDescription').value = cells[3].textContent; // categoryDescription
-
 
     // update the selected row
     let updateCategoryForm = document.getElementById('update-category-form-ajax');
@@ -110,7 +103,6 @@ function updateCategory(categoryId) {
     // Add the submit category handler
     updateCategoryForm.addEventListener("submit", updateSubmitHandler);   
 }
-
 
 function updateRow(data, categoryId){
     let parsedData = JSON.parse(data);

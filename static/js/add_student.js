@@ -4,7 +4,6 @@ Date: 3/13/2025
 Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
 Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-// SHOWING AND HIDING THE ADD Club Particpation MODAL
 
 //show the add club Particpation modal when clicked
 function showModal(event) {
@@ -30,8 +29,6 @@ function closeModal(event) {
 //get the X from modal 
 var closeX = document.getElementById("add-modal-close")
 closeX.addEventListener("click", closeModal)
-//////////////////////////////////////////////////////////////////////////
-
 
 // Citation for the following code in this file
 // Date: 2/26/2025
@@ -77,7 +74,7 @@ addStudentForm.addEventListener("submit", function (e) {
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) { // maybe want to update to 2 (not sure what readyState does yet)
+        if (xhttp.readyState == 4 && xhttp.status == 200) { 
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
@@ -92,7 +89,7 @@ addStudentForm.addEventListener("submit", function (e) {
             // Close the modal automatically after pressing submit
             closeModal();
         }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) { // maybe want to update to 2 (not sure what readyState does yet)
+        else if (xhttp.readyState == 4 && xhttp.status != 200) { 
             console.log("There was an error with the input.")
         }
     }
@@ -129,13 +126,14 @@ addRowToTable = (data) => {
     let updateCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    studentIdCell.innerText = newRow.studentId; // Should set the clubParticipationId automatically to the next val (auto-incrementing)
+    studentIdCell.innerText = newRow.studentId;
     studentFNameCell.innerText = newRow.studentFName;
     studentLNameCell.innerText = newRow.studentLName;
     studentEmailCell.innerText = newRow.studentEmail;
     studentMajorCell.innerText = newRow.studentMajor;
     studentGradeCell.innerText = newRow.studentGrade;
 
+    // create delete button and add to delete Cell
     deleteCellButton = document.createElement("button");
     deleteCellButton.innerHTML = "Delete";
     deleteCellButton.onclick = function(){
@@ -143,6 +141,7 @@ addRowToTable = (data) => {
     };
     deleteCell.appendChild(deleteCellButton);
 
+    // create update button and add to update Cell
     updateCellButton = document.createElement("button");
     updateCellButton.innerHTML = "Update";
     updateCellButton.onclick = function(){
@@ -167,11 +166,4 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
-
-    // // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    // let selectMenu = document.getElementById("mySelect");
-    // let option = document.createElement("option");
-    // option.text = newRow.studentId;
-    // option.value = newRow.studentId; // maybe want to show something else
-    // selectMenu.add(option);
 }

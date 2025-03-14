@@ -93,6 +93,13 @@ FROM Club_Participation
 INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
 INNER JOIN Students ON Club_Participation.studentId = Students.studentId;
 
+-- select a club participation entry
+SELECT Club_Participation.clubParticipationId, Clubs.clubName, Students.studentFName, Students.studentLName
+FROM Club_Participation
+INNER JOIN Clubs ON Club_Participation.clubId = Clubs.clubId
+INNER JOIN Students ON Club_Participation.studentId = Students.studentId
+WHERE clubParticipationId = clubParticipationId_from_update_form;
+
 -- STUDENTS ------------------------------------------------------------------------------
 
 -- new student

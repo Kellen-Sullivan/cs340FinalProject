@@ -4,7 +4,6 @@ Date: 3/13/2025
 Adapted from My CS290 final project code which was adapted from the given Rob Hess code 
 Source URL: https://github.com/osu-cs290-f24/handlebars-templating
 */
-// SHOWING AND HIDING THE ADD Club Particpation MODAL
 
 //show the add club Particpation modal when clicked
 function showModal(event) {
@@ -30,8 +29,6 @@ function closeModal(event) {
 //get the X from modal 
 var closeX = document.getElementById("add-modal-close")
 closeX.addEventListener("click", closeModal)
-//////////////////////////////////////////////////////////////////////////
-
 
 // Citation for the following code in this file
 // Date: 2/26/2025
@@ -147,11 +144,4 @@ addRowToTable = (data) => {
     
     // Add the row to the table
     currentTable.appendChild(row);
-
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.clubParticipationId;
-    option.value = newRow.clubParticipationId; // maybe want just newRow.id
-    selectMenu.add(option);
 }
