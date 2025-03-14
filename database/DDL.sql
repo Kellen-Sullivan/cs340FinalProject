@@ -25,7 +25,7 @@ CREATE TABLE Students (
 CREATE TABLE Categories (
     categoryId int AUTO_INCREMENT UNIQUE NOT NULL,
     categoryName varchar(32) UNIQUE NOT NULL,
-    categorySize int NOT NULL,
+    categorySize int NOT NULL,   -- Category size is determined using the CategoryClubSize view and will default to 0 when viewing the Categories table.
     categoryDescription varchar(256),
     PRIMARY KEY (categoryId)
 );
@@ -84,19 +84,19 @@ VALUES
 ("Sports", 0, "Clubs that participate in sports, whether competitively or recreationally."),
 ("Math", 0,"Clubs related to the field of mathematics.");
 
-INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident, clubCategory)
-VALUES 
-("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, 10, (SELECT categoryId FROM Categories WHERE categoryName = "Recreation")),
-("Bake Sale Club", "Bake fresh goods, and raise money for good causes!", 500, 7, NULL),
-("Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, 12, (SELECT categoryId FROM Categories WHERE categoryName = "Sports")),
-("Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, 5, (SELECT categoryId FROM Categories WHERE categoryName = "Math"));
-
 INSERT INTO Students (studentFName, studentLName, studentEmail, studentMajor, studentGrade)
 VALUES 
 ("Jason", "Mann", "mannj@fu.edu", "Math", "Junior"),
 ("Chole", "Sullivan", "sullivc@fu.edu", "Finance", "Sophomore"),
 ("Kelly", "Allen", "allenk@fu.edu", "Business", "Junior"),
 ("Justin", "Scott", "scottj@fu.edu", "Math", "Senior");
+
+INSERT INTO Clubs (clubName, clubDescription, clubBudget, clubPresident, clubCategory)
+VALUES 
+("Chess Club", "Open to all experience levels, come learn, practice, and play chess with friends!", 250, (SELECT studentId FROM Students WHERE studentFName = "Chole" && studentLName = "Sullivan"), NULL),
+("Bake Sale Club", "Bake fresh goods, and raise money for good causes!", 500, NULL, NULL),
+("Lacrosse Club", "Fictus University's premier lacrosse club, we travel and compete against other schools.", 1000, NULL, (SELECT categoryId FROM Categories WHERE categoryName = "Sports")),
+("Math Club", "Learn exciting new math concepts, compete in fun games, and even win prizes!", 100, (SELECT studentId FROM Students WHERE studentFName = "Justin" && studentLName = "Scott"), (SELECT categoryId FROM Categories WHERE categoryName = "Math"));
 
 INSERT INTO Events (clubId, eventName, eventDateTime, eventDescription, eventLocation)
 VALUES
