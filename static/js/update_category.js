@@ -35,14 +35,12 @@ function updateSubmitHandler(e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputCategoryName = document.getElementById("update-input-category");
-    let inputCategorySize = document.getElementById("update-input-categorySize");
+    let inputCategoryName = document.getElementById("update-input-categoryName");
     let inputCategoryDescription = document.getElementById("update-input-categoryDescription");
 
     // Get the values from the form fields
     let categoryIdValue = globalCategoryId;
     let categoryNameValue = inputCategoryName.value;
-    let categorySizeValue = inputCategorySize.value;
     let categoryDescriptionValue = inputCategoryDescription.value;
 
     // Put our data we want to send in a javascript object
@@ -50,8 +48,6 @@ function updateSubmitHandler(e) {
         categoryId: categoryIdValue,
         categoryName: categoryNameValue,
         categoryDescription: categoryDescriptionValue,
-        categorySize: categorySizeValue,
-        clubId: clubIdValue,
     }
 
     if (isNaN(categoryIdValue)) // if both entries are empty return
@@ -84,7 +80,7 @@ function updateSubmitHandler(e) {
 }
 
 // function to show the modal with the form inside and close the modal when the user clicks the x
-function updatCategory(categoryId) {
+function updateCategory(categoryId) {
     // show modal and set up closeing button
     showUpdateModal();
     var closeX = document.getElementById("update-modal-close")
@@ -92,6 +88,16 @@ function updatCategory(categoryId) {
 
     // update global var value
     globalCategoryId = categoryId;
+
+/*----------------------code for prepopulating all fields with current values----------------*/
+    // Get the row for this clubId
+    let row = document.querySelector(`tr[data-value="${categoryId}"]`);
+    let cells = row.getElementsByTagName('td');
+
+    // Populate form fields with current values
+    document.getElementById('update-input-categoryName').value = cells[1].textContent; // categoryName
+    document.getElementById('update-input-categoryDescription').value = cells[3].textContent; // categoryDescription
+
 
     // update the selected row
     let updateCategoryForm = document.getElementById('update-category-form-ajax');

@@ -46,23 +46,19 @@ addCategoryForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let inputCategoryName = document.getElementById("input-categoryName");
-    let inputCategorySize = document.getElementById("input-categorySize")
     let inputCategoryDescription = document.getElementById("input-categoryDescription");
 
     // Get the values from the form fields
     let categoryNameValue = inputCategoryName.value;
-    let categorySizeValue = inputCategorySize.value;
     let categoryDescriptionValue = inputCategoryDescription.value;
 
     console.log("Category Name:", inputCategoryName.value);
-    console.log("Category Size:", inputCategorySize.value);
     console.log("Category Description:", inputCategoryDescription.value);
 
 
     // Put our data we want to send in a javascript object
     let data = {
         categoryName: categoryNameValue,
-        categorySize: categorySizeValue,
         categoryDescription: categoryDescriptionValue,
     }
 
@@ -80,7 +76,6 @@ addCategoryForm.addEventListener("submit", function (e) {
 
             // Clear the input fields for another transaction
             inputCategoryName.value = '';
-            inputCategorySize.value = '';
             inputCategoryDescription.value = '';
 
             // Close the modal automatically after pressing submit

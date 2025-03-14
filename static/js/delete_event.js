@@ -22,7 +22,7 @@ function deleteEvent(eventId) {
   function deleteRow(eventId){
       let table = document.getElementById("event-table");
       for (let i = 0, row; row = table.rows[i]; i++) {
-         if (table.rows[i].getAttribute("data-value") == eventIdId) {
+         if (table.rows[i].getAttribute("data-value") == eventId) {
               table.deleteRow(i);
               break;
          }

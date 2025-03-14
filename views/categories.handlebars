@@ -64,9 +64,6 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                         <label for="input-categoryName">Name</label>
                         <input type="text" id="input-categoryName" required>
 
-                        <label for="input-categorySize">Size</label>
-                        <input type="number" id="input-categorySize" required>
-
                         <label for="input-categoryDescription">Description</label>
                         <input type="text" id="input-categoryDescription">
 
@@ -91,11 +88,8 @@ Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/St
                 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data--}}
                 {{!-- Form to add a record to the table--}} 
                 <form id="update-category-form-ajax">
-                    <label for="update-input-categoryName">Name</label>
+                        <label for="update-input-categoryName">Name</label>
                         <input type="text" id="update-input-categoryName">
-
-                        <label for="update-input-categorySize">Size</label>
-                        <input type="number" id="update-input-categorySize">
 
                         <label for="update-input-categoryDescription">Description</label>
                         <input type="text" id="update-input-categoryDescription">
@@ -111,13 +105,18 @@ Citation for the following search feature
 Date: 2/27/2025
 Adapted from nodejs-starter app code
 Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%206%20-%20Dynamically%20Filling%20Dropdowns%20and%20Adding%20a%20Search%20Box--}}
-<h2>Search Categories by Name</h2>
+<h2>Search Categories</h2>
 <form id="search-category-by-name-html" method='GET' action='/Categories'> <!-- MAY WANT TO CHANGE THE ROUTE FROM / TO SOMETHING ELSE-->
-    <label for="input-categoryName">Category Name: </label>
-    <input type="text" name="categoryName" id="input-category-html-search">
+    <select name="categorySearchChoice" id="categorySearchChoice">
+        <option value="none">Select</option>
+        <option value="categoryName">Category Name</option>
+        <option value="categorySize">Category Size</option>
+    </select>
+
+    <input type="text" name="searchTerm" id="input-category-html-search">
     
     <input type="submit">
-    <a href='/Categories'><button>Reset</button></a>
+    <a href='/Categories'><button type="button">Reset</button></a>
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

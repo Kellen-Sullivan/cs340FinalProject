@@ -49,12 +49,14 @@ addEventForm.addEventListener("submit", function (e) {
     let inputEventName = document.getElementById("input-eventName");
     let inputEventDescription = document.getElementById("input-eventDescription");
     let inputEventDateTime = document.getElementById("input-eventDateTime");
+    let inputEventLocation = document.getElementById("input-eventLocation");
     let inputClubId = document.getElementById("input-clubId");
 
     // Get the values from the form fields
     let eventNameValue = inputEventName.value;
     let eventDescriptionValue = inputEventDescription.value;
     let eventDateTimeValue = inputEventDateTime.value;
+    let eventLocationValue = inputEventLocation.value;
     let clubIdValue = inputClubId.value;
 
     // Put our data we want to send in a javascript object
@@ -62,6 +64,7 @@ addEventForm.addEventListener("submit", function (e) {
         eventName: eventNameValue,
         eventDescription: eventDescriptionValue,
         eventDateTime: eventDateTimeValue,
+        eventLocation: eventLocationValue,
         clubId: clubIdValue,
     }
 
@@ -81,6 +84,7 @@ addEventForm.addEventListener("submit", function (e) {
             inputEventName.value = '';
             inputEventDescription.value = '';
             inputEventDateTime.value = '';
+            inputEventLocation.value = '';
             inputClubId.value = '';
 
             // Close the modal automatically after pressing submit
@@ -117,6 +121,7 @@ addRowToTable = (data) => {
     let clubIdCell = document.createElement("TD");
     let eventNameCell = document.createElement("TD");
     let eventDateTimeCell = document.createElement("TD");
+    let eventLocationCell = document.createElement("TD");
     let eventDescriptionCell = document.createElement("TD");
 
 
@@ -129,6 +134,7 @@ addRowToTable = (data) => {
     eventNameCell.innerText = newRow.eventName;
     eventDescriptionCell.innerText = newRow.eventDescription;
     eventDateTimeCell.innerText = newRow.eventDateTime;
+    eventLocationCell.innerText = newRow.eventLocation;
     clubIdCell.innerText = newRow.clubId;
 
     deleteCell = document.createElement("button");
@@ -148,6 +154,7 @@ addRowToTable = (data) => {
     row.appendChild(clubIdCell);
     row.appendChild(eventNameCell);
     row.appendChild(eventDateTimeCell);
+    row.appendChild(eventLocationCell);
     row.appendChild(eventDescriptionCell);
 
 
