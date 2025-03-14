@@ -39,6 +39,7 @@ function updateSubmitHandler(e) {
     let inputEventDescription = document.getElementById("update-input-eventDescription");
     let inputEventDateTime = document.getElementById("update-input-eventDateTime");
     let inputClubId = document.getElementById("update-input-clubId");
+    let inputEventLocation = document.getElementById("update-input-eventLocation");
 
     // Get the values from the form fields
     let eventIdValue = globalEventId;
@@ -46,6 +47,7 @@ function updateSubmitHandler(e) {
     let eventDescriptionValue = inputEventDescription.value;
     let eventDateTimeValue = inputEventDateTime.value;
     let clubIdValue = inputClubId.value;
+    let eventLocationValue = inputEventLocation.value;
 
     // Put our data we want to send in a javascript object
     let data = {
@@ -53,6 +55,7 @@ function updateSubmitHandler(e) {
         eventName: eventNameValue,
         eventDescription: eventDescriptionValue,
         eventDateTime: eventDateTimeValue,
+        eventLocation: eventLocationValue,
         clubId: clubIdValue,
     }
 
@@ -164,11 +167,13 @@ function updateRow(data, eventId){
             let nameCell = updateRowIndex.getElementsByTagName("td")[2];
             let descCell = updateRowIndex.getElementsByTagName("td")[4];
             let datetimeCell = updateRowIndex.getElementsByTagName("td")[3];
+            let locationCell = updateRowIndex.getElementsByTagName("td")[5];
 
             clubIdCell.innerHTML = parsedData[0].clubId;
             nameCell.innerHTML = parsedData[0].eventName;
             descCell.innerHTML = parsedData[0].eventDescription;
             datetimeCell.innerHTML = parsedData[0].eventDateTime;
+            locationCell.innerHTML = parsedData[0].eventLocation;
        }
     }
 }

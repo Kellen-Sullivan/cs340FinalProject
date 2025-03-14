@@ -119,30 +119,16 @@ addRowToTable = (data) => {
     categorySizeCell.innerText = newRow.categorySize;
     categoryDescriptionCell.innerText = newRow.categoryDescription;
 
-<<<<<<< HEAD
     deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteButton.onclick = function(){
-=======
-    // make the delete cell a button that calls the delete function
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
-    deleteCell.onclick = function(){
->>>>>>> d021d0cef726f7c92bfb55fc839693bc202feb1d
         deleteCategory(newRow.categoryId);
     };
     deleteCell.appendChild(deleteButton);
 
-<<<<<<< HEAD
     updateButton = document.createElement("button");
     updateButton.innerHTML = "Update";
     updateButton.onclick = function(){
-=======
-    // make the update cell a button that calls the update function
-    updateCell = document.createElement("button");
-    updateCell.innerHTML = "Update";
-    updateCell.onclick = function(){
->>>>>>> d021d0cef726f7c92bfb55fc839693bc202feb1d
         updateCategory(newRow.categoryId);
     };
     updateCell.appendChild(updateButton);
